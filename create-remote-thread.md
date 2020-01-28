@@ -61,11 +61,7 @@ The fields for the event are:
 * **StartFunction**: Start function is reported if exact match to
     function in image export tables
 
-Since the number of processes that use the CreateRemoteThread( ) API in
-a production environment is a low one the best approach is to exclude
-known good processes by their full path. CreateRemoteThread( ) is not
-the only API call that can be used to create a thread so it should not
-be relied as a definitive guarantee of lack of process injection.
+Since the number of processes that use the **CreateRemoteThread()** API in a production environment is low, the best approach is to exclude known good processes by their full path. **CreateRemoteThread()** is not the only API call that can be used to create a thread, so it should not be relied on as a definitive guarantee of lack of process injection.
 
 ![process](./media/image58.png)
 
