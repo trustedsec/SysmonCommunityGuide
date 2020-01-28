@@ -1,3 +1,7 @@
+
+<img align="left" width="100" height="100" src="media/tslogo.png">
+
+
 # The Sysmon CommunityGuide
 [Table Of Contents](#table-of-contents)
 
@@ -27,19 +31,19 @@ Table of Contents
 
   * [Process Events](./process-events.md)
 
-   * [Process Creation](./process-creation.md)
+    * [Process Creation](./process-creation.md)
 
-   * [Process Termination](./process-termination.md)
+    * [Process Termination](./process-termination.md)
 
-   * [Process Access](./process-access.md)
+    * [Process Access](./process-access.md)
 
   * File Events
   
-   * [File Create](./file-create.md)
+    * [File Create](./file-create.md)
 
-   * [File Create Time Change](./file-create-time-change.md)
+    * [File Create Time Change](./file-create-time-change.md)
 
-   * [File Stream Creation Hash](./file-stream-creation-hash.md)
+    * [File Stream Creation Hash](./file-stream-creation-hash.md)
 
   * [Named Pipes](./named-pipes.md)
 
