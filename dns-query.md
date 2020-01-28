@@ -1,11 +1,7 @@
 DNS Query
 =========
 
-Sysmon will log **EventID 22** to log all DNS Queries using the Windows
-***DnsQuery\_\**** API calsl in **dnsapi.dll**. **Logging is supported
-on Windows 8.1 or above** since it leverages new ETW functionality in
-newer version of Windows. Programs that do their own DNS resolution and
-do not use the Windows API calls will not be logged.
+Sysmon will log EventID 22 to log all DNS Queries using the Windows DnsQuery_* API calls in **dnsapi.dll**. Logging is supported on Windows 8.1 or above since it leverages new ETW functionality in newer versions of Windows. Programs that do their own DNS resolution and do not use the Windows API calls will not be logged
 
 The fields for the event are:
 
@@ -24,11 +20,7 @@ The fields for the event are:
 * **QueryResults**: Query results
 
 * **Image**: File path of the process that made the DNS query
-
-Exclude known destinations so as to focus on new unknown destinations.
-This is a high-volume event generation filter so it is recommended to
-experiment and build rules with filters for your specific environment if
-implemented. Some examples can be found in
+Exclude known destinations in order to focus on new unknown destinations. This is a high-volume event generation filter, so it is recommended to experiment and build rules with filters for your specific environment if implemented. Some examples can be found in 
 <https://github.com/olafhartong/sysmon-modular/tree/master/22_dns_query>
 
 Example that excludes known update and telemetry domains.
