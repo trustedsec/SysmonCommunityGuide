@@ -511,25 +511,19 @@ Rules are processed in the order they are placed in the configuration file. This
 Configuration File Best Practices
 ---------------------------------
 
-It is important to track what a configuration does and keep a changelog,
-because of this it is recommended to add header to track basic
-information like changelog, version, sysmon version tested against
-...etc.
+It is important to track what a configuration does and keep a changelog. For this reason, it is recommended to add headers to track basic information like changelog, version, sysmon version tested against, etc.
 
 ![](./media/image18.png)
 
-For RuleGroups, Rules and Filters Use comments to organize filters and
-also to provide information on what each filter is doing.
+For RuleGroups, Rules and Filters use comments to organize filters and to provide information on what each filter is doing.
 
 ![](./media/image19.png)
 
 Hash configurations that are deployed and keep a log of them for later
 verification.
 
-On a system where the Sysmon service process consumes lots of CPU
-resources the number of filters and operators should be reviewed One
-thing to keep in mind when performing the review, the operators that use
-small percentage more CPU are:
+Hash configurations that are deployed and keep a log of them for later verification.
+On a system where the Sysmon service process consumes a lot of CPU resources, the number of filters and operators should be reviewed. The operators that use slightly more CPU are:
 
 * contains
 
@@ -543,8 +537,7 @@ in the registry.
 
 ![](./media/image20.png)
 
-Since getting stated can be complex some great resources that serve as
-starting points for Rule development and reference are
+Since getting stated can be complex, some great resources that serve as starting points for Rule development and reference include:
 
 * Swift On Security configuration example
     <https://github.com/SwiftOnSecurity/sysmon-config>
@@ -554,14 +547,9 @@ starting points for Rule development and reference are
 
 Configuration Tampering
 -----------------------
+One of the actions an attacker takes is the identification of controls and logging on a system.
 
-One of the actions an attacker takes is the identification of controls
-and logging on a system.
-
-Due to initial footprint and safety, most advanced attackers limit their
-actions to enumerate controls to the most common actions that will add
-additional elements that will trigger monitoring solution, the most
-common methods use are:
+Due to initial footprint and safety, most advanced attackers limit their actions to enumerate controls to the most common actions that elements that will trigger a monitoring solution. The most common methods used are:
 
 * Service list.
 
@@ -569,11 +557,9 @@ common methods use are:
 
 * Listing of installed applications from the registry.
 
-This does not mean that an attacker will not use more advanced methods
-to enumerate controls and find Sysmon on the system.
+This does not mean that an attacker will not use more advanced methods to enumerate controls and find Sysmon on the system.
 
-Detection of Sysmon is achieved by looking at the areas that cannot be
-changed
+Detection of Sysmon is achieved by looking at the areas that cannot be changed.
 
   **Indicator**                **Can it be Changed**
   ---------------------------- -----------------------
@@ -584,26 +570,18 @@ changed
   EventLog Path and Name       NO
   Sysmon Service Description   NO (Manually)
 
-When Sysmon configuration is modified using the Sysmon command line tool
-an **EventId 16** is generated. If the registry binary value is modified
-directly no event is generated and configuration is applied as soon as
-the value is modified.
+When Sysmon configuration is modified using the Sysmon command line tool, an **EventId 16** is generated. If the registry binary value is modified directly, no event is generated, and configuration is applied as soon as the value is modified.
 
-When a GPO is used to update configuration by default every 90 minutes
-the config will be updated a better solution is to use configuration
-management solution like DSC that can monitor for changes and update as
-soon as a change is detected.
+When a GPO is used to update configuration by default every 90 minutes, the configuration will be updated. A better solution is to use a configuration management solution like DSC that can monitor for changes and update as soon as a change is detected.
 
-Sysmon can be configured to monitor its own conjuration to detect if an
-attacker deletes it or alters it. In the event it is cleared this will
-be the last event logged by Sysmon itself from its configured filters.
+Sysmon can be configured to monitor its own conjuration to detect whether an attacker deletes or alters it. In the event that it is cleared, this will be the last event logged by Sysmon itself from its configured filters.
+
 
 ![](./media/image21.png)
 
 ![](./media/image22.png)
 
-In the case the configurations is cleared the default one will take
-over:
+In case the configurations are cleared, the default one will take over:
 
 * **ProcessCreation**
 
@@ -615,39 +593,30 @@ over:
 
 * **SHA1 for Images**
 
-Since any user in the system can read the rule binary data an attacker
-can operate around rule configurations once they have read them by:
+Since any user in the system can read the rule binary data, an attacker can operate around rule configurations once they have read them by:
 
 * Execute tasks not logged.
 
 * Execute tasks that would blend in with normal logged actions
 
-Existing tools for parsing rules out of the registry break often as
-Sysmon is updated since how the information is structured in the binary
-blob is not documented but an attacker can export and import in to test
-system and use Sysmon to read the configuration.
+Existing tools for parsing rules out of the registry break often as Sysmon is updated, since the way the information is structured in the binary blob is not documented. However, an attacker can export and import into the test system and use Sysmon to read the configuration.
 
 Configuration Deployment
 ------------------------
-
-Most environments that have the capabilities to leverage Sysmon enhanced
-log collection also have software deployment systems like Altiris,
-System Center Configuration Manager, Desired State Configuration ..etc.
-This is why this are just general
+Most environments that have the capabilities to leverage Sysmon enhanced log collection also have software deployment systems like Altiris, System Center Configuration Manager, Desired State Configuration, etc. This is why these are just general recommendations. 
 
 Deployment Script
 -----------------
 
-On most of these environments the deployment of Sysmon is managed by
-using scripts. PowerShell being the most flexible one.
+On most of these environments, the deployment of Sysmon is managed by using scripts, with PowerShell being the most flexible one.
 
 An install script should
 
-* Check if Sysmon is installed if not Install.
+* Check if Sysmon is installed; if not, Install.
 
 * If Sysmon is installed, check the version and upgrade if needed.
 
-* After an uninstall ensure the registry key was removed and files where removed before upgrading. (There has been issues in the past)
+* After an uninstall, ensure the registry key and files are removed before upgrading. (There have been issues in the past.)
 
 ```PowerShell
 $DriverName = 'SysmonDrv.sys'
@@ -674,11 +643,9 @@ if ($Present) {
 GPO Configuration Deployment
 ----------------------------
 
-Group Policy remains one of the most used methods in enterprise network
-for the control of configuration setting.
+Group Policy remains one of the most used methods in the enterprise network for the control of configuration setting.
 
-The following are the instructions on how to create a GPO for an
-existing applied configuration.
+The following are instructions on how to create a GPO for an existing applied configuration.
 
 1. In the Group Policy Management Console (**gpmc.msc**)
 
