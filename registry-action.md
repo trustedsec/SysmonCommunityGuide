@@ -1,21 +1,17 @@
 Registry Actions
 ================
 
-Sysmon has the capability to monitor for 3 major actions against
-Registry
+Sysmon has the capability to monitor for three major actions against Registry
 
 * **EventID 12** - Registry object added or deleted
 
 * **EventID 13** - Registry value set
 
 * **EventID 14** - Registry object renamed
+The Windows Registry has been a source of information gathering, persistence, storage, and configuration control for attackers since its wider use introduction in Windows NT 4.0/Windows 95.
 
-The Windows Registry has been a source of information gathering,
-persistence, storage and configuration control for attackers since its
-wider use introduction in Windows NT 4.0/Windows 95.
+Sysmon uses abbreviated versions of Registry root key names, with the following mappings:
 
-Sysmon uses abbreviated versions of Registry root key names, with the
-following mappings:
 
 |**Key name**                                  |**Abbreviation**                |
 |---------------------------------------------|---------------------------------
@@ -26,90 +22,75 @@ following mappings:
 
 Registry Add/Delete Fields:
 
-* **RuleName**: Name of rule that triggered the event.
+* **RuleName**: Name of rule that triggered the event
 
 * **UtcTime**: Time in UTC when event was created
 
 * **EventType**: CreateKey or DeleteKey
 
-* **ProcessGuid**: Process Guid of the process that created or deleted
-    a registry key
+* **ProcessGuid**: Process GUID of the process that created or deleted a registry key
 
-* **ProcessId**: Process ID used by the OS to identify the process
-    that created or deleted a registry key
+* **ProcessId**: Process ID used by the OS to identify the process that created or deleted a registry key
 
-* **Image**: File path of the process that created or deleted a
-    registry key
+* **Image**: File path of the process that created or deleted a registry key
 
 * **TargetObject**: Complete path of the registry key
 
+
 Registry Set Value Fields:
 
-* **RuleName**: Name of rule that triggered the event.
+* **RuleName**: Name of rule that triggered the event
 
 * **UtcTime**: Time in UTC when event was created
 
 * **EventType**: SetValue
 
-* **ProcessGuid**: Process Guid of the process that modified a
-    registry value
+* **ProcessGuid**: Process GUID of the process that modified a registry value
 
-* **ProcessId**: Process ID used by the OS to identify the process
-    that that modified a registry value
+* **ProcessId**: Process ID used by the OS to identify the process that modified a registry value
 
-* **Image**: File path of the process that that modified a registry
-    value
+* **Image**: File path of the process that modified a registry value
 
 * **TargetObject**: Complete path of the modified registry key
 
 * **Details**: Details added to the registry key
 
+
 Registry Rename Fields:
 
-* **RuleName**: Name of rule that triggered the event.
+* **RuleName**: Name of rule that triggered the event
 
 * **UtcTime**: Time in UTC when event was created
 
 * **EventType**: RenameKey
 
-* **ProcessGuid**: Process Guid of the process that renamed a registry
-    value and key
+* **ProcessGuid**: Process GUID of the process that renamed a registry value and key
 
-* **ProcessId**: Process ID used by the OS to identify the process
-    that renamed a registry value and key
+* **ProcessId**: Process ID used by the OS to identify the process that renamed a registry value and key
 
-* **Image**: File path of the process that renamed a registry value
-    and key
+* **Image**: File path of the process that renamed a registry value and key
 
 * **TargetObject**: Complete path of the renamed registry key
 
 * **NewName**: New name of the registry key
 
-This event type is better used in a targeted manner given the size of
-the registry and how it is used by a multitude of processes on a daily
-basis in Windows.
 
-In registry events, the value name is appended to the full key path with
-a \"\\\" delimiter.
+This event type is better used in a targeted manner given the size of the registry and how it is used by a multitude of processes on a daily basis in Windows.
+
+In registry events, the value name is appended to the full key path with a \"\\\" delimiter.
 
 Default key values are named \"\\(Default)\"
 
-When filtering for keys or values in HKCU use **contains** or **end
-with** when filtering against **TargetObject** since the SID of the user
-is appended after the Hive name
+When filtering for keys or values in HKCU, use **contains** or **end with** when filtering against **TargetObject** since the SID of the user is appended after the Hive name.
 
 ![HKCU Test](./media/image51.png)
 
 ![HKCU Test Event](./media/image52.png)
 
-Since the value name is appended when specifying a registry path in
-**TargetObject** where we also want to catch modification of values
-under the key the **contains** operator is better suited than **ends
-with.** For value events the **Detail** element of the event will
-contain the type of value.
+Since the value name is appended when specifying a registry path in **TargetObject**, where we also want to catch modification of values under the key, the **contains** operator is better suited than **ends with**. For value events, the **Detail** element of the event will contain the type of value.
 
-Sysmon does not log the actual value being set nor a previous and new
-one being modified.
+Sysmon does not log the actual value being set nor a previous or new one being modified.
+
 
 ![HCU Value Event](./media/image53.png)
 
