@@ -1,37 +1,29 @@
 File Create
 ===========
 
-Sysmon via its filter driver can log the creation of files and
-information on what process is creating the file using **EventID 11**.
-This allows defender to filter for:
+Via its filter driver, Sysmon can log the creation of files and information on what process is creating the file using **EventID 11**. This allows defender to filter for:
 
-* Dropping of files for later execution (PowerShell, Office Apps,
-    certutil.exe..)
+* Dropping of files for later execution (PowerShell, Office Apps, certutil.exe)
 
 * Modification of system configurations (Scheduled Tasks, WMI)
 
-* Detect malicious behaviors that create temporary or log files (.Net
-    compile and run, DotNet2JS)
+* Detection of malicious behaviors that create temporary or log files (.Net compile and run, DotNet2JS)
 
-One thing to keep in mind when creating filters for this type is that
-since AV minifilter loads before Sysmon due to their lower altitude
-number range if an AV or EDR minifilter driver detects a malicious file
-and blocks it writing to disk Sysmon will not see the event.
+Since AV minifilter loads before Sysmon (due to the lower altitude number range), if an AV or EDR minifilter driver detects a malicious file and blocks it writing to disk, Sysmon will not see the event.
 
 ![minifilter](./media/image36.png)
 
 The file creation event fields are:
 
-* **RuleName**: Rule name for which the event triggered.
+* **RuleName**: Name of rule that triggered the event
 
-* **UtcTime**: Time in UTC when event was created.
+* **UtcTime**: Time in UTC when event was created
 
-* **ProcessGuid**: Process Guid of the process that created the file.
+* **ProcessGuid**: Process Guid of the process that created the file
 
-* **ProcessId**: Process ID used by the OS to identify the process
-    that created the file (child) .
+* **ProcessId**: Process ID used by the OS to identify the process that created the file (child)
 
-* **Image**: File path of the process that created the file.
+* **Image**: File path of the process that created the file
 
 * **TargetFilename**: Name of the file that was created
 
