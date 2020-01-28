@@ -1,13 +1,17 @@
 
-<img align="left" width="100" height="100" src="media/tslogo.png">
+<p><img align="left" width="100" height="100" src="media/tslogo.png"></p>
 
 
 # The Sysmon CommunityGuide
-[Table Of Contents](#table-of-contents)
+
+
 
 <p align="center"><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" style="display: inline-block; float: left; vertical-align: middle; margin: 10px;"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></p>
 
 This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/), please attribute to TrustedSec Inc
+
+
+[Table Of Contents](#table-of-contents)
 
 ###### You are free to:
 
