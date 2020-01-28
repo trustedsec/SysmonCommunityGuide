@@ -42,4 +42,4 @@ Table of Contents
 
   * [DNS Query](./dns-query.md)
 
-  * [WMI Events](./wmi-events.md)
+  * [WMI Events](./WMI-events.md)
