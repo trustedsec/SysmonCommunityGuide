@@ -1,27 +1,17 @@
 Network Connections
 ===================
 
-Sysmon will log **EventID 3** for all TCP and UDP network connections.
-This event will generate a large number of entries and filtering should
-be tuned for specific processes and ports. For the DestinationHostname
-the GetNameInfo API is used and it will often not have any information,
-and may just be a CDN making it NOT reliable for filtering. For the
-DestinationPortName the GetNameInfo API is used for the friendly name of
-ports. In the case of services doing connections on some systems do to
-memory use they be hosted under svchost.exe and most connections will
-originate from this process.
+Sysmon will log **EventID 3** for all TCP and UDP network connections. This event will generate a large number of entries and filtering should be tuned for specific processes and ports. For the DestinationHostname, the GetNameInfo API is used and it will often not have any information and may just be a CDN, making it NOT reliable for filtering. For the DestinationPortName, the GetNameInfo API is used for the friendly name of ports. In the case of services doing connections on some systems due to memory use, they are hosted under svchost.exe and most connections will originate from this process.
 
 The fields for the event are:
 
-* **RuleName**: Name of rule that triggered the event.
+* **RuleName**: Name of rule that triggered the event
 
 * **UtcTime**: Time in UTC when event was created
 
-* **ProcessGuid**: Process Guid of the process that made the network
-    connection
+* **ProcessGuid**: Process GUID of the process that made the network connection
 
-* **ProcessId**: Process ID used by the OS to identify the process
-    that made the network connection
+* **ProcessId**: Process ID used by the OS to identify the process that made the network connection
 
 * **Image**: File path of the process that made the network connection
 
@@ -33,24 +23,24 @@ The fields for the event are:
 
 * **SourceIsIpv6**: Is the source IP an Ipv6
 
-* **SourceIp**: source IP address that made the network connection
+* **SourceIp**: Source IP address that made the network connection
 
-* **SourceHostname**: DNS name of the host that made the network
-    connection
+* **SourceHostname**: DNS name of the host that made the network connection
 
-* **SourcePort**: source port number
+* **SourcePort**: Source port number
 
-* **SourcePortName**: name of the source port being used
+* **SourcePortName**: Name of the source port being used
 
-* **DestinationIsIpv6**: is the destination IP an Ipv6
+* **DestinationIsIpv6**: Is the destination IP an Ipv6
 
 * **DestinationIp**: IP address destination
 
 * **DestinationHostname**: DNS name of the host that is contacted
 
-* **DestinationPort**: destination port number
+* **DestinationPort**: Destination port number
 
-* **DestinationPortName**: name of the destination port
+* **DestinationPortName**: Name of the destination port
+
 
 Example tracking connections for attacker "Living off the land"
 
