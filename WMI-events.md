@@ -1,4 +1,5 @@
-**WMI Events**
+WMI Events
+==========
 
 WMI events, both temporary and permanent (survive a reboot), have been used for
 over a decade by vendors and enterprise users to automate actions on systems.
@@ -91,6 +92,20 @@ Windows 2016,** and **Windows 10 Pro/Enterprise**.
 The event includes the Query and Consumer object information for the
 subscription in its data.
 
-![](media/b3a9f4a4ee246fb3091d0cd33e4206ce.png)
+![Bind Event](media/image62.png)
 
 It is recommended to log all instances of this event type.
+
+```XML
+<Sysmon schemaversion="4.22">
+   <!-- Capture all hashes -->
+   <HashAlgorithms>*</HashAlgorithms>
+   <CheckRevocation/>
+   <EventFiltering>
+ <RuleGroup name="" groupRelation="or">
+      <WmiEvent onmatch="exclude">
+      </WmiEvent>
+</RuleGroup>
+</EventFiltering>
+</Sysmon>
+```
