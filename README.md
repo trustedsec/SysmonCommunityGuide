@@ -77,7 +77,7 @@ Please use the issues system or GitHub pull requests to make corrections, contri
 
 ## Credits
 
-This guide was originally written and edited by Carlos Perez of Trustedsed Inc.
+This guide was originally written and edited by Carlos Perez of TrustedSec LLC.
 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
 - Copyright 2020 © <a href="https://www.trustedsec.com/" target="_blank">TrustedSec</a>.
