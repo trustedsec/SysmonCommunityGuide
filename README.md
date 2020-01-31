@@ -8,10 +8,8 @@
 
 <p align="center"><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" style="display: inline-block; float: left; vertical-align: middle; margin: 10px;"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></p>
 
-This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/), please attribute to TrustedSec Inc
+This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/), please attribute to TrustedSec LLC
 
-
-[Table Of Contents](#table-of-contents)
 
 ###### You are free to:
 
@@ -80,4 +78,4 @@ Please use the issues system or GitHub pull requests to make corrections, contri
 This guide was originally written and edited by Carlos Perez of TrustedSec LLC.
 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
-- Copyright 2020 © <a href="https://www.trustedsec.com/" target="_blank">TrustedSec</a>.
+- Copyright 2020 © <a href="https://www.trustedsec.com/" target="_blank">TrustedSec LLC</a>.
