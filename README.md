@@ -2,7 +2,7 @@
 <p><img align="left" width="100" height="100" src="media/tslogo.png"></p>
 
 
-# The Sysmon CommunityGuide
+# Sysinternals Sysmon Community Guide
 
 
 
