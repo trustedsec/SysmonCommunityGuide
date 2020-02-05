@@ -2,7 +2,7 @@
 <p><img align="left" width="100" height="100" src="media/tslogo.png"></p>
 
 
-# Sysinternals Sysmon Community Guide
+# TrustedSec Sysinternals Sysmon Community Guide
 
 
 
