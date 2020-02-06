@@ -561,14 +561,14 @@ This does not mean that an attacker will not use more advanced methods to enumer
 
 Detection of Sysmon is achieved by looking at the areas that cannot be changed.
 
-  **Indicator**                **Can it be Changed**
-  ---------------------------- -----------------------
-  Driver Name                  YES
-  Service Name                 YES
-  Registry Config Path         YES
-  Driver altitude Number       NO
-  EventLog Path and Name       NO
-  Sysmon Service Description   NO (Manually)
+  **Indicator**               | **Can it be Changed**
+  ----------------------------| -----------------------
+  |Driver Name|                  YES
+  |Service Name|                 YES
+  |Registry Config Path|         YES
+  |Driver altitude Number|       NO
+  |EventLog Path and Name|       NO
+  |Sysmon Service Description|   NO (Manually)
 
 When Sysmon configuration is modified using the Sysmon command line tool, an **EventId 16** is generated. If the registry binary value is modified directly, no event is generated, and configuration is applied as soon as the value is modified.
 
