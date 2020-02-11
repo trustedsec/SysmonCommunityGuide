@@ -1,21 +1,11 @@
 Process Access
 ==============
 
-Sysmon Process Access events will monitor of one process opening
-another. The access with higher permissions allows for also reading the
-content of memory, patching memory, process hollowing, creations of
-threads and other tasks that are abused by attackers. This technique has
-been used for access to credentials, keys and data that are in the
-process memory.
+When one process opens another, sysmon will log this with an event ID of 10. The access with higher permissions allows for also reading the content of memory, patching memory, process hollowing, creations of threads and other tasks that are abused by attackers. This technique has been used for access to credentials, keys and data that are in the process memory.
 
-This task is common for processes that query information on another
-process, such as Task Manager, tasklist.exe and others, this requires
-that a baseline be stablished and filter out at a SIEM level taking into
-consideration other factors like image fullpath, parent process and
-account used so as to prevent any whitelisted processes to be used as
-staging for attacks.
+This task is also common for benign processes that query information on another process, such as Task Manager, tasklist.exe and others, this requires that a baseline be established and filtered out at a SIEM level taking into consideration other factors like image fullpath, parent process and account used so as to prevent any whitelisted processes from being used as staging for attacks.
 
-Sysmon generates this event using ObRegisterCallbacks levering its
+Sysmon generates this event using ObRegisterCallbacks leveraging its
 driver. The main 2 filtering fields recommended are:
 
 * **TargetImage** - File path of the executable being accessed by
