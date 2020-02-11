@@ -2,15 +2,9 @@
 Process Events
 ==============
 
-Sysmon can log process creation, process termination and process access
-events. The prorocess actions are captured via ObjRegisterCallbacks at
-the kernel level using its driver. These events are important since the
-**ProcessGuid** field of these events are used by other so as to provide
-more context on the process that relates to the actions and the
-ProcessGuid maps to the **LogonGuid** that it is then used to track all
-actions of a given logon session. The main reason for using this GUIDs
-is that Process ID and Logon ID on a system get re-used as time passes.
-In the case of processes ID it can happen multiple times in a days.
+Sysmon can log process creation, process termination and process access events. The process events are captured via ObjRegisterCallbacks at the kernel level using its driver, and contain a unique, deterministically generated ProcessGuid and LogonGuid that are unique to their process instance and LSA logon session respectively. 
+
+The ProcessGuid and LoginGuid make tracking individual process and users much easier. The ProcessGuid attribute is used in all events associated with its process, and, unlike a ProcessID, will not be reused by the host system later.  The LogonGuid attirbute similarly is assigned to a login session of a particular user, and will not be reused later as a LoginID would.
 
 ![ProcessGUID Source](./media/image31.png)
 
@@ -22,7 +16,7 @@ they will have 2 Logon IDs assigned if:
 * UAC (User Access Control) is enabled.
 
 These sessions will be linked by a Linked Login ID in Successful Logon
-Event ID 4624, making the login of this event important.
+Event ID 4624, making the logging of this event important.
 
 The ProcessGUID depending on the event and where in the process tree it
 is, it will also be known by other names by its relation to the action
