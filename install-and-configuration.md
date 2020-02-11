@@ -46,7 +46,7 @@ When using the tool, any errors will result in an error message and help informa
 
 * Common command line parameters.
 
-* General notes on how the tool works and further details on how to get more help informationn.
+* General notes on how the tool works and further details on how to get more help information.
 
 The parameters of the tool and the structure of the XML configuration file are defined in the tool Schema. This schema can be printed using the **-s "PrintSchema"** parameter; if no schema version is provided, it will print the default schema.
 
@@ -126,7 +126,7 @@ x64 Process
 
 Sysmon will create 2 registry keys to define the services for its operation under ***HKLM\\SYSTEM\\CurrentControlSet\\Services***
 
-* Sysmon - Service that talks to the driver and performs the filtering action. It is named with the same name as the sysm onexecutable.
+* Sysmon - Service that talks to the driver and performs the filtering action. It is named with the same name as the Sysmon executable.
 
 * SysmonDrv - Kernel Driver Service, this service loads the Sysmon driver with an altitude number of 385201
 
@@ -227,7 +227,7 @@ Installation best practices that can be followed to aid and minimize risk when d
 
   * Upgrade
 
-  * Version for applying initia config
+  * Version for applying initial config
 
 * If a GPO is used to push scheduled tasks for upgrades or to push configuration, use a WMI filter to target the specific version that was tested. Example:
 
@@ -561,14 +561,14 @@ This does not mean that an attacker will not use more advanced methods to enumer
 
 Detection of Sysmon is achieved by looking at the areas that cannot be changed.
 
-  **Indicator**                **Can it be Changed**
-  ---------------------------- -----------------------
-  Driver Name                  YES
-  Service Name                 YES
-  Registry Config Path         YES
-  Driver altitude Number       NO
-  EventLog Path and Name       NO
-  Sysmon Service Description   NO (Manually)
+  **Indicator**               | **Can it be Changed**
+  ----------------------------| -----------------------
+  |Driver Name|                  YES
+  |Service Name|                 YES
+  |Registry Config Path|         YES
+  |Driver altitude Number|       NO
+  |EventLog Path and Name|       NO
+  |Sysmon Service Description|   NO (Manually)
 
 When Sysmon configuration is modified using the Sysmon command line tool, an **EventId 16** is generated. If the registry binary value is modified directly, no event is generated, and configuration is applied as soon as the value is modified.
 
