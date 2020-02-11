@@ -3,7 +3,7 @@ Driver Loading
 
 Sysmon will log EventID 6 for the loading of drivers. Drivers have been used by attackers for the installation of rootkits or to run tooling that needs to run at the kernel level. Mimikatz is known to use a driver to perform tasks to query and modify the UFI to bypass process protections.
 
-Sysmon will provide code signing information allowing filtering on those fields. Sysmon can also check if a certificate the driver signed has been revoked.
+Sysmon will provide code signing information allowing filtering on those fields. Sysmon can also check if a certificate that signed the driver has been revoked.
 
 A recommended action for this event is to filter on the **Signature** and **SignatureStatus** fields and exclude known drivers. The main reason to filter on both fields is that many of the attacks steal certificates that are later revoked. By confirming that the **SignatureStatus** is valid, we can find easier drivers signed by a vendor who has been forced to revoke that specific signing certificate.
 
