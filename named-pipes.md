@@ -130,5 +130,5 @@ Example excluding known good Pipe Names
 ```
 
 One thing to consider is that Sysmon uses a minifilter just like the
-file events, any AV or EDR with a higher altitude number if it triggers
-on the named pipe and block Sysmon will not log the event.
+file events. If any AV or EDR with a lower altitude number triggers
+on a named pipe and blocks it, Sysmon will not log the event.
