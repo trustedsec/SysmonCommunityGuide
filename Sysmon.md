@@ -555,7 +555,7 @@ in the registry.
 
 ![Get-SysmonRuleHash](./media/image20.png)
 
-Since getting stated can be complex, some great resources that serve as starting points for Rule development and reference include:
+Since getting started can be complex, here are some great resources that serve as starting points for Rule development and reference include:
 
 * Swift On Security configuration example
     <https://github.com/SwiftOnSecurity/sysmon-config>
@@ -579,14 +579,14 @@ This does not mean that an attacker will not use more advanced methods to enumer
 
 Detection of Sysmon is achieved by looking at the areas that cannot be changed.
 
-  **Indicator**                **Can it be Changed**
-  ---------------------------- -----------------------
-  Driver Name                  YES
-  Service Name                 YES
-  Registry Config Path         YES
-  Driver altitude Number       NO
-  EventLog Path and Name       NO
-  Sysmon Service Description   NO (Manually)
+  |**Indicator**                |**Can it be Changed**
+  |----------------------------| -----------------------
+  |Driver Name|                  YES
+  |Service Name|                 YES
+  |Registry Config Path|         YES
+  |Driver altitude Number|       NO
+  |EventLog Path and Name|       NO
+  |Sysmon Service Description |  NO (Manually)
 
 When Sysmon configuration is modified using the Sysmon command line tool, an **EventId 16** is generated. If the registry binary value is modified directly, no event is generated, and configuration is applied as soon as the value is modified.
 
