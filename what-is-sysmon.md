@@ -7,7 +7,7 @@ For ease of collecting the logs, all of the events generated are saved in Micros
 
 Sysmon is able to monitor for a series of actions on a Windows host that relate to existing behavior that is abused by threat actors. With this view on the actions, defenders are able to better detect abnormal behavior and abuses on a system.
 
-The table below shows the evet types and event ID for each.
+The table below shows the event types and event ID for each.
 
 | EventType| EventId|
 |---|---|
