@@ -1,7 +1,7 @@
 File Create
 ===========
 
-Via its filter driver, Sysmon can log the creation of files and information on what process is creating the file using **EventID 11**. This allows defender to filter for:
+Via its filter driver, Sysmon can log the creation of files and information on what process is creating the file using **EventID 11**. This allows a defender to filter for:
 
 * Dropping of files for later execution (PowerShell, Office Apps, certutil.exe)
 
