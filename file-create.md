@@ -1,7 +1,7 @@
 File Create
 ===========
 
-Via its filter driver, Sysmon can log the creation of files and information on what process is creating the file using **EventID 11**. This allows a defender to filter for:
+Via its filter driver, Sysmon can log the creation of files and information on what process is creating the file using **EventID 11**. This allows defenders to filter for:
 
 * Dropping of files for later execution (PowerShell, Office Apps, certutil.exe)
 
@@ -9,7 +9,7 @@ Via its filter driver, Sysmon can log the creation of files and information on w
 
 * Detection of malicious behaviors that create temporary or log files (.Net compile and run, DotNet2JS)
 
-Since AV minifilter loads before Sysmon (due to the lower altitude number range), if an AV or EDR minifilter driver detects a malicious file and blocks it writing to disk, Sysmon will not see the event.
+Since AV minifilters load before Sysmon (due to their lower altitude number range), if an AV or EDR minifilter driver detects a malicious file and blocks it writing to disk, Sysmon will not log the event.
 
 ![minifilter](./media/image36.png)
 
