@@ -11,6 +11,13 @@ Via its filter driver, Sysmon can log the creation of files and information on w
 
 ![minifilter](./media/image36.png)
 
+### Archive directory
+
+By default this folder is set to Sysmon, you can also configure this in the config file with the ```<ArchiveDirectory>``` setting.
+This folder is protected by a SYSTEM ACL, to access it you can use psexec to spawn a shell to access it via ```PsExec.exe -sid cmd```.
+
+### Event information
+
 The file delete event fields are:
 
 * **RuleName**: Name of rule that triggered the event
@@ -42,21 +49,11 @@ Example monitoring for script file creation by extension:
                     <TargetFilename condition="end with">\Content.Outlook\</TargetFilename> <!--Outlook Temporary Internet files-->
                     <TargetFilename condition="end with">\AppData\Local\Temp\</TargetFilename>
                     <TargetFilename condition="end with">\AppData\Local\Microsoft\</TargetFilename> <!--Office temp files-->
+                    <TargetFilename condition="begin with">C:\Windows\Temp</TargetFileName>
                 </Rule>
 
                 <!-- File extension options -->
-                <Rule groupRelation="or">
-                    <TargetFilename condition="end with">.docm</TargetFilename>
-                    <TargetFilename condition="end with">.pptm</TargetFilename>
-                    <TargetFilename condition="end with">.xlsm</TargetFilename>
-                    <TargetFilename condition="end with">.xlm</TargetFilename>
-                    <TargetFilename condition="end with">.dotm</TargetFilename>
-                    <TargetFilename condition="end with">.xltm</TargetFilename>
-                    <TargetFilename condition="end with">.exe</TargetFilename>
-                    <TargetFilename condition="end with">.js</TargetFilename>
-                    <TargetFilename condition="end with">.hta</TargetFilename>
-                    <TargetFilename condition="end with">.xls</TargetFilename>
-                </Rule>
+                <TargetFilename condition="contains any">.exe;.ps1;.js;.xls;.xlsm;.docm</TargetFileName>
             </FileCreate>
         </RuleGroup>
     </EventFiltering>
