@@ -46,6 +46,8 @@ Table of Contents
     * [File Create Time Change](./file-create-time-change.md)
 
     * [File Stream Creation Hash](./file-stream-creation-hash.md)
+    
+    * [File Delete](./file-delete.md)
 
   * [Named Pipes](./named-pipes.md)
 
