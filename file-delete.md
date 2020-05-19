@@ -13,7 +13,10 @@ Via its filter driver, Sysmon can log the creation of files and information on w
 
 ### Archive directory
 
-By default this folder is set to Sysmon, you can also configure this in the config file with the ```<ArchiveDirectory>``` setting.
+By default this folder is set to Sysmon if no folder is specified during installation and specified either in the configuration either in config file with the ```<ArchiveDirectory>``` setting in XML configurations file or via the registry by setting the registry key value **FilterArchiveDirectory** under the  driver registry key paramaters.
+
+On version 11.0 of Sysmon if the folder is not created during install using the commandline **-a \<folder name\>** parameter Sysmon will use the default **Sysmon** folder name and create that one and not the one specified in the configuration. 
+    
 This folder is protected by a SYSTEM ACL, to access it you can use psexec to spawn a shell to access it via ```PsExec.exe -sid cmd```.
 
 ### Event information
