@@ -19,6 +19,18 @@ On version 11.0 of Sysmon if the folder is not created during install using the 
     
 This folder is protected by a SYSTEM ACL, to access it you can use psexec to spawn a shell to access it via ```PsExec.exe -sid cmd```.
 
+```
+PS C:\> (Get-Acl C:\Sysmon\).access
+
+
+FileSystemRights  : FullControl
+AccessControlType : Allow
+IdentityReference : NT AUTHORITY\SYSTEM
+IsInherited       : False
+InheritanceFlags  : None
+PropagationFlags  : None
+```
+
 ### Event information
 
 The file delete event fields are:
