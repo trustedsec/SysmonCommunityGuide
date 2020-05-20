@@ -34,4 +34,5 @@ The table below shows the event types and event ID for each.
 |WMI Event Consumer|20
 |WMI Consumer to Filter|21
 |DNS Query|22
+|File Delete|23
 |Error|255
