@@ -112,9 +112,22 @@ Fields for the Event:
 
 * **Description**: Description of what caused the error.
 
+### Known errors
+
+|ID             |Description                    |
+|---------------|-------------------------------|
+| DriverCommunication |Failed to retrieve events|
+| DriverCommunication |Incorrect event size [value]|
+| DriverCommunication |Failed to access the driver|
+| ServiceThread |Failed to initialize event for dispatch|
+| ServiceThread |Failed to initialize the rule engine with data|
+| ServiceThread |Failed to initialize signature verification|
+| ServiceThread |Failed to allocate [value] bytes|
+
 Example:
 
 ![Sysmon Error](./media/image28.png)
+
 
 Service State Change
 --------------------
@@ -320,7 +333,7 @@ against the one returned. It is not a bitwise operation, care should be
 taken to track the proper combinations.
 
 |Access                               |  Mask       |
-|--------------------------------------|------------
+|--------------------------------------|------------|
 | PROCESS\_CREATE\_PROCESS               |0x0080|
 | PROCESS\_CREATE\_THREAD                |0x0002|
 | PROCESS\_DUP\_HANDLE                   |0x0040|
@@ -988,7 +1001,7 @@ Sysmon uses abbreviated versions of Registry root key names, with the
 following mappings:
 
 |**Key name**                                  |**Abbreviation**                |
-|---------------------------------------------|---------------------------------
+|---------------------------------------------|---------------------------------|
 | HKEY\_LOCAL\_MACHINE                          |HKLM|
 | HKEY\_USERS                                   |HKU|
 | HKEY\_LOCAL\_MACHINE\\System\\ControlSet00x   |HKLM\\System\\CurrentControlSet|

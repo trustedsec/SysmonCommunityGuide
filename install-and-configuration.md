@@ -163,6 +163,8 @@ An XML configuration file can be passed during installation if an initial config
 ```shell
 sysmon.exe -i --accepteula -c <config file>
 ```
+If the configuration specifies a archive folder using the ```<ArchiveDirectory>``` element the **-a \<archive folder\>** needs to be specified in the command line so that Sysmon can create the folder and set the proper permissions. If the folder is not present and even if specified Sysmon will create a folder named **Sysmon** instead and use that folder to archive the deleted files. 
+
 We can control the hashing algorithm used for events that hash images and we can control checking of revocation of signatures.
 
 The hashing algorithm or combination of them can be specified with the **-h \<sha1\|sha2\|md5\|imphash\|\*\>** The specified algorithms will be used to hash all images.
@@ -174,7 +176,7 @@ sysmon.exe -i -c -h <sha1|sha2|md5|imphash\|*>
 We can specify checking to see if certificates are revoked using the -r parameter.
 
 ```shell
-sysmon.exe -i -c -r**
+sysmon.exe -i -c -r
 
 ```
 
@@ -195,7 +197,7 @@ sysmon.exe -i -c -l [<process,...>]
 * **ProcessAccess** - Processes whose memory is accessed.
 
 ```shell
-**sysmon.exe -i -c -k [<process,...>]**
+sysmon.exe -i -c -k [<process,...>]
 ```
 
 Uninstall
@@ -293,6 +295,12 @@ sysmon.exe -i [configfile path]
 
 ```shell
 sysmon.exe -c [configfile path]
+```
+
+* **-a** : Archive Folder
+
+```shell
+sysmon.exe -a [archive folder]
 ```
 
 * **-u** : un-install Sysmon
@@ -574,7 +582,7 @@ When Sysmon configuration is modified using the Sysmon command line tool, an **E
 
 When a GPO is used to update configuration by default every 90 minutes, the configuration will be updated. A better solution is to use a configuration management solution like DSC that can monitor for changes and update as soon as a change is detected.
 
-Sysmon can be configured to monitor its own conjuration to detect whether an attacker deletes or alters it. In the event that it is cleared, this will be the last event logged by Sysmon itself from its configured filters.
+Sysmon can be configured to monitor its own configuration to detect whether an attacker deletes or alters it. In the event that it is cleared, this will be the last event logged by Sysmon itself from its configured filters.
 
 
 ![](./media/image21.png)

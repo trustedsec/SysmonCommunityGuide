@@ -69,21 +69,39 @@ Example where known processes that use the API call are excluded
 
 ```xml
 <Sysmon schemaversion="4.22">
-    <CheckRevocation/>
+  <CheckRevocation/>
     <EventFiltering>
-        <RuleGroup name="" groupRelation="or">
-            <CreateRemoteThread onmatch="exclude">
-            <!--The process activity of those in the list should be monitored since an-->
-            <!--attacker may host his actions in one of these to bypass detection.-->
-            <TargetImage condition="end with">Google\Chrome\Application\chrome.exe</TargetImage>
-            <SourceImage condition="is">C:\Windows\System32\wbem\WmiPrvSE.exe</SourceImage>
-            <SourceImage condition="is">C:\Windows\System32\svchost.exe</SourceImage>
-            <SourceImage condition="is">C:\Windows\System32\wininit.exe</SourceImage>
-            <SourceImage condition="is">C:\Windows\System32\csrss.exe</SourceImage>
-            <SourceImage condition="is">C:\Windows\System32\services.exe</SourceImage>
-            <SourceImage condition="is">C:\Windows\System32\winlogon.exe</SourceImage>
-            <SourceImage condition="is">C:\Windows\System32\audiodg.exe</SourceImage>
-            <StartModule condition="is">C:\windows\system32\kernel32.dll</StartModule>
+      <RuleGroup name="" groupRelation="or">
+        <CreateRemoteThread onmatch="exclude">
+          <!--The process activity of those in the list should be monitored since an-->
+          <!--attacker may host his actions in one of these to bypass detection.-->
+           <TargetImage condition="end with">
+             Google\Chrome\Application\chrome.exe
+            </TargetImage>
+            <SourceImage condition="is">
+              C:\Windows\System32\wbem\WmiPrvSE.exe
+            </SourceImage>
+            <SourceImage condition="is">
+              C:\Windows\System32\svchost.exe
+            </SourceImage>
+            <SourceImage condition="is">
+              C:\Windows\System32\wininit.exe
+            </SourceImage>
+            <SourceImage condition="is">
+              C:\Windows\System32\csrss.exe
+            </SourceImage>
+            <SourceImage condition="is">
+              C:\Windows\System32\services.exe
+            </SourceImage>
+            <SourceImage condition="is">
+              C:\Windows\System32\winlogon.exe
+            </SourceImage>
+            <SourceImage condition="is">
+              C:\Windows\System32\audiodg.exe
+            </SourceImage>
+            <StartModule condition="is">
+              C:\windows\system32\kernel32.dll
+            </StartModule>
         </CreateRemoteThread>
         </RuleGroup>
     </EventFiltering>

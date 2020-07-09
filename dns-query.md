@@ -33,42 +33,113 @@ Example that excludes known update and telemetry domains.
    <EventFiltering>
       <RuleGroup name="" groupRelation="or">
       <DnsQuery onmatch="exclude">
-            <!-- Browser Update Domains-->
-            <QueryName condition="end with">.mozaws.net</QueryName> <!--Mozilla-->
-            <QueryName condition="end with">.mozilla.com</QueryName> <!--Mozilla-->
-            <QueryName condition="end with">.mozilla.net</QueryName> <!--Mozilla-->
-            <QueryName condition="end with">.mozilla.org</QueryName> <!--Mozilla-->
-            <QueryName condition="is">clients1.google.com</QueryName> <!--Google-->
-            <QueryName condition="is">clients2.google.com</QueryName> <!--Google-->
-            <QueryName condition="is">clients3.google.com</QueryName> <!--Google-->
-            <QueryName condition="is">clients4.google.com</QueryName> <!--Google-->
-            <QueryName condition="is">clients5.google.com</QueryName> <!--Google-->
-            <QueryName condition="is">clients6.google.com</QueryName> <!--Google-->
-            <!-- Microsoft Domains -->
-            <QueryName condition="is">safebrowsing.googleapis.com</QueryName> <!--Google-->
-            <QueryName condition="end with">-pushp.svc.ms</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
-            <QueryName condition="end with">.b-msedge.net</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
-            <QueryName condition="end with">.bing.com</QueryName> <!-- Microsoft | Microsoft default exclusion -->
-            <QueryName condition="end with">.hotmail.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.live.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.live.net</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.s-microsoft.com</QueryName> <!--Microsoft-->
-            <QueryName condition="end with">.microsoft.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.microsoftonline.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.microsoftstore.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.ms-acdc.office.com</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
-            <QueryName condition="end with">.msedge.net</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
-            <QueryName condition="end with">.msn.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.msocdn.com</QueryName> <!--Microsoft-->
-            <QueryName condition="end with">.skype.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.skype.net</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.windows.com</QueryName> <!--Microsoft-->
-            <QueryName condition="end with">.windows.net.nsatc.net</QueryName> <!--Microsoft-->
-            <QueryName condition="end with">.windowsupdate.com</QueryName> <!--Microsoft-->
-            <QueryName condition="end with">.xboxlive.com</QueryName> <!--Microsoft-->
-            <QueryName condition="is">login.windows.net</QueryName> <!--Microsoft-->
+      <!-- Browser Update Domains-->
+
+      <!--Mozilla-->
+      <QueryName condition="end with">
+         .mozaws.net
+      </QueryName>
+      <QueryName condition="end with">
+         .mozilla.com
+      </QueryName>
+      <QueryName condition="end with">
+         .mozilla.net
+      </QueryName>
+      <QueryName condition="end with">
+         .mozilla.org
+      </QueryName>
+         
+      <!--Google-->
+      <QueryName condition="is">
+         clients1.google.com
+      </QueryName>
+      <QueryName condition="is">
+         clients2.google.com
+      </QueryName>
+      <QueryName condition="is">
+         clients3.google.com
+      </QueryName>
+      <QueryName condition="is">
+         clients4.google.com
+      </QueryName>
+      <QueryName condition="is">
+         clients5.google.com
+      </QueryName>
+      <QueryName condition="is">
+         clients6.google.com
+      </QueryName>
+      <QueryName condition="is">
+         safebrowsing.googleapis.com
+      </QueryName>
+         
+      <!-- Microsoft Domains -->
+      <!--Microsoft: Doesn't appear to host customer content or subdomains-->
+      <QueryName condition="end with">
+         -pushp.svc.ms
+      </QueryName> 
+      <QueryName condition="end with">
+         .b-msedge.net
+      </QueryName> 
+      <!-- Microsoft | Microsoft default exclusion -->
+      <QueryName condition="end with">
+         .bing.com
+      </QueryName> 
+      <QueryName condition="end with">
+         .hotmail.com
+      </QueryName>
+      <QueryName condition="end with">
+         .live.com
+      </QueryName>
+      <QueryName condition="end with">
+         .live.net
+      </QueryName>
+      <QueryName condition="end with">
+         .s-microsoft.com
+      </QueryName>
+      <QueryName condition="end with">
+         .microsoft.com
+      </QueryName>
+      <QueryName condition="end with">
+         .microsoftonline.com
+      </QueryName>
+      <QueryName condition="end with">
+         .microsoftstore.com
+      </QueryName>
+      <QueryName condition="end with">
+         .ms-acdc.office.com
+      </QueryName> 
+      <QueryName condition="end with">
+         .msedge.net
+      </QueryName>
+      <QueryName condition="end with">
+         .msn.com
+      </QueryName>
+      <QueryName condition="end with">
+         .msocdn.com
+      </QueryName>
+      <QueryName condition="end with">
+         .skype.com
+      </QueryName>
+      <QueryName condition="end with">
+        .skype.net
+      </QueryName>
+      <QueryName condition="end with">
+         .windows.com
+      </QueryName>
+      <QueryName condition="end with">
+         .windows.net.nsatc.net
+      </QueryName>
+      <QueryName condition="end with">
+         .windowsupdate.com
+      </QueryName>
+      <QueryName condition="end with">
+         .xboxlive.com
+      </QueryName>
+      <QueryName condition="is">
+         login.windows.net
+      </QueryName>
       </DnsQuery>
-</RuleGroup>
-</EventFiltering>
+    </RuleGroup>
+  </EventFiltering>
 </Sysmon>
 ```
