@@ -163,7 +163,7 @@ An XML configuration file can be passed during installation if an initial config
 ```shell
 sysmon.exe -i --accepteula -c <config file>
 ```
-If the configuration specifies a archive folder using the ```<ArchiveDirectory>``` element the **-a \<archive folder\>** needs to be specified in the command line so that Sysmon can create the folder and set the proper permissions. If the folder is not present and even if specified Sysmon will create a folder named **Sysmon** instead and use that folder to archive the deleted files. 
+If the configuration specifies a archive folder using the ```<ArchiveDirectory>``` element the **-a \<archive folder\>** needs to be specified in the command line so that Sysmon can create the folder and set the proper permissions for version 11.0 of Sysmon, for version 11.1 the parameter was removed and now it is configured via the configuration file. If the folder is not present and even if specified Sysmon will create a folder named **Sysmon** instead and use that folder to archive the deleted files. 
 
 We can control the hashing algorithm used for events that hash images and we can control checking of revocation of signatures.
 
