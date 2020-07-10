@@ -727,6 +727,7 @@ The table below shows the evet types and event ID for each.
 |WMI Event Consumer|20
 |WMI Consumer to Filter|21
 |DNS Query|22
+|File Delete|23
 |Error|255
 
 ## Sysmon Operational Events
@@ -778,16 +779,22 @@ If the Sysmon binary running as a service encounters any error in its operation,
 * An application or attacker has modified the configuration in a way that cannot be parsed by the service
 
 Fields for the Event:
+#### Known errors
 
-* **UtcTime**: Time when the error was logged.
-
-* **ID**: The error ID
-
-* **Description**: Description of what caused the error.
+|ID             |Description                    |
+|---------------|-------------------------------|
+| DriverCommunication |Failed to retrieve events|
+| DriverCommunication |Incorrect event size [value]|
+| DriverCommunication |Failed to access the driver|
+| ServiceThread |Failed to initialize event for dispatch|
+| ServiceThread |Failed to initialize the rule engine with data|
+| ServiceThread |Failed to initialize signature verification|
+| ServiceThread |Failed to allocate [value] bytes|
 
 Example:
 
 ![Sysmon Error](./media/image28.png)
+
 
 ### Service State Change
 
@@ -964,7 +971,7 @@ Example:
 
 ### File Stream Creation Hash
 
-Sysmon will log **EventID 15** for the creation of Alternate Data Streams (ADS). This is an old technique where many vendors already monitor for the creation of ADS on files where the alternate stream is a PE executable. Attackers have changed to use alternate streams to hide information and to store other payloads that are not PE executables (DLL, Scripts).
+Sysmon will log **EventID 15** for the creation of Alternate Data Streams (ADS). This is an old technique where many vendors already monitor for the creation of ADS on files where the alternate stream is a PE executable. Attackers have changed to use alternate streams to hide information and to store other payloads that are not PE executables (DLL, Scripts). Sysmon will also capture the contents of text streams if they are less 1KB for the purpose of capturing  Mark Of The Web (MOTW) streams.
 
 Each record in NTFS on a drive is subdivided into a list of variable length attributes:
 
@@ -1005,7 +1012,16 @@ Some execution examples:
 
 * PowerShell Example
 
-More execution examples at <https://gist.github.com/api0cradle/cdd2d0d0ec9abb686f0e89306e277b8f> by Oddvar Moe
+More execution examples at
+<https://gist.github.com/api0cradle/cdd2d0d0ec9abb686f0e89306e277b8f> by
+Oddvar Moe
+
+In the case of downloads performed by browsers and email clients in Windows that leveragle the urlmon.dll for downloading files they have al indetifying stream added with information about the download including the URL and Refferer. This information can be used to track the origing of downloaded files by attackers with a console presense or via a phishing attack. 
+
+We can use PowerShell Get-Item and Get-Content cmdlets to check is a Zone.Identifier stream exist and show its content. 
+
+![process](./media/image63.png)
+
 
 The fields for the event:
 
@@ -1017,10 +1033,14 @@ The fields for the event:
 * **TargetFilename**: Name of the file
 * **CreationUtcTime**: File download time
 * **Hash**: Full hash of the file with the algorithms in the HashType field
+* **Content**: Contents of text streams. 
+
 
 The number of processes that create alternate streams should be low and easily excluded. Mail clients and browsers are the main generators of this event in normal operation to set the Zone attribute; Because of this, a maintenance process is recommended when leveraging these filters.
 
 ![process](./media/image43.png)
+
+Since urlmon.dll sets different parts of the stream as the file is downloaded we see normally a total of 6 events as the data is added to the file. This provides important forensic information to track files that an attacker may have delived and correlated with other networks logs. 
 
 Example: Exclude common processes that create alternate data streams.
 
@@ -1042,6 +1062,7 @@ Example: Exclude common processes that create alternate data streams.
 </EventFiltering>
 </Sysmon>
 ```
+
 
 ## Named Pipes
 
