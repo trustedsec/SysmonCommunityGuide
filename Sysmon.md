@@ -1135,9 +1135,16 @@ Example monitoring for script file creation by extension:
 
 ## Named Pipes
 
-A named pipe is a named, one-way or duplex pipe for communication between the pipe server and one or more pipe clients. Each named pipe has a unique name that distinguishes it from other named pipes in the system\'s list of named objects. Pipe names are specified as \\\\ServerName\\pipe\\PipeName when connection is local a "." would be used as ServerName.
+A named pipe is a named, one-way or duplex pipe for communication
+between the pipe server and one or more pipe clients. Each named pipe
+has a unique name that distinguishes it from other named pipes in the
+system\'s list of named objects. Pipe names are specified as
+\\\\ServerName\\pipe\\PipeName when connection is local a "." would be
+used as ServerName.
 
-Named pipes are used for pivoting in several RATs/Implants to have SMB connections between machines. Some tools will use named pipes to talk to injected code in other processes.
+Named pipes are used for pivoting in several RATs/Implants to have SMB
+connections between machines. Some tools will use named pipes to talk to
+injected code in other processes.
 
 Sysmon will generate a events
 
@@ -1151,7 +1158,11 @@ For named pipes there are 2 approaches that can be taken:
 
 * Include only known malicious actors.
 
-The first approach requires more maintenance but in case of a breach offers more value. The second one would be more targeted but this kind of detection is better served with automation in the SIEM. Experienced attackers normally avoid known Pipes to prevent breaking normal operation of the system applications.
+The first approach requires more maintenance but in case of a breach
+offers more value. The second one would be more targeted but this kind
+of detection is better served with automation in the SIEM. Experienced
+attackers normally avoid known Pipes to prevent breaking normal
+operation of the system applications.
 
 The process for PipeName values should be constant process.
 
@@ -1193,7 +1204,8 @@ The fields for the Pipe Create Event are:
 
 * **ProcessGuid**: Process Guid of the process that created the pipe
 
-* **ProcessId**: Process ID used by the OS to identify the process that created the pipe
+* **ProcessId**: Process ID used by the OS to identify the process
+    that created the pipe
 
 * **PipeName**: Name of the pipe created
 
@@ -1209,7 +1221,8 @@ The fields for the Pipe Connect Event are:
 
 * **ProcessGuid**: Process Guid of the process that connected the pipe
 
-* **ProcessId**: Process ID used by the OS to identify the process that connected the pipe
+* **ProcessId**: Process ID used by the OS to identify the process
+    that connected the pipe
 
 * **PipeName**: Name of the pipe connected
 
@@ -1250,7 +1263,10 @@ Example excluding known good Pipe Names
 </Sysmon>
 ```
 
-One thing to consider is that Sysmon uses a minifilter just like the file events, any AV or EDR with a higher altitude number if it triggers on the named pipe and block Sysmon will not log the event.
+One thing to consider is that Sysmon uses a minifilter just like the
+file events. If any AV or EDR with a lower altitude number triggers
+on a named pipe and blocks it, Sysmon will not log the event.
+
 
 ## Driver Loading
 
