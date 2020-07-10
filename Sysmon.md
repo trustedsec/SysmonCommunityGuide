@@ -323,12 +323,6 @@ sysmon.exe -i [configfile path]
 sysmon.exe -c [configfile path]
 ```
 
-* **-a** : Archive Folder
-
-```shell
-sysmon.exe -a [archive folder]
-```
-
 * **-u** : un-install Sysmon
 
 ```shell
@@ -1639,11 +1633,15 @@ Process of use/abuse of CreateRemoteThread
 
 * Use **VirtualAllocEx( )** allocate a chunk of memory in the process.
 
-* Use **WriteProcessMemory( )** write the payload to the newly allocated section.
+* Use **WriteProcessMemory( )** write the payload to the newly
+    allocated section.
 
-* User **CreateRemoteThread( )** to create a new thread in the remote process to execute the shellcode.
+* User **CreateRemoteThread( )** to create a new thread in the remote
+    process to execute the shellcode.
 
-There are multiple Process Injection techniques, Sysmon monitors for the most common one used. The infographic from <http://struppigel.blogspot.com/2017/07/process-injection-info-graphic.html>
+There are multiple Process Injection techniques, Sysmon monitors for the
+most common one used. The infographic from
+<http://struppigel.blogspot.com/2017/07/process-injection-info-graphic.html>
 
 Illustrates the different techniques.
 
@@ -1655,15 +1653,19 @@ The fields for the event are:
 
 * **UtcTime**: Time in UTC when event was created
 
-* **SourceProcessGuid**: Process Guid of the source process that created a thread in another process
+* **SourceProcessGuid**: Process Guid of the source process that
+    created a thread in another process
 
-* **SourceProcessId**: Process ID used by the OS to identify the source process that created a thread in another process
+* **SourceProcessId**: Process ID used by the OS to identify the
+    source process that created a thread in another process
 
-* **SourceImage**: File path of the source process that created a thread in another process
+* **SourceImage**: File path of the source process that created a
+    thread in another process
 
 * **TargetProcessGuid**: Process Guid of the target process
 
-* **TargetProcessId**: Process ID used by the OS to identify the target process
+* **TargetProcessId**: Process ID used by the OS to identify the
+    target process
 
 * **TargetImage**: File path of the target process
 
@@ -1671,9 +1673,11 @@ The fields for the event are:
 
 * **StartAddress**: New thread start address
 
-* **StartModule**: Start module determined from thread start address mapping to PEB loaded module list
+* **StartModule**: Start module determined from thread start address
+    mapping to PEB loaded module list
 
-* **StartFunction**: Start function is reported if exact match to function in image export tables
+* **StartFunction**: Start function is reported if exact match to
+    function in image export tables
 
 Since the number of processes that use the **CreateRemoteThread()** API in a production environment is low, the best approach is to exclude known good processes by their full path. **CreateRemoteThread()** is not the only API call that can be used to create a thread, so it should not be relied on as a definitive guarantee of lack of process injection.
 
@@ -1683,26 +1687,45 @@ Example where known processes that use the API call are excluded
 
 ```xml
 <Sysmon schemaversion="4.22">
-    <CheckRevocation/>
+  <CheckRevocation/>
     <EventFiltering>
-        <RuleGroup name="" groupRelation="or">
-            <CreateRemoteThread onmatch="exclude">
-            <!--The process activity of those in the list should be monitored since an-->
-            <!--attacker may host his actions in one of these to bypass detection.-->
-            <TargetImage condition="end with">Google\Chrome\Application\chrome.exe</TargetImage>
-            <SourceImage condition="is">C:\Windows\System32\wbem\WmiPrvSE.exe</SourceImage>
-            <SourceImage condition="is">C:\Windows\System32\svchost.exe</SourceImage>
-            <SourceImage condition="is">C:\Windows\System32\wininit.exe</SourceImage>
-            <SourceImage condition="is">C:\Windows\System32\csrss.exe</SourceImage>
-            <SourceImage condition="is">C:\Windows\System32\services.exe</SourceImage>
-            <SourceImage condition="is">C:\Windows\System32\winlogon.exe</SourceImage>
-            <SourceImage condition="is">C:\Windows\System32\audiodg.exe</SourceImage>
-            <StartModule condition="is">C:\windows\system32\kernel32.dll</StartModule>
+      <RuleGroup name="" groupRelation="or">
+        <CreateRemoteThread onmatch="exclude">
+          <!--The process activity of those in the list should be monitored since an-->
+          <!--attacker may host his actions in one of these to bypass detection.-->
+           <TargetImage condition="end with">
+             Google\Chrome\Application\chrome.exe
+            </TargetImage>
+            <SourceImage condition="is">
+              C:\Windows\System32\wbem\WmiPrvSE.exe
+            </SourceImage>
+            <SourceImage condition="is">
+              C:\Windows\System32\svchost.exe
+            </SourceImage>
+            <SourceImage condition="is">
+              C:\Windows\System32\wininit.exe
+            </SourceImage>
+            <SourceImage condition="is">
+              C:\Windows\System32\csrss.exe
+            </SourceImage>
+            <SourceImage condition="is">
+              C:\Windows\System32\services.exe
+            </SourceImage>
+            <SourceImage condition="is">
+              C:\Windows\System32\winlogon.exe
+            </SourceImage>
+            <SourceImage condition="is">
+              C:\Windows\System32\audiodg.exe
+            </SourceImage>
+            <StartModule condition="is">
+              C:\windows\system32\kernel32.dll
+            </StartModule>
         </CreateRemoteThread>
         </RuleGroup>
     </EventFiltering>
 </Sysmon>
 ```
+
 
 ## Raw Access Read
 
@@ -1751,7 +1774,8 @@ The fields for the event are:
 * **QueryResults**: Query results
 
 * **Image**: File path of the process that made the DNS query
-Exclude known destinations in order to focus on new unknown destinations. This is a high-volume event generation filter, so it is recommended to experiment and build rules with filters for your specific environment if implemented. Some examples can be found in <https://github.com/olafhartong/sysmon-modular/tree/master/22_dns_query>
+Exclude known destinations in order to focus on new unknown destinations. This is a high-volume event generation filter, so it is recommended to experiment and build rules with filters for your specific environment if implemented. Some examples can be found in 
+<https://github.com/olafhartong/sysmon-modular/tree/master/22_dns_query>
 
 Example that excludes known update and telemetry domains.
 
@@ -1763,45 +1787,117 @@ Example that excludes known update and telemetry domains.
    <EventFiltering>
       <RuleGroup name="" groupRelation="or">
       <DnsQuery onmatch="exclude">
-            <!-- Browser Update Domains-->
-            <QueryName condition="end with">.mozaws.net</QueryName> <!--Mozilla-->
-            <QueryName condition="end with">.mozilla.com</QueryName> <!--Mozilla-->
-            <QueryName condition="end with">.mozilla.net</QueryName> <!--Mozilla-->
-            <QueryName condition="end with">.mozilla.org</QueryName> <!--Mozilla-->
-            <QueryName condition="is">clients1.google.com</QueryName> <!--Google-->
-            <QueryName condition="is">clients2.google.com</QueryName> <!--Google-->
-            <QueryName condition="is">clients3.google.com</QueryName> <!--Google-->
-            <QueryName condition="is">clients4.google.com</QueryName> <!--Google-->
-            <QueryName condition="is">clients5.google.com</QueryName> <!--Google-->
-            <QueryName condition="is">clients6.google.com</QueryName> <!--Google-->
-            <!-- Microsoft Domains -->
-            <QueryName condition="is">safebrowsing.googleapis.com</QueryName> <!--Google-->
-            <QueryName condition="end with">-pushp.svc.ms</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
-            <QueryName condition="end with">.b-msedge.net</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
-            <QueryName condition="end with">.bing.com</QueryName> <!-- Microsoft | Microsoft default exclusion -->
-            <QueryName condition="end with">.hotmail.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.live.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.live.net</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.s-microsoft.com</QueryName> <!--Microsoft-->
-            <QueryName condition="end with">.microsoft.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.microsoftonline.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.microsoftstore.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.ms-acdc.office.com</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
-            <QueryName condition="end with">.msedge.net</QueryName> <!--Microsoft: Doesn't appear to host customer content or subdomains-->
-            <QueryName condition="end with">.msn.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.msocdn.com</QueryName> <!--Microsoft-->
-            <QueryName condition="end with">.skype.com</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.skype.net</QueryName> <!--Microsoft | Microsoft default exclusion-->
-            <QueryName condition="end with">.windows.com</QueryName> <!--Microsoft-->
-            <QueryName condition="end with">.windows.net.nsatc.net</QueryName> <!--Microsoft-->
-            <QueryName condition="end with">.windowsupdate.com</QueryName> <!--Microsoft-->
-            <QueryName condition="end with">.xboxlive.com</QueryName> <!--Microsoft-->
-            <QueryName condition="is">login.windows.net</QueryName> <!--Microsoft-->
+      <!-- Browser Update Domains-->
+
+      <!--Mozilla-->
+      <QueryName condition="end with">
+         .mozaws.net
+      </QueryName>
+      <QueryName condition="end with">
+         .mozilla.com
+      </QueryName>
+      <QueryName condition="end with">
+         .mozilla.net
+      </QueryName>
+      <QueryName condition="end with">
+         .mozilla.org
+      </QueryName>
+         
+      <!--Google-->
+      <QueryName condition="is">
+         clients1.google.com
+      </QueryName>
+      <QueryName condition="is">
+         clients2.google.com
+      </QueryName>
+      <QueryName condition="is">
+         clients3.google.com
+      </QueryName>
+      <QueryName condition="is">
+         clients4.google.com
+      </QueryName>
+      <QueryName condition="is">
+         clients5.google.com
+      </QueryName>
+      <QueryName condition="is">
+         clients6.google.com
+      </QueryName>
+      <QueryName condition="is">
+         safebrowsing.googleapis.com
+      </QueryName>
+         
+      <!-- Microsoft Domains -->
+      <!--Microsoft: Doesn't appear to host customer content or subdomains-->
+      <QueryName condition="end with">
+         -pushp.svc.ms
+      </QueryName> 
+      <QueryName condition="end with">
+         .b-msedge.net
+      </QueryName> 
+      <!-- Microsoft | Microsoft default exclusion -->
+      <QueryName condition="end with">
+         .bing.com
+      </QueryName> 
+      <QueryName condition="end with">
+         .hotmail.com
+      </QueryName>
+      <QueryName condition="end with">
+         .live.com
+      </QueryName>
+      <QueryName condition="end with">
+         .live.net
+      </QueryName>
+      <QueryName condition="end with">
+         .s-microsoft.com
+      </QueryName>
+      <QueryName condition="end with">
+         .microsoft.com
+      </QueryName>
+      <QueryName condition="end with">
+         .microsoftonline.com
+      </QueryName>
+      <QueryName condition="end with">
+         .microsoftstore.com
+      </QueryName>
+      <QueryName condition="end with">
+         .ms-acdc.office.com
+      </QueryName> 
+      <QueryName condition="end with">
+         .msedge.net
+      </QueryName>
+      <QueryName condition="end with">
+         .msn.com
+      </QueryName>
+      <QueryName condition="end with">
+         .msocdn.com
+      </QueryName>
+      <QueryName condition="end with">
+         .skype.com
+      </QueryName>
+      <QueryName condition="end with">
+        .skype.net
+      </QueryName>
+      <QueryName condition="end with">
+         .windows.com
+      </QueryName>
+      <QueryName condition="end with">
+         .windows.net.nsatc.net
+      </QueryName>
+      <QueryName condition="end with">
+         .windowsupdate.com
+      </QueryName>
+      <QueryName condition="end with">
+         .xboxlive.com
+      </QueryName>
+      <QueryName condition="is">
+         login.windows.net
+      </QueryName>
       </DnsQuery>
-</RuleGroup>
-</EventFiltering>
+    </RuleGroup>
+  </EventFiltering>
 </Sysmon>
 ```
+
 
 ## WMI Events
 
