@@ -297,12 +297,6 @@ sysmon.exe -i [configfile path]
 sysmon.exe -c [configfile path]
 ```
 
-* **-a** : Archive Folder
-
-```shell
-sysmon.exe -a [archive folder]
-```
-
 * **-u** : un-install Sysmon
 
 ```shell
