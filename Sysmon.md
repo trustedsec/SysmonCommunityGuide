@@ -1643,7 +1643,7 @@ a VDI environment
 
 ## Registry Actions
 
-Sysmon has the capability to monitor for three major actions against Registry
+Sysmon has the capability to monitor for three major actions against the Registry
 
 * **EventID 12** - Registry object added or deleted
 
@@ -1719,7 +1719,7 @@ In registry events, the value name is appended to the full key path with a \"\\\
 
 Default key values are named \"\\(Default)\"
 
-When filtering for keys or values in HKCU, use **contains** or **end with** when filtering against **TargetObject** since the SID of the user is appended after the Hive name.
+When filtering for keys or values in HKCU, use **contains** or **ends with** when filtering against **TargetObject** since the SID of the user is appended after the Hive name.
 
 ![HKCU Test](./media/image51.png)
 
