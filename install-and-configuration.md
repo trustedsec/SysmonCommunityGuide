@@ -464,6 +464,10 @@ As of the latest version we have defined as event types:
 
 * **WmiEvent** - Information on the creation, deletion, and modification of WMI permanent event components in the CIM database
 
+* **FileDelete** - Saves when possible and logs file deletion or file wipes.
+
+* **ClipboardChange** - Stores and logs text that is stored in to the clipboard by processes and context of who stored the text. 
+
 
 Configuration File
 ==================
@@ -602,6 +606,8 @@ Since any user in the system can read the rule binary data, an attacker can oper
 * Execute tasks that would blend in with normal logged actions
 
 Existing tools for parsing rules out of the registry break often as Sysmon is updated, since the way the information is structured in the binary blob is not documented. However, an attacker can export and import into the test system and use Sysmon to read the configuration.
+
+It is also important to monitor any process that access the Sysmon service process to prevent suspension of the process or modification of it in memory. 
 
 Configuration Deployment
 ------------------------
