@@ -43,6 +43,10 @@ Sysmon Events
 
   * [WMI Events](#wmi-events)
 
+  * [Clipboard Capture](#clipboard-capture.md)
+
+  * [Process Tampering](#process-tampering.md)
+
 Sysmon Operational Events
 -------------------------
 

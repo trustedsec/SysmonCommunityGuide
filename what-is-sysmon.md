@@ -36,4 +36,5 @@ The table below shows the event types and event ID for each.
 |DNS Query|22
 |File Delete|23
 |Clipboard Capture|24
+|Process Tampering|25
 |Error|255
