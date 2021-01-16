@@ -67,6 +67,10 @@ Table of Contents
 
   * [WMI Events](./WMI-events.md)
   
+  * [Clipboard Capture](./clipboard-capture.md)
+  
+  * [Process Image Tampering](./process-tampering.md)
+  
 ## Current State:
 
 Microsoft Sysinternals Sysmon is an ever changing piece of software provided by Microsoft free for its users. As such it is constantly being updated and new featured are added. As it relates to configurations this guide tries to be as open as possible since each environment is unique and recomendations are based on these contraints as much as possible. The guide is made Open Source so that as Sysmon evolves the comunity helps in expanding and maintaining the guide. 
