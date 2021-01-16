@@ -1,5 +1,5 @@
-Process Tampering
------------------
+Process Image Tampering
+-----------------------
 
 Sysmon will log **EventID 25** when a process original image is replaced in memory or on disk. This covers the technique of [Process Hollowing] (https://attack.mitre.org/techniques/T1055/012/), this is when a process is launched, then suspended and the memory for the image is unmapped and realigned to another image injected in to memory and then resumed to execute the injected image. [Process Herpaderping](https://jxy-s.github.io/herpaderping/) is another technique that is caught by this event type, this technique works by modifying the content on disk after the image has been mapped. This capability was added in version 13.0 of Sysmon with schema 4.50.
 
