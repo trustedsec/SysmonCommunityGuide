@@ -11,6 +11,7 @@ and CVE-2021- based on exploitation from UNC2639, UNC2640, and UNC2643
 Changelog: 
 
 * 1.0 - Initial version. 
+* 1.1 - additional IOCs added for files created. 
 
 Authors: Carlos Perez, carlos.perez@trustedsec.com
 
@@ -21,9 +22,18 @@ Authors: Carlos Perez, carlos.perez@trustedsec.com
   <EventFiltering>
     <RuleGroup name="File Creation" groupRelation="or">
       <FileCreate onmatch="include">
+      <!--Capture secondary files created in the folders where the webshells will be present-->
+        <Rule name="File Creation in CAS Directory" groupRelation="and">
+          <TargetFilename  condition="contains any">\wwwroot\aspnet_client\;owa\auth;ecp\auth\;ClientAccess\Owa\;ClientAccess\Ecp\;ClientAccess\Oab\</TargetFilename>
+          <Image condition="excludes any">w3wp.exe;UMWorkerProcess.exe;UMService.exe</Image>
+        </Rule>
         <!--Capture file creation by known processes dropping webshells-->
         <Image name="w3wp.exe File Creation" condition="contains">w3wp.exe</Image>
         <Image name="UMWorkerProcess.exe File Creation" condition="contains">UMWorkerProcess.exe</Image>
+        <Image name="UMWorkerProcess.exe File Creation" condition="contains">UMService.exe</Image>
+        <!--Capture any scrip, dll or exe created outside of the webfolders-->
+        <TargetFilename name="Executable File" condition="contains any">.bat;.cmd;.exe;.js;.vbs;.vbe;.dll;.ps1</TargetFilename>
+        <TargetFilename name="Archive File Creation" condition="contains any">.rar;.zip;.7z;.js;.vbs;.vbe;.dll;.ps1</TargetFilename>
       </FileCreate>
     </RuleGroup>
     <RuleGroup name="" groupRelation="or">
