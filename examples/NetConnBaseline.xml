@@ -1,0 +1,80 @@
+            <User condition='is'>NT AUTHORITY\SYSTEM</User>
+        </Rule>
+            <Rule groupRelation="and">
+            <Image condition='is'>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</Image>
+            <DestinationPort condition="contains any">443;80</DestinationPort>
+        </Rule>
+        <Rule groupRelation="and">
+            <Image condition="contains all">C:\Windows\SystemApps\Microsoft.Windows.Search_;\SearchApp.exe</Image>
+            <DestinationPort condition="contains any">443;80</DestinationPort>
+        </Rule>
+        <Rule groupRelation="and">
+            <Image condition='is'>C:\Windows\System32\smartscreen.exe</Image>
+            <DestinationPort condition='is'>443</DestinationPort> 
+        </Rule>
+        <Rule groupRelation="and">
+            <Image condition="contains all">C:\Program Files\WindowsApps\;\LocalBridge.exe</Image>
+            <DestinationPort condition='is'>443</DestinationPort>
+        </Rule>
+        <Rule groupRelation="and">
+            <Image condition='is'>C:\Windows\System32\taskhostw.exe</Image>
+            <DestinationPort condition="contains any">443;389</DestinationPort>
+            <User condition='is'>NT AUTHORITY\SYSTEM</User>
+        </Rule>
+        <Rule groupRelation="and">
+            <Image condition='is'>C:\Windows\System32\lsass.exe</Image>
+            <DestinationPort condition="contains any">88;135;389</DestinationPort>
+            <User condition='is'>NT AUTHORITY\SYSTEM</User>
+        </Rule>
+        <Rule groupRelation="and">
+            <Image condition="contains all">C:\Program Files\WindowsApps\Microsoft.YourPhone;\YourPhone.exe</Image>
+            <DestinationPort condition='is'>443</DestinationPort>
+        </Rule>
+        <Rule groupRelation="and">
+            <Image condition='is'>C:\Windows\System32\taskhostw.exe</Image>
+            <DestinationPort condition='is'>389</DestinationPort>
+            <User condition='is'>NT AUTHORITY\SYSTEM</User>
+        </Rule>
+        <Rule groupRelation="and">
+            <Image condition="contains all">C:\Program Files\WindowsApps\Microsoft.Windows.Photos;\Microsoft.Photos.exe</Image>
+            <DestinationPort condition='is'>443</DestinationPort>
+        </Rule>
+        <Rule groupRelation="and">
+            <Image condition='is'>C:\Windows\System32\CompatTelRunner.exe</Image>
+            <DestinationPort condition='is'>443</DestinationPort>
+            <User condition='is'>NT AUTHORITY\SYSTEM</User>
+        </Rule>
+        <Rule groupRelation="and">
+            <Image condition='is'>C:\Program Files (x86)\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe</Image>
+            <DestinationPort condition='is'>443</DestinationPort>
+            <User condition='is'>NT AUTHORITY\SYSTEM</User>
+        </Rule>
+        <Rule groupRelation="and">
+            <Image condition="contains all">C:\Program Files\WindowsApps\Microsoft.XboxGamingOverlay;\GameBar.exe</Image>
+            <DestinationPort condition='is'>443</DestinationPort>
+        </Rule>
+        <Rule groupRelation="and">
+            <Image condition='is'>C:\Windows\System32\BackgroundTransferHost.exe</Image>
+            <DestinationPort condition='is'>443</DestinationPort>     
+        </Rule>
+        <Rule groupRelation="and">
+            <Image condition='is'>C:\Windows\System32\RuntimeBroker.exe</Image>
+            <DestinationPort condition='is'>443</DestinationPort>
+        </Rule>
+        <Rule groupRelation="and">
+            <Image condition='is'>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</Image>
+            <DestinationPort condition="contains any">80;443</DestinationPort>
+        </Rule>
+        <Rule groupRelation="and">
+            <Image condition='is'>C:\Windows\System32\backgroundTaskHost.exe</Image>
+            <DestinationPort condition="contains any">135;389</DestinationPort>
+        </Rule>
+        <Rule groupRelation="and">
+            <Image condition='is'>C:\Windows\System32\MoUsoCoreWorker.exe</Image>
+            <DestinationPort condition='is'>443</DestinationPort>
+            <User condition='is'>NT AUTHORITY\SYSTEM</User>
+        </Rule>
+      </NetworkConnect>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>
