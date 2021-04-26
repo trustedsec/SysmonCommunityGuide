@@ -1,0 +1,186 @@
+<Sysmon schemaversion="4.60">
+  <!-- Hashing algorithms that can be used are md5,sha1,sha256,imphash or * for all,
+  more than once can be specified separated by using comas -->
+  <HashAlgorithms>sha256</HashAlgorithms>
+  <!-- Checking for signature revocation for drivers. -->
+  <CheckRevocation/>
+  <ArchiveDirectory>Archive</ArchiveDirectory>
+  <EventFiltering>
+    <RuleGroup name="" groupRelation="or">
+      <FileDelete onmatch="include">
+        <!-- User Writable Locations -->
+        <Rule groupRelation="and">
+            <TargetFilename condition="contains">\Appdata\Local\Microsoft\Windows\INetCache\Content.Outlook\</TargetFilename>               <!--Microsoft Outlook Temp folder-->
+            <TargetFilename condition="contains any">.com;.bat;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.xla;.cmd;.sh;.lnk;.pptm;.scr;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="contains">\Downloads\</TargetFilename>               <!--User Download folder-->
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="contains">\Appdata\Local\Temp\</TargetFilename>               <!--User Temp folder-->
+            <TargetFilename condition="contains any">.com;.bat;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.xla;.cmd;.sh;.lnk;.pptm;.scr;.sct</TargetFilename>
+        </Rule>
+        <!-- System wide writable locations -->
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\ProgramData\Intel</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\ProgramData\Mozilla</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\ProgramData\chocolatey\logs</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\ProgramData\Microsoft\DeviceSync</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\ProgramData\Microsoft\PlayReady</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\ProgramData\Microsoft\User Account Pictures</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\ProgramData\Microsoft\Crypto\DSS\MachineKeys</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\ProgramData\Microsoft\NetFramework\BreadcrumbStore</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\ProgramData\Microsoft\Office\Heartbeat</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\ProgramData\Microsoft\Windows\WER\ReportQueue</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\ProgramData\Microsoft\Windows\WER\Temp</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\ProgramData\Microsoft\Windows\WER\Temp</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\ProgramData\Microsoft\Windows\WER\Temp</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\ProgramData\Microsoft\Windows\WER\Temp</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\ProgramData\Microsoft\Windows\WER\Temp</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Users\All Users\Intel</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Users\All Users\Mozilla</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Users\All Users\chocolatey\logs</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Users\All Users\Microsoft\DeviceSync</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Users\All Users\Microsoft\PlayReady</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Users\All Users\Microsoft\User Account Pictures</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Users\All Users\Microsoft\Crypto\DSS\MachineKeys</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Users\All Users\Microsoft\NetFramework\BreadcrumbStore</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Users\All Users\Microsoft\Office\Heartbeat</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Users\All Users\Microsoft\Windows\WER\ReportArchive</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Users\All Users\Microsoft\Windows\WER\ReportQueue</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Users\All Users\Microsoft\Windows\WER\Temp</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Windows\Tasks</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Windows\tracing</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Windows\Registration\CRMLog</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Windows\System32\Tasks</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Windows\System32\Microsoft\Crypto\RSA\MachineKeys</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Windows\System32\spool\drivers\color</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="begin with">C:\Windows\SysWOW64\Tasks</TargetFilename>
+            <TargetFilename condition="contains any">.com;.bat;.exe;.reg;.ps1;.vbs;.vba;.lnk;.doc;.xls;.hta;.bin;.7z;.dll;.xla;.cmd;.sh;.lnk;.pptm;.scr;.msi;.sct</TargetFilename>
+        </Rule>
+      </FileDelete>
+    </RuleGroup>
+
+    <!-- Log but dont Capture deleted files -->
+    <RuleGroup name="" groupRelation="or">
+      <FileDeleteDetected onmatch="include">
+        <Rule groupRelation="and">
+            <TargetFilename condition="contains">\Downloads\</TargetFilename>               <!--User Download folder-->
+            <TargetFilename condition="contains any">.exe;dll;.msi;.7z;.zip</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+            <TargetFilename condition="contains">\Appdata\Local\Temp\</TargetFilename>               <!--User Temp folder-->
+            <TargetFilename condition="contains any">.exe;dll;.msi;.7z;.zip</TargetFilename>
+        </Rule>
+      </FileDeleteDetected>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>
