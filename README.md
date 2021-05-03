@@ -49,6 +49,8 @@ Table of Contents
     
     * [File Delete](./file-delete.md)
 
+    * [File Delete Detected](./file_delete_detected.md)
+
   * [Named Pipes](./named-pipes.md)
 
   * [Driver Loading](./driver-loading.md)
