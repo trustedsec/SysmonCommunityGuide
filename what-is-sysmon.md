@@ -37,4 +37,5 @@ The table below shows the event types and event ID for each.
 |File Delete|23
 |Clipboard Capture|24
 |Process Tampering|25
+|File Delete Detected|26
 |Error|255
