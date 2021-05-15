@@ -153,7 +153,7 @@ access masks
   |Command                 |Sysmon 10                                           |Security 4663 Kernel Object
   |-----------------------|---------------------------------------------------|-----------------------------
   |lsadump::lsa /patch     |GrantedAccess 0x1438                                |AccessMask 0x10
-  |lsadump::lsa /inject    |rantedAccess 0x143a                                |AccessMask 0x10
+  |lsadump::lsa /inject    |GrantedAccess 0x143a                                |AccessMask 0x10
   |lsadump::trust /patch   |GrantedAccess 0x1438                                |AccessMask 0x10
   |misc:memssp             |GrantedAccess 0x1438                                |AccessMask 0x10
   |Procdump mimidump       |GrantedAccess 0x1fffff                              |AccessMask 0x10
