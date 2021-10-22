@@ -1,5 +1,5 @@
 
-<p><img align="left" width="100" height="100" src="media/tslogo.png"></p>
+<p><img align="left" width="100" height="100" src="chapters/media/tslogo.png"></p>
 
 
 # TrustedSec Sysmon Community Guide
@@ -23,55 +23,60 @@ The authors encourage you to redistribute this content as widely as possible, bu
 Table of Contents
 =================
 
-* [What is Sysmon](./what-is-sysmon.md)
+* [What is Sysmon](./chapters/what-is-sysmon.md)
 
-* [The Sysmon Driver](./the-sysmon-driver.md)
+* Sysmon on Windows
 
-* [Install and Configuration](./install-and-configuration.md)
+  * [The Sysmon Driver](./chapters/the-sysmon-driver.md)
+
+  * [Install and Configuration](./chapters/install-and-configuration.md)
+
+* Sysmon on Linux
+  * [sysinternalsEBPF](./chapters/eBPF.md)
 
 * Sysmon Events
 
-  * [Process Events](./process-events.md)
+  * [Process Events](./chapters/process-events.md)
 
-    * [Process Creation](./process-creation.md)
+    * [Process Creation](./chapters/process-creation.md)
 
-    * [Process Termination](./process-termination.md)
+    * [Process Termination](./chapters/process-termination.md)
 
-    * [Process Access](./process-access.md)
+    * [Process Access](./chapters/process-access.md)
 
   * File Events
   
-    * [File Create](./file-create.md)
+    * [File Create](./chapters/file-create.md)
 
-    * [File Create Time Change](./file-create-time-change.md)
+    * [File Create Time Change](./chapters/file-create-time-change.md)
 
-    * [File Stream Creation Hash](./file-stream-creation-hash.md)
+    * [File Stream Creation Hash](./chapters/file-stream-creation-hash.md)
     
-    * [File Delete](./file-delete.md)
+    * [File Delete](./chapters/file-delete.md)
 
-    * [File Delete Detected](./file_delete_detected.md)
+    * [File Delete Detected](./chapters/file_delete_detected.md)
 
-  * [Named Pipes](./named-pipes.md)
+  * [Named Pipes](./chapters/named-pipes.md)
 
-  * [Driver Loading](./driver-loading.md)
+  * [Driver Loading](./chapters/driver-loading.md)
 
-  * [Registry Actions](./registry-actions.md)
+  * [Registry Actions](./chapters/registry-actions.md)
 
-  * [Image Loading](./image-loading.md)
+  * [Image Loading](./chapters/image-loading.md)
 
-  * [Network Connections](./network-connections.md)
+  * [Network Connections](./chapters/network-connections.md)
 
-  * [Create Remote Thread](./create-remote-thread.md)
+  * [Create Remote Thread](./chapters/create-remote-thread.md)
 
-  * [Raw Access Read](./raw-access-read.md)
+  * [Raw Access Read](./chapters/raw-access-read.md)
 
-  * [DNS Query](./dns-query.md)
+  * [DNS Query](./chapters/dns-query.md)
 
-  * [WMI Events](./WMI-events.md)
+  * [WMI Events](./chapters/WMI-events.md)
   
-  * [Clipboard Capture](./clipboard-capture.md)
+  * [Clipboard Capture](./chapters/clipboard-capture.md)
   
-  * [Process Image Tampering](./process-tampering.md)
+  * [Process Image Tampering](./chapters/process-tampering.md)
   
 ## Current State:
 
