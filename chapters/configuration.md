@@ -1,256 +1,7 @@
-Install and Configuration
-=========================
-
-* [Sysmon Command Line](#the-sysmon-command-line)
-
-* [Installation with Configuration](#installation-with-configuration)
-
-  * [Uninstall](#uninstall)
-
-  * [Installation Best Practice](#installation-best-practice)
-
-* [Configuration](#configuration)
-
-  * [Command Line Parameters](#command-line-parameters)
-
-  * [Filter Operators](#filter-operators)
-
-  * [Event Schema](#event-schema)
-
-  * [Configuration File](#configuration-file)
-
-  * [RuleGroups](#rulegroups)
-
-  * [Configuration File Best Practices](#configuration-file-best-practices)
-
-  * [Configuration Tampering](#configuration-tampering)
-
-  * [Configuration Deployment](#configuration-deployment)
-
-  * [Deployment Script](#deployment-script)
-
-  * [GPO Configuration Deployment](#gpo-configuration-deployment)
-
-The Sysmon Command Line
-=======================
-
-Sysmon installation and configuration can be done via the command line. When Sysmon is downloaded from Microsoft, the zip file will contain two command line versions of the tool:
-
-* **Sysmon.exe** - x86 and x64 version.
-
-* **Sysmon64.exe** - 64bit only version.
-
-When using the tool, any errors will result in an error message and help information with basic switches. To see only the help information for the tool, the **-?** switch parameter is used. This help information will include:
-
-* Parameter sets for installation, configuration, and uninstall
-
-* Common command line parameters.
-
-* General notes on how the tool works and further details on how to get more help information.
-
-The parameters of the tool and the structure of the XML configuration file are defined in the tool Schema. This schema can be printed using the **-s "PrintSchema"** parameter; if no schema version is provided, it will print the default schema.
-
-The tool can be run in 4 main modes; 3 of them are shown in the help message:
-
-* **Install** - Install the driver, manifest and service on the host.
-
-* **Configure** - Parses a given configuration file or command line parameters to generate a configuration that is stored in the registry.
-
-* **Uninstall** - Removes the driver and service from the host.
-
-The semi-hidden and undocumented method is Debug, in which a specified configuration is parsed, and live events are shown in the console.
-
-Install
--------
-
-The key parameter that initiates the installation mode of Sysmon is the **-i** switch. The installation process will be as follows:
-
-* Decompresses and saves driver and copy of itself in to **%systemroot%**
-
-* Registers event log manifest
-
-* Creates a service
-
-* Enables a default configuration (ProcessCreation, ProcessTermination, DriverLoad , FileCreationTimeChanged, SHA1 for Images) if no configuration file is passed using the **-c \<configuration file\>** parameter
-
-The Installation process allows for some obfuscation:
-
-* Driver name can be changed
-
-* Service name can be changed
-
-* Sysmon binary name can be renamed.
-
-These obfuscation changes will also affect registry paths for the driver and processes service keys. All of the obfuscation methods are part of the installation option set.
-
-The installation options are:
-
-* Default -- Driver is installed and named SysmonDrv and service Sysmon
-
-```shell
-sysmon.exe --i --accepteula
-
-```
-
-* Renamed Driver -- The driver file and registry entry are renamed. Name has an 8-character limit.
-
-```shell
-sysmon.exe -i -d <drivername>
-```
-
-* Renamed Service -- The executable name defines the service name.
-
-```shell
-<renamed sysmon>.exe -i -d <drivername>
-```
-
-The installation process on a x64 system with the binary named sysmon.exe that is intended to work across x64 and x86 architectures is shown below. This is important since some of the actions may cause confusion or trigger alerts on monitoring systems.
-
-One important thing to keep in mind when obfuscating the driver name and service name is that certain characteristics remain the same.
-
-* Service description remains the same. (This can be modified post-install.)
-
-* Driver Altitude number remains the same.
-
-* The eventlog remains the same so as to not break collection from SIEM products.
-
-Process for x86
----------------
-
-![x86 bit insall process](./media/image6.png)
-
-x64 Process
------------
-
-![x64 install process](./media/image7.png)
-
-Sysmon will create 2 registry keys to define the services for its operation under ***HKLM\\SYSTEM\\CurrentControlSet\\Services***
-
-* Sysmon - Service that talks to the driver and performs the filtering action. It is named with the same name as the Sysmon executable.
-
-* SysmonDrv - Kernel Driver Service, this service loads the Sysmon driver with an altitude number of 385201
-
-The settings for each service are:
-
-Main Service:
-
-* Name: **Name of the executable (default Sysmon or Sysmon64)**
-
-* LogOn: **Local System**
-
-* Description: **System Monitor service**
-
-* Startup: **Automatic**
-
-* ImagePath: **%windir%\\\<exe name\>**
-
-Driver Service:
-
-* Name: **SysmonDrv unless --d \<name\> is**
-
-* LogOn: **Local System**
-
-* Description: **System Monitor driver**
-
-* Startup: **Automatic**
-
-* ImagePath: **\<driver name\>.sys**
-
-Installation with Configuration
--------------------------------
-An XML configuration file can be passed during installation if an initial configuration needs to be set. This is the preferred method for production systems since a configuration file can cover all types and logic. The most used method is to pass a configuration file using the **-c \<config file\>** parameter.
-
-```shell
-sysmon.exe -i --accepteula -c <config file>
-```
-If the configuration specifies a archive folder using the ```<ArchiveDirectory>``` element the **-a \<archive folder\>** needs to be specified in the command line so that Sysmon can create the folder and set the proper permissions for version 11.0 of Sysmon, for version 11.1 the parameter was removed and now it is configured via the configuration file. If the folder is not present and even if specified Sysmon will create a folder named **Sysmon** instead and use that folder to archive the deleted files. 
-
-We can control the hashing algorithm used for events that hash images and we can control checking of revocation of signatures.
-
-The hashing algorithm or combination of them can be specified with the **-h \<sha1\|sha2\|md5\|imphash\|\*\>** The specified algorithms will be used to hash all images.
-
-```shell
-sysmon.exe -i -c -h <sha1|sha2|md5|imphash\|*>
-```
-
-We can specify checking to see if certificates are revoked using the -r parameter.
-
-```shell
-sysmon.exe -i -c -r
-
-```
-
-SSome basic filtering can be done also from the command line. Only filtering by process name can be done for NetworkConnect, ImageLoad, and ProcessAccess via the command line.
-
-* **NetworkConnect** - Track network connections.
-
-```shell
-sysmon.exe -i -c -n [<process,...>]
-```
-
-* **ImageLoad** - DLL loading by processes.
-
-```shell
-sysmon.exe -i -c -l [<process,...>]
-```
-
-* **ProcessAccess** - Processes whose memory is accessed.
-
-```shell
-sysmon.exe -i -c -k [<process,...>]
-```
-
-Uninstall
----------
-
-To uninstall Sysmon, a binary with the same name as the main service, if renamed, has to be run with the **-u** switch parameter.
-
-```shell
-sysmon.exe -u
-```
-When executed the command will run a series of steps to uninstall the service, driver and remove files for the tool.
-
-![Uninstall Process](./media/image8.png)
-
-There is an undocumented value that can be passed to the **-u** parameter of **"force"** to force the removal of the services even if a stop was not possible.
-
-```shell
-sysmon.exe -u force
-```
-
-Installation Best Practice
---------------------------
-
-Installation best practices that can be followed to aid and minimize risk when deploying the Sysmon tool include:
-
-* Keep a repository of Sysmon versions archived; Microsoft does not provide older versions for download.
-
-* Sysmon is very dependent on the version of the binary for its configuration. The install/upgrade script should check the binary version for:
-
-  * Upgrade
-
-  * Version for applying initial config
-
-* If a GPO is used to push scheduled tasks for upgrades or to push configuration, use a WMI filter to target the specific version that was tested. Example:
-
-```sql
-SELECT * FROM CIM_Datafile WHERE (Name="c:\\Windows\\Sysmon64.exe" OR Name="c:\\Windows\\Sysmon.exe") AND version="10.0.4.1"
-```
-
-* Check file versions they don't match release versioning.
-
-* It is better to not push configuration as an XML that gets run from a share or dropped on disk with a scheduled task:
-
-  * Credentials are left that can be recovered via DPAPI for deleted scheduled tasks.
-
-  * The file can be read more easily by an attacker if controls are not properly placed
-
-  * There is a higher chance of human error
-
-  * Better to push values via GPO or other methods with file version checking.
 
 Configuration
 -------------
+
 The configuration options of Sysmon and the structure of the configuration file are defined in its schema. Each version of Sysmon that adds capabilities raises the schema version, and this version number is not tied to the binary version number.
 
 To take a look at this schema, we would run the binary with the  **-s \[schema version\]** parameter; if no schema version is specified, we would get the latest one for the binary.
@@ -283,12 +34,20 @@ The main attributes for each of the command-line options:
 
 ![Configuration File Parameters](./media/image10.png)
 
+Not all command parameters shown in the Schema apply to Sysmon for Linux, both tools share the general schema but in the Linux version only a subset of the parameters are implemented.
+
+Windows Parameters:
+
 The main arguments that can be passed are:
 
 * **-i** : Install Sysmon
 
 ```shell
 sysmon.exe -i [configfile path]
+```
+
+```shell
+sysmon. -i [configfile path]
 ```
 
 * **-c** : apply config
@@ -303,13 +62,13 @@ sysmon.exe -c [configfile path]
 sysmon.exe -u [force]
 ```
 
-* **-m** : Install event manifest
+* **-m** : Install event manifest (Windows Only)
 
 ```shell
 sysmon.exe -m
 ```
 
-* **-t** : Debug mode
+* **-t** : Debug mode (Windows Only)
 
 ```shell
 sysmon.exe -t [configfile path]
@@ -321,7 +80,7 @@ sysmon.exe -t [configfile path]
 sysmon.exe -s [schema version]
 ```
 
-* **-nologo** : don't show sysmon logo
+* **-nologo** : don't show sysmon logo (Windows Only)
 
 ```shell
 sysmon.exe -nologo
@@ -330,55 +89,101 @@ sysmon.exe -nologo
 * **-accepteula** : Accepts the license agreement
 
 ```shell
-    sysmon.exe -accepteula
+sysmon.exe -accepteula
 ```
 
 * **--** : Resets the configuration to the default
 
 ```shell
-sysmon.exe --
+sysmon.exe -c --
 ```
 
 The option elements under the comment "Configuration file" allow for the configuration of filters and parameters that relate to filters.
 
-* **-h** : Hashing algorithm to has images.
+* **-h** : Hashing algorithm to has images. (Windows Only)
 
 ```shell
 sysmon.exe -c -h <sha1|sha2|md5|imphash|*>
 ```
 
-* **-r** : Check for signature certificate revocation
+* **-r** : Check for signature certificate revocation (Windows Only)
 
 ```shell
 sysmon.exe -c -r
 ```
 
-* **-n** : Track network connections for specified process/processes
+* **-n** : Track network connections for specified process/processes.
 
 ```shell
 sysmon.exe -c -n [<process,...>]
 ```
 
-* **-k** : Track when a specified process/processes memory are accessed
+* **-k** : Track when a specified process/processes memory are accessed. (Windows Only)
 
 ```shell
 sysmon.exe -c -k [<process,...>]
 ```
 
-* **-l** : Track modules (DLLs) loaded by a specified process/processes.
+* **-l** : Track modules (DLLs) loaded by a specified process/processes. (Windows Only)
 
 ```shell
 sysmon.exe -c -k [<process,...>]
 ```
 
-* **-d** : Rename the sysmon driver during install (8 character limit)
+* **-d** : Rename the sysmon driver during install (8 character limit) (Windows Only)
 
 ```shell
 sysmon.exe -i -c -d <drivername>
 ```
 
-> **-g** and **--dns** switches are listed but as of the current version, they
+> **-g** and **--dns** switches are listed but as of the current version, they (Windows Only)
 > do not update the configuration.
+
+Sysmon for Linux parameters are:
+
+The main arguments that can be passed are:
+
+* **-i** : Install Sysmon
+
+```shell
+/usr/bin/sysmon  -i [configfile path]
+```
+
+* **-c** : apply config
+
+```shell
+/usr/bin/sysmon -c [configfile path]
+```
+
+```bash
+/ussr/bin/sysmon -u [force]
+```
+
+* **-s** : Print schema
+
+```shell
+/ussr/bin/sysmon -s [schema version]
+```
+
+* **-accepteula** : Accepts the license agreement
+
+```shell
+/ussr/bin/sysmon -accepteula
+```
+
+* **--** : Resets the configuration to the default
+
+```shell
+/ussr/bin/sysmon -c --
+```
+
+The option elements under the comment "Configuration file" allow for the configuration of filters and parameters that relate to filters.
+
+* **-n** : Track network connections for specified process/processes.
+
+```bash
+/ussr/bin/sysmon -c -n [<process,...>]
+```
 
 Filter Operators
 ----------------
@@ -387,15 +192,18 @@ In the filters element under configuration is the list of operators that can be 
 
 |  **Operator**     |  **Meaning**
 |------------------|------------------------------------------------------
-|  Is|             Exact match.
-|  IsNot|          Negates and exact match
-|  Contains|       The string is contained in any part of the value of the field.
-|  Excludes |      Excludes the event from the logic if the event is the value matches
-|  Excludes All|   Exclude if all values match. (values are separate by ";" )
-|  Excludes Any |  Excludes if any of the values match. (values are separate by ";" )
-|  Image |         Name of the image without the full path.
-|  BeginsWith |    String value starts with.
-|  EndsWith |      String value ends with
+|  is|             Exact match.
+|  is not|          Negates and exact match
+|  is any|         Any of the exact values. (values are separate by ";" )
+|  contains|       The string is contained in any part of the value of the field.
+|  excludes |      Excludes the event from the logic if the event is the value matches
+|  excludes all|   Exclude if all values match. (values are separate by ";" )
+|  excludes any |  Excludes if any of the values match. (values are separate by ";" )
+|  image |         Name of the image without the full path.
+|  begins with |    String value starts with the specified string.
+|  not begins with| String value does not starts with the specified string.
+|  ends with |      String value ends with the specified string.
+|  not ends with|  String value ends with the specified string.
 |  LessThan  |     Numeric value is less than
 |  MoreThan |      Numeric value is more than
 |  Contain Any |   Contains any of the values. (values are separate by ";" )
@@ -466,15 +274,14 @@ As of the latest version we have defined as event types:
 
 * **FileDelete** - Saves when possible and logs file deletion or file wipes.
 
-* **ClipboardChange** - Stores and logs text that is stored in to the clipboard by processes and context of who stored the text. 
-
+* **ClipboardChange** - Stores and logs text that is stored in to the clipboard by processes and context of who stored the text.
 
 Configuration File
 ==================
 
 The main method of configuration of Sysmon is through the use of XML configuration files. XML configuration files allow for higher flexibility since more filtering options are possible by applying logical operations to the fields that are defined by the schema version for the event types.
 
-Previous schemas can be used in newer releases of the binary allowing for upgrading of the binary without the need to update the configuration. The schema is defined on the root element (Sysmon) of the configuration file with the attribute schemaversion.
+Previous schemas can be used in newer releases of the binary allowing for upgrading of the binary without the need to update the configuration. The schema is defined on the root element (Sysmon) of the configuration file with the attribute **schemaversion**.
 
 ![config file](./media/image13.png)
 
@@ -553,6 +360,7 @@ Since getting stated can be complex, some great resources that serve as starting
 
 Configuration Tampering
 -----------------------
+
 One of the actions an attacker takes is the identification of controls and logging on a system.
 
 Due to initial footprint and safety, most advanced attackers limit their actions to enumerate controls to the most common actions that elements that will trigger a monitoring solution. The most common methods used are:
@@ -561,11 +369,11 @@ Due to initial footprint and safety, most advanced attackers limit their actions
 
 * Process list.
 
-* Listing of installed applications from the registry.
+* Listing of installed applications from the registry (In the case of Windows).
 
 This does not mean that an attacker will not use more advanced methods to enumerate controls and find Sysmon on the system.
 
-Detection of Sysmon is achieved by looking at the areas that cannot be changed.
+Detection of Sysmon in Windowss is achieved by looking at the areas that cannot be changed.
 
   **Indicator**               | **Can it be Changed**
   ----------------------------| -----------------------
@@ -578,14 +386,94 @@ Detection of Sysmon is achieved by looking at the areas that cannot be changed.
 
 When Sysmon configuration is modified using the Sysmon command line tool, an **EventId 16** is generated. If the registry binary value is modified directly, no event is generated, and configuration is applied as soon as the value is modified.
 
-When a GPO is used to update configuration by default every 90 minutes, the configuration will be updated. A better solution is to use a configuration management solution like DSC that can monitor for changes and update as soon as a change is detected.
+On Windows when a GPO is used to update configuration by default every 90 minutes, the configuration will be updated. A better solution is to use a configuration management solution like DSC that can monitor for changes and update as soon as a change is detected.
+
+In the case of Linux a solution like Puppet or Ansible is recommended where the configuration file in **/opt/sysmon/config.xml** and **/opt/sysmon/rules.bin**.
 
 Sysmon can be configured to monitor its own configuration to detect whether an attacker deletes or alters it. In the event that it is cleared, this will be the last event logged by Sysmon itself from its configured filters.
-
 
 ![](./media/image21.png)
 
 ![](./media/image22.png)
+
+In the case of Sysmon for Linux the behavior is the same
+
+```
+
+Event SYSMONEVENT_CREATE_PROCESS
+ RuleName: -
+ UtcTime: 2021-10-17 22:30:12.058
+ ProcessGuid: {2424faa4-a3f4-616c-e1b4-2270fe550000}
+ ProcessId: 141030
+ Image: /usr/bin/rm
+ FileVersion: -
+ Description: -
+ Product: -
+ Company: -
+ OriginalFileName: -
+ CommandLine: rm /opt/sysmon/rules.bin
+ CurrentDirectory: /home/carlos/Desktop
+ User: root
+ LogonGuid: {2424faa4-0000-0000-0000-000000000000}
+ LogonId: 0
+ TerminalSessionId: 3
+ IntegrityLevel: no level
+ Hashes: -
+ ParentProcessGuid: {2424faa4-a3f4-616c-d5ab-cd1b11560000}
+ ParentProcessId: 141029
+ ParentImage: /usr/bin/sudo
+ ParentCommandLine: sudo
+ ParentUser: carlos
+Event SYSMONEVENT_FILE_DELETE
+ RuleName: -
+ UtcTime: 2021-10-17 22:30:12.062
+ ProcessGuid: {2424faa4-a3f4-616c-e1b4-2270fe550000}
+ ProcessId: 141030
+ User: root
+ Image: /usr/bin/rm
+ TargetFilename: /opt/sysmon/rules.bin
+ Hashes: -
+ IsExecutable: -
+ Archived: -
+```
+
+```
+Event SYSMONEVENT_CREATE_PROCESS
+ RuleName: -
+ UtcTime: 2021-10-17 22:30:24.113
+ ProcessGuid: {2424faa4-a400-616c-e194-bfcc63550000}
+ ProcessId: 141036
+ Image: /usr/bin/rm
+ FileVersion: -
+ Description: -
+ Product: -
+ Company: -
+ OriginalFileName: -
+ CommandLine: rm /opt/sysmon/config.xml
+ CurrentDirectory: /home/carlos/Desktop
+ User: root
+ LogonGuid: {2424faa4-0000-0000-0000-000000000000}
+ LogonId: 0
+ TerminalSessionId: 3
+ IntegrityLevel: no level
+ Hashes: -
+ ParentProcessGuid: {2424faa4-a400-616c-d57b-eebae9550000}
+ ParentProcessId: 141035
+ ParentImage: /usr/bin/sudo
+ ParentCommandLine: sudo
+ ParentUser: carlos
+Event SYSMONEVENT_FILE_DELETE
+ RuleName: -
+ UtcTime: 2021-10-17 22:30:24.115
+ ProcessGuid: {2424faa4-a400-616c-e194-bfcc63550000}
+ ProcessId: 141036
+ User: root
+ Image: /usr/bin/rm
+ TargetFilename: /opt/sysmon/config.xml
+ Hashes: -
+ IsExecutable: -
+ Archived: -
+```
 
 In case the configurations are cleared, the default one will take over:
 
@@ -607,11 +495,12 @@ Since any user in the system can read the rule binary data, an attacker can oper
 
 Existing tools for parsing rules out of the registry break often as Sysmon is updated, since the way the information is structured in the binary blob is not documented. However, an attacker can export and import into the test system and use Sysmon to read the configuration.
 
-It is also important to monitor any process that access the Sysmon service process to prevent suspension of the process or modification of it in memory. 
+It is also important to monitor any process that access the Sysmon service process to prevent suspension of the process or modification of it in memory.
 
 Configuration Deployment
 ------------------------
-Most environments that have the capabilities to leverage Sysmon enhanced log collection also have software deployment systems like Altiris, System Center Configuration Manager, Desired State Configuration, etc. This is why these are just general recommendations. 
+
+Most environments that have the capabilities to leverage Sysmon enhanced log collection also have software deployment systems like Altiris, System Center Configuration Manager, Desired State Configuration, etc. This is why these are just general recommendations.
 
 Deployment Script
 -----------------
@@ -640,7 +529,7 @@ if ($Present) {
     } else {
         # Execute upgrade process.
         Write-Host -Object "[-] Sysmon needs upgrade." -ForegroundColor Red
-	    <path to Sysmon.exe> -U
+     <path to Sysmon.exe> -U
         <path to Sysmon.exe> -I
     }
 } else {

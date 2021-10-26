@@ -11,7 +11,7 @@ sysinternalsEBPF
 
 ![eBPF](media/image64.png)
 
-The eBPF library leverages a large library of Kernel memory offsets that are stored after installation in a JSON file at /opt/sysinternalsEBPF/offsets.json if the kerneel is not one in the list it will do an auto discovery of the offsets and add them to /opt/sysinternalsEBPF/sysinternalsEBPF_offsets.conf There might be some cases where it will fail to do an autodiscovery of the offsets like in the case of a kernel update. In this case the seervice will fail to load and provide instructions on how to update the offsets. Bellow is the error that would be displayed in the case that autodiscovery fails.
+The eBPF library leverages a large library of Kernel memory offsets that are stored after installation in a JSON file at **/opt/sysinternalsEBPF/offsets.json** if the kernel is not one in the list it will do an auto discovery of the offsets and add them to **/opt/sysinternalsEBPF/sysinternalsEBPF_offsets.conf** There might be some cases where it will fail to do an autodiscovery of the offsets like in the case of a kernel update. In this case the service will fail to load and provide instructions on how to update the offsets. Bellow is the error that would be displayed in the case that autodiscovery fails.
 
 ![Kernel Offset](media/image65.png)
 

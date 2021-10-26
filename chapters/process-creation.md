@@ -5,7 +5,7 @@ Process Creation
 Sysmon will log **EventID 1** for the creation of any new process when
 it registers with the kernel.
 
-Sysmon will generate a ProcessGuid and LogonGuid with the information it
+On Windows Sysmon will generate a ProcessGuid and LogonGuid with the information it
 obtains and it will hash the process main image. The command line of the
 process will be parsed and logged in to eventlog. When storage permits a
 common practice is to log all processes and to filter out common day to
@@ -19,15 +19,15 @@ The fields on a process creation event are:
 
 * **Image** -- Full path of the executable image that was executed.
 
-* **FileVersion** -- File version filed in the image metadata.
+* **FileVersion** -- File version filed in the image metadata. (Windows Only)
 
-* **Description** -- Description field in the image metadata.
+* **Description** -- Description field in the image metadata.(Windows Only)
 
-* **Product** -- Product field in the image metadata.
+* **Product** -- Product field in the image metadata. (Windows Only)
 
-* **Company** - Company field in the image metadata.
+* **Company** - Company field in the image metadata. (Windows Only)
 
-* **OriginalFileName** -- Original image name if renamed.
+* **OriginalFileName** -- Original image name if renamed. (Windows Only)
 
 * **CommandLine** -- Command line that executed the image.
 
@@ -46,7 +46,7 @@ The fields on a process creation event are:
 * **IntegrityLevel** - Integrity label assigned to a process
 
 * **Hashes** - Full hash of the file with the algorithms in the
-    HashType field.
+    HashType field. (Windows Only)
 
 * **ParentProcessGuid** - ProcessGUID of the process that
     spawned/created the main process (child)
@@ -59,8 +59,19 @@ The fields on a process creation event are:
 * **ParentCommandLine -** Arguments which were passed to the
     executable associated with the parent process
 
-Sysmon offers an advantage over the regular process logging since it not
+Sysmon offers an advantage over the regular process logging in Windows since it not
 only pulls the same information as with **EventID** **4688** but it also
 pulls information from the PE header, hashes the images for correlation
 with IOC databases like Virus Total and it also provides unique fields
 when querying for events.
+
+In Linux the advantage provided by Sysmon is that the data is structured in a wa that makes it easier to parse and leverage in a SIEM that leverages the logs. Bellow is an auditd example of the "ping -c 8.8.8.8" command.
+
+```
+type=PROCTITLE msg=audit(10/26/2021 12:51:14.046:1385) : proctitle=-bash 
+type=PATH msg=audit(10/26/2021 12:51:14.046:1385) : item=1 name=/lib64/ld-linux-x86-64.so.2 inode=401163 dev=08:05 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=none cap_fi=none cap_fe=0 cap_fver=0 cap_frootid=0 
+type=PATH msg=audit(10/26/2021 12:51:14.046:1385) : item=0 name=/usr/bin/ping inode=394173 dev=08:05 mode=file,755 ouid=root ogid=root rdev=00:00 nametype=NORMAL cap_fp=net_raw cap_fi=none cap_fe=1 cap_fver=2 cap_frootid=0 
+type=CWD msg=audit(10/26/2021 12:51:14.046:1385) : cwd=/root 
+type=EXECVE msg=audit(10/26/2021 12:51:14.046:1385) : argc=4 a0=ping a1=-c a2=3 a3=8.8.8.8 
+type=SYSCALL msg=audit(10/26/2021 12:51:14.046:1385) : arch=x86_64 syscall=execve success=yes exit=0 a0=0x55c090caa2b0 a1=0x55c090ca9050 a2=0x55c090cb0750 a3=0x8 items=2 ppid=9313 pid=10184 auid=carlos uid=root gid=root euid=root suid=root fsuid=root egid=root sgid=root fsgid=root tty=pts0 ses=5 comm=ping exe=/usr/bin/ping subj=unconfined key=(null)
+```
