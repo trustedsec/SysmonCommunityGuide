@@ -8,16 +8,6 @@ The ProcessGuid and LoginGuid make tracking individual process and users much ea
 
 ![ProcessGUID Source](./media/image31.png)
 
-When a user logs onto on a modern version of Windows (Windows 2016/10)
-they will have 2 Logon IDs assigned if:
-
-* User is a member of local Administrator Group.
-
-* UAC (User Access Control) is enabled.
-
-These sessions will be linked by a Linked Login ID in Successful Logon
-Event ID 4624, making the logging of this event important.
-
 The ProcessGUID depending on the event and where in the process tree it
 is, it will also be known by other names by its relation to the action
 monitored.
@@ -41,7 +31,28 @@ derived names are
 
 * Kernel Driver Load
 
+All processes associated to a unique logon session can be mapped using the LogonGuid field. This field is generated using similar values as the ProcessGuid with the exception that instead of a process Id it uses in the case of Windows the Logon Session hexadecimal value and in the case of Linux the Logon Id to generate a unique identifier to match all actions taken.
+
+For Windows
+
+![LogonGuide Source](./media/image68.png)
+
+For Linux
+
+![Linux LogonGuide Source](./media/image67.png)
+
+When a user logs onto on a modern version of Windows (Windows 2016/10)
+they will have 2 Logon IDs assigned if:
+
+* User is a member of local Administrator Group.
+
+* UAC (User Access Control) is enabled.
+
+These sessions will be linked by a Linked Login ID in Successful Logon
+Event ID 4624, making the logging of this event important.
+
 The image of the process is also related in other processes and can be
 used to track all actions related to a specific one.
 
 ![Image Relation](./media/image33.png)
+
