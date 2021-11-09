@@ -242,7 +242,7 @@ We can filter on the Field Names defined in the data elements. They are defined 
 
 ![Fields definition](./media/image12.png)
 
-As of the latest version we have defined as event types:
+As of the latest version we have defined as event types, one does need to be aware that not all fields and all event types will apply to both Sysmon fo Windows and Sysmon for Linux:
 
 * **NetworkConnect** - Network connections made by processes on the system; both TCP and UDP
 
@@ -275,6 +275,10 @@ As of the latest version we have defined as event types:
 * **FileDelete** - Saves when possible and logs file deletion or file wipes.
 
 * **ClipboardChange** - Stores and logs text that is stored in to the clipboard by processes and context of who stored the text.
+
+* **ProcessTampering** - Detects some of the techniques of "hollow" and "herpaderp" where a process image is replace.
+
+* **FileDeleteDetected** - Only logs file deletion or file wipes.
 
 Configuration File
 ==================
@@ -475,7 +479,7 @@ Event SYSMONEVENT_FILE_DELETE
  Archived: -
 ```
 
-In case the configurations are cleared, the default one will take over:
+In case the configurations are cleared, the default one will take over, in the case of Windows:
 
 * **ProcessCreation**
 
@@ -487,7 +491,13 @@ In case the configurations are cleared, the default one will take over:
 
 * **SHA1 for Images**
 
-Since any user in the system can read the rule binary data, an attacker can operate around rule configurations once they have read them by:
+For Linux the default configuration is:
+
+* **ProcessCreation**
+
+* **ProcessTermination**
+
+In the case of Windows any user in the system can read the rule binary data, an attacker can operate around rule configurations once they have read them by:
 
 * Execute tasks not logged.
 
@@ -497,10 +507,33 @@ Existing tools for parsing rules out of the registry break often as Sysmon is up
 
 It is also important to monitor any process that access the Sysmon service process to prevent suspension of the process or modification of it in memory.
 
+For Linux only the root account can read and modify the the sysmon configuration file and its binary info. But the syslog file on most systems
+
 Configuration Deployment
 ------------------------
 
-Most environments that have the capabilities to leverage Sysmon enhanced log collection also have software deployment systems like Altiris, System Center Configuration Manager, Desired State Configuration, etc. This is why these are just general recommendations.
+Most environments that have the capabilities to leverage Sysmon enhanced log collection also have software deployment systems like Altiris, System Center Configuration Manager, Desired State Configuration, etc for Windows in the case of Linux we can leverage Ansible, Chef, Puppet and many other solutions. This is why these are just general recommendations.
+
+Sylog Message Size
+------------------
+
+Syslog message size limits are dictated by the syslog transport mapping in use. By default the rsyslog package which is one of the most popular packages in distributions limit the size to 1024 bytes. It is important to prevent parsing errors of the structured data to set max sizes that match the size and transport of the messages configured for your given Syslog package. This is achieved using the **FieldSizes** XML element and setting a size for the CommandLine and Image field sizes. We can specify the field and the length we want for the field like in the example bellow.
+
+```xml
+<Sysmon schemaversion="4.81">
+  <FieldSizes>CommandLine:100,Image:100</FieldSizes>
+  <EventFiltering>
+    
+  </EventFiltering>
+</Sysmon>
+```
+
+Fields that could benefit of this are:
+
+* Image
+* ParentImage
+* CommandLine
+* ParentCommandLine
 
 Deployment Script
 -----------------

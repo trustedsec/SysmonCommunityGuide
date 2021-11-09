@@ -4,7 +4,7 @@ Process Events
 
 Sysmon can log process creation, process termination and process access events. The process events are captured via ObjRegisterCallbacks at the kernel level using its driver, and contain a unique, deterministically generated ProcessGuid and LogonGuid that are unique to their process instance and LSA logon session respectively. 
 
-The ProcessGuid and LoginGuid make tracking individual process and users much easier. The ProcessGuid attribute is used in all events associated with its process, and, unlike a ProcessID, will not be reused by the host system later.  The LogonGuid attirbute similarly is assigned to a login session of a particular user, and will not be reused later as a LoginID would.
+The ProcessGuid and LoginGuid make tracking individual process and users much easier. The ProcessGuid attribute is used in all events associated with its process, and, unlike a ProcessID, will not be reused by the host system later.  The LogonGuid attribute similarly is assigned to a login session of a particular user, and will not be reused later as a LoginID would.
 
 ![ProcessGUID Source](./media/image31.png)
 
