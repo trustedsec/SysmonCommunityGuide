@@ -196,18 +196,18 @@ In the filters element under configuration is the list of operators that can be 
 |  is not|          Negates and exact match
 |  is any|         Any of the exact values. (values are separate by ";" )
 |  contains|       The string is contained in any part of the value of the field.
+|  contains any|   Contains any of the values. (values are separate by ";" )
+|  contains all|   Contains all of the values. (values are separate by ";" )
 |  excludes |      Excludes the event from the logic if the event is the value matches
 |  excludes all|   Exclude if all values match. (values are separate by ";" )
 |  excludes any |  Excludes if any of the values match. (values are separate by ";" )
 |  image |         Name of the image without the full path.
-|  begins with |    String value starts with the specified string.
-|  not begins with| String value does not starts with the specified string.
-|  ends with |      String value ends with the specified string.
-|  not ends with|  String value ends with the specified string.
-|  LessThan  |     Numeric value is less than
-|  MoreThan |      Numeric value is more than
-|  Contain Any |   Contains any of the values. (values are separate by ";" )
-|  Contains All |  Contains all of the values. (values are separate by ";" )
+|  begin with |    String value starts with the specified string.
+|  not begin with| String value does not starts with the specified string.
+|  end with |      String value ends with the specified string.
+|  not end with|   String value ends with the specified string.
+|  less than  |    Numeric value is less than
+|  more than |     Numeric value is more than
 
 Each of these operators execute against the value in a given field for each of the event types.
 
