@@ -1,0 +1,13 @@
+%% https://stackoverflow.com/questions/40975004/pandoc-latex-change-backtick-highlight
+\usepackage{fancyvrb,newverbs,xcolor}
+
+%\definecolor{Light}{gray}{.90}
+%% https://martin-thoma.com/colors-in-latex/
+%% https://en.wikibooks.org/wiki/LaTeX/Colors
+\definecolor{Light}{HTML}{F4F4F4}
+
+\let\oldtexttt\texttt
+\renewcommand{\texttt}[1]{
+  \colorbox{Light}{\oldtexttt{#1}}
+}
+

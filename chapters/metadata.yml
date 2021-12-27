@@ -1,0 +1,13 @@
+---
+title: "Sysmon Missing Manual"
+author: "Carlos Perez"
+rights: "TrustedSec LLC, Creative Commons Non-Commercial Share Alike 4.0"
+language:  "en-US"
+subtitle: Open Source Sysinternals Sysmon Community Guide
+date: 28.01.2020
+publisher:  TrustedSec Inc.
+ibooks:
+  version: 1.0
+stylesheet: pandoc.css
+cover-image: media/cover.png
+---

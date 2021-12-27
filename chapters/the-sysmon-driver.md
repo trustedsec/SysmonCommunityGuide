@@ -21,7 +21,6 @@ Sysmon sets multiple callbacks on kernel objects in addition to using telemetry 
 
 When the tool is downloaded from the Microsoft Sysinternals website <https://docs.microsoft.com/en-us/sysinternals/> it is important to save and identify previous versions since Microsoft does not provide older versions and the release notes do not detail what has been fixed. Microsoft has a fast release cycle, forcing users to test very carefully and to keep track of versions.
 
-![A screenshot of a social media post Description automatically
-generated](./media/image5.png)
+You can take a look at recent changes across versions in the community guide [Sysmon Changelog](https://github.com/trustedsec/SysmonCommunityGuide/blob/master/sysmon-changelog.md)
 
 Another important piece of information is that there is no support from Microsoft on the Sysinternal tools—they are free and provided as is. This means that a testing plan for the environment it is deployed on should be formulated, tested, implemented, and improved upon as new versions of Sysmon are released.

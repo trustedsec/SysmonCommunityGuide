@@ -1,0 +1,112 @@
+<!--
+Version: 1.0
+
+Created: 3/5/2021
+
+Updated: 3/5/2021
+
+Description: Track malicious activity in Exchange server based on IOCs for CVE-2021-26855, CVE-2021-2685, CVE-2021-26858 
+and CVE-2021- based on exploitation from UNC2639, UNC2640, and UNC2643
+
+Changelog: 
+
+* 1.0 - Initial version. 
+* 1.1 - additional IOCs added for files created. 
+
+Authors: Carlos Perez, carlos.perez@trustedsec.com
+
+-->
+<Sysmon schemaversion="4.50">
+  <HashAlgorithms>sha256</HashAlgorithms>
+  <CheckRevocation/>
+  <EventFiltering>
+    <RuleGroup name="File Creation" groupRelation="or">
+      <FileCreate onmatch="include">
+      <!--Capture secondary files created in the folders where the webshells will be present-->
+        <Rule name="File Creation in CAS Directory" groupRelation="and">
+          <TargetFilename  condition="contains any">\wwwroot\aspnet_client\;owa\auth;ecp\auth\;ClientAccess\Owa\;ClientAccess\Ecp\;ClientAccess\Oab\</TargetFilename>
+          <Image condition="excludes any">w3wp.exe;UMWorkerProcess.exe;UMService.exe</Image>
+        </Rule>
+        <!--Capture file creation by known processes dropping webshells-->
+        <Image name="w3wp.exe File Creation" condition="contains">w3wp.exe</Image>
+        <Image name="UMWorkerProcess.exe File Creation" condition="contains">UMWorkerProcess.exe</Image>
+        <Image name="UMWorkerProcess.exe File Creation" condition="contains">UMService.exe</Image>
+        <!--Capture any scrip, dll or exe created outside of the webfolders-->
+        <TargetFilename name="Executable File" condition="contains any">.bat;.cmd;.exe;.js;.vbs;.vbe;.dll;.ps1</TargetFilename>
+        <TargetFilename name="Archive File Creation" condition="contains any">.rar;.zip;.7z;.js;.vbs;.vbe;.dll;.ps1</TargetFilename>
+      </FileCreate>
+    </RuleGroup>
+    <RuleGroup name="" groupRelation="or">
+      <!--Capture all process creation-->
+      <ProcessCreate onmatch="include">
+        <Image name="w3wp.exe Process Creation" condition="contains">w3wp.exe</Image>
+        <Image name="UMWorkerProcess.exe Process Creation" condition="contains">UMWorkerProcess.exe</Image>
+        <!--use filter process order to capture all other processes and only tag with rule name the suspicious ones-->
+        <CommandLine condition="contains">.exe</CommandLine>
+      </ProcessCreate>
+    </RuleGroup>
+    <RuleGroup name="Process Access Include" groupRelation="or">
+      <ProcessAccess onmatch="include">
+        <!--Log suspicious access of lsass-->
+        <TargetImage name="LSASS Access" condition="contains">lsass.exe</TargetImage>
+      </ProcessAccess>
+    </RuleGroup>
+    <RuleGroup name="Process Access Exclude" groupRelation="or">
+      <ProcessAccess onmatch="exclude">
+        <!-- Exclude processes and their masks that access LSASS to reduce false positives-->
+        <Rule groupRelation="and">
+        <SourceImage condition='is'>C:\Windows\system32\svchost.exe</SourceImage>
+        <GrantedAccess condition='is'>0x1000</GrantedAccess>
+      </Rule>
+      <Rule groupRelation="and">
+        <SourceImage condition='is'>C:\Windows\system32\wbem\wmiprvse.exe</SourceImage>
+        <GrantedAccess condition='is'>0x1400</GrantedAccess>
+      </Rule>
+      <Rule groupRelation="and">
+        <SourceImage condition='is'>C:\Windows\System32\svchost.exe</SourceImage>
+        <GrantedAccess condition='is'>0x3000</GrantedAccess>
+      </Rule>
+      <Rule groupRelation="and">
+        <SourceImage condition='is'>C:\Windows\system32\wbem\wmiprvse.exe</SourceImage>
+        <GrantedAccess condition='is'>0x1000</GrantedAccess>
+      </Rule>
+      <Rule groupRelation="and">
+        <SourceImage condition='is'>C:\Windows\System32\svchost.exe</SourceImage>
+        <GrantedAccess condition='is'>0x1000</GrantedAccess>
+      </Rule>
+      <Rule groupRelation="and">
+        <SourceImage condition='is'>C:\Windows\system32\services.exe</SourceImage>
+        <GrantedAccess condition='is'>0x1000</GrantedAccess>
+      </Rule>
+      <Rule groupRelation="and">
+        <SourceImage condition='is'>C:\Windows\system32\wininit.exe</SourceImage>
+        <GrantedAccess condition='is'>0x1000000</GrantedAccess>
+      </Rule>
+      <Rule groupRelation="and">
+        <SourceImage condition='is'>C:\Windows\system32\csrss.exe</SourceImage>
+        <GrantedAccess condition='is'>0x1fffff</GrantedAccess>
+      </Rule>
+      <Rule groupRelation="and">
+        <SourceImage condition='is'>C:\Windows\system32\wininit.exe</SourceImage>
+        <GrantedAccess condition='is'>0x1fffff</GrantedAccess>
+      </Rule>
+      </ProcessAccess>
+    </RuleGroup>
+    <RuleGroup name="Image Load Include" groupRelation="or">
+      <ImageLoad onmatch="include">
+        <!--Detect if PowerShell is being loaded by a process-->
+        <Rule name="Possible PowerShell Sideload" groupRelation="and">
+          <Image name="" condition="excludes any">powershell.exe;powershell_ise.exe</Image>
+          <ImageLoaded condition="contains">System.Management.Automation</ImageLoaded>
+        </Rule>
+      </ImageLoad>
+    </RuleGroup>
+    <RuleGroup name="Image Load Exclude" groupRelation="or">
+      <ImageLoad onmatch="exclude">
+        <!--Exclude processes that load the powershell engibe-->
+        <Image condition='is'>C:\Windows\System32\ServerManager.exe</Image>
+        <Image condition='is'>C:\Windows\System32\RemoteFXvGPUDisablement.exe</Image>
+      </ImageLoad>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>

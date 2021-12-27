@@ -1,15 +1,11 @@
 
-<p><img align="left" width="100" height="100" src="media/tslogo.png"></p>
-
+<p><img align="left" width="100" height="100" src="chapters/media/tslogo.png"></p>
 
 # TrustedSec Sysmon Community Guide
-
-
 
 <p align="center"><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" style="display: inline-block; float: left; vertical-align: middle; margin: 10px;"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></p>
 
 This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/), please attribute to TrustedSec LLC
-
 
 ###### You are free to:
 
@@ -19,53 +15,68 @@ This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 Inter
 
 The authors encourage you to redistribute this content as widely as possible, but require that you give credit to the primary authors below, and that you notify us on GitHub of any improvements you make.
 
-
 Table of Contents
 =================
 
-* [What is Sysmon](./what-is-sysmon.md)
+* [What is Sysmon](./chapters/what-is-sysmon.md)
 
-* [The Sysmon Driver](./the-sysmon-driver.md)
+* Sysmon on Windows
 
-* [Install and Configuration](./install-and-configuration.md)
+  * [The Sysmon Driver](./chapters/the-sysmon-driver.md)
+
+  * [Install and Configuration](./chapters/install_windows.md)
+
+* Sysmon on Linux
+  
+  * [sysinternalsEBPF](./chapters/eBPF.md)
+
+  * [Install and Configuration](./chapters/install_linux.md)
+
+* [Configuration](./chapters/configuration.md)
 
 * Sysmon Events
 
-  * [Process Events](./process-events.md)
+  * [Process Events](./chapters/process-events.md)
 
-    * [Process Creation](./process-creation.md)
+    * [Process Creation](./chapters/process-creation.md)
 
-    * [Process Termination](./process-termination.md)
+    * [Process Termination](./chapters/process-termination.md)
 
-    * [Process Access](./process-access.md)
+    * [Process Access](./chapters/process-access.md)
 
   * File Events
   
-    * [File Create](./file-create.md)
+    * [File Create](./chapters/file-create.md)
 
-    * [File Create Time Change](./file-create-time-change.md)
+    * [File Create Time Change](./chapters/file-create-time-change.md)
 
-    * [File Stream Creation Hash](./file-stream-creation-hash.md)
-    
-    * [File Delete](./file-delete.md)
+    * [File Stream Creation Hash](./chapters/file-stream-creation-hash.md)
 
-  * [Named Pipes](./named-pipes.md)
+    * [File Delete](./chapters/file-delete.md)
 
-  * [Driver Loading](./driver-loading.md)
+    * [File Delete Detected](./chapters/file_delete_detected.md)
 
-  * [Registry Actions](./registry-actions.md)
+  * [Named Pipes](./chapters/named-pipes.md)
 
-  * [Image Loading](./image-loading.md)
+  * [Driver Loading](./chapters/driver-loading.md)
 
-  * [Network Connections](./network-connections.md)
+  * [Registry Actions](./chapters/registry-actions.md)
 
-  * [Create Remote Thread](./create-remote-thread.md)
+  * [Image Loading](./chapters/image-loading.md)
 
-  * [Raw Access Read](./raw-access-read.md)
+  * [Network Connections](./chapters/network-connections.md)
 
-  * [DNS Query](./dns-query.md)
+  * [Create Remote Thread](./chapters/create-remote-thread.md)
 
-  * [WMI Events](./WMI-events.md)
+  * [Raw Access Read](./chapters/raw-access-read.md)
+
+  * [DNS Query](./chapters/dns-query.md)
+
+  * [WMI Events](./chapters/WMI-events.md)
+  
+  * [Clipboard Capture](./chapters/clipboard-capture.md)
+  
+  * [Process Image Tampering](./chapters/process-tampering.md)
   
 ## Current State:
 
