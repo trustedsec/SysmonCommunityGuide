@@ -65,10 +65,8 @@ The Linux version supports given the OS and technologies a smaller number of eve
 |Sysmon Config Change| 16
 |File Delete|23
 
-
-
 The Sysmon version for Linux  is an open-source version of the tool, developed to collect security events from Linux environments using eBPF (Extended Berkeley Packet Filter) and placing the captured events in to Syslog for easy consumption by existing centralized log collection solutions.
 
-Sysmon for Linux use the sysinternalsEBPF library to allow it to capture actions against files on disk and network actions. eBPF is a technology that allows to run the program at the Kernel level in a sandbox allowing it to capture read and. Sysmon leverages this technology to capture information on processes, reads and writes to block devices and also for Socket and TCP/IP actions before they reach a network interface. This behaviour is similar to that of mini filter drivers in Windows that allow for the capture of events as they are executed by the APIs in the OS. 
+Sysmon for Linux use the sysinternalsEBPF library to allow it to capture actions against files on disk and network actions. eBPF is a technology that allows to run the program at the Kernel level in a sandbox allowing it to capture read and. Sysmon leverages this technology to capture information on processes, reads and writes to block devices and also for Socket and TCP/IP actions before they reach a network interface. This behavior is similar to that of mini filter drivers in Windows that allow for the capture of events as they are executed by the APIs in the OS.
 
 The sysinternalsEBPF and Sysmon for Linux are Open Source projects, this allows the community to contribute and to further expand the capabilities of the tools. They can be found at https://github.com/Sysinternals. Both Projects are written in C and in each repository they include documentation on how to build the utilities. 
