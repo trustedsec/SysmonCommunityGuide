@@ -57,6 +57,8 @@ Table of Contents
     * [File Delete Detected](./chapters/file_delete_detected.md)
 
     * [File Block EXE](./chapters/file-block-exe.md)
+    
+    * [File Block Shredding](./chapters/file-blockshredding.md)
 
   * [Named Pipes](./chapters/named-pipes.md)
 
