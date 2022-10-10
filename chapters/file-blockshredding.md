@@ -43,7 +43,7 @@ The minidriver inspect the action that is being taken to see if it is a file blo
         </Rule>
       </FileBlockShredding>
 ```
-It is recommended to better block those files that an attacket would like to delete so as to hide their tracks that where part of a compromise at several stages. 
+It is recommended to better block those files that an attacket would like to delete so as to hide their tracks that where part of a compromise at several stages. Now great care should be taken for those applications that update themself and some software management solutions that may trigger false positives for some of the files covered. Since this is a blocking action it is important to test before a configuration is pushed to host, after a deployment it is also important to minitor to prevent disruption in some environments. 
 
 ```XML
 <RuleGroup name="" groupRelation="or">
@@ -58,7 +58,7 @@ It is recommended to better block those files that an attacket would like to del
           <TargetFilename condition="end with">.war</TargetFilename>
           <TargetFilename condition="end with">.ace</TargetFilename>
           <TargetFilename condition="end with">.iqy</TargetFilename>
-				  <TargetFilename condition="end with">.slk</TargetFilename>
+	  <TargetFilename condition="end with">.slk</TargetFilename>
           <TargetFilename condition="end with">.docm</TargetFilename>				        <!--Microsoft:Office:Word: With Macro-->
           <TargetFilename condition="end with">.pptm</TargetFilename>				        <!--Microsoft:Office:PowerPoint: With Macro-->
           <TargetFilename condition="end with">.xlsm</TargetFilename>				        <!--Microsoft:Office:Excel: With Macro-->
@@ -81,10 +81,10 @@ It is recommended to better block those files that an attacket would like to del
           <TargetFilename condition="end with">.exe</TargetFilename>                <!--Executable-->
           <TargetFilename condition="end with">.dll</TargetFilename>                <!--Executable-->
           <TargetFilename condition="end with">.ps1</TargetFilename>				        <!--PowerShell [ More information: http://www.hexacorn.com/blog/2014/08/27/beyond-good-ol-run-key-part-16/ ] -->
-				  <TargetFilename condition="end with">.ps2</TargetFilename>                <!--PowerShell [ More information: http://www.hexacorn.com/blog/2014/08/27/beyond-good-ol-run-key-part-16/ ] -->
+	  <TargetFilename condition="end with">.ps2</TargetFilename>                <!--PowerShell [ More information: http://www.hexacorn.com/blog/2014/08/27/beyond-good-ol-run-key-part-16/ ] -->
           <TargetFilename condition="end with">.psm1</TargetFilename>               <!--PowerShell [ More information: http://www.hexacorn.com/blog/2014/08/27/beyond-good-ol-run-key-part-16/ ] -->
           <TargetFilename condition="end with">.bat</TargetFilename>				        <!--Batch scripting-->
-				  <TargetFilename condition="end with">.cmd</TargetFilename>				        <!--Batch scripting: Batch scripts can also use the .cmd extension | Credit: @mmazanec -->
+	  <TargetFilename condition="end with">.cmd</TargetFilename>				        <!--Batch scripting: Batch scripts can also use the .cmd extension | Credit: @mmazanec -->
 			</FileBlockShredding>
 		</RuleGroup>
 ```
