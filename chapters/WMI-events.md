@@ -109,3 +109,9 @@ It is recommended to log all instances of this event type.
 </EventFiltering>
 </Sysmon>
 ```
+
+Sysmon will not capture components of a permanent event created in the **Root** namespace, only under **Root/Subscription**, an attacker may abuse this gap. Windows WMI Operational logs do capture events created in the **Root** namespace and should be leveraged for redundancy in addition to being able to track:
+
+* Temporary Events
+* WMI Query Errors
+* Provider loading
