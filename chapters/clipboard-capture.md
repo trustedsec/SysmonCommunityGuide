@@ -79,4 +79,6 @@ Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
   </Event>
 ```
 
+In Hyper-V environments where Sysmon is configured for this event type and capturing for RDP connections, will also capture when the window for the console is selected from Hyper-V Manager given it uses RDP for displaying the UI of the VM. Because of this text in the clipboard can be captured by accident exposing its contents to logs. 
+
 
