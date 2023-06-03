@@ -680,12 +680,12 @@ attributes
 * Alternate streams are named ones.
 
 Since streams are part of the NTFS structure directories may have an AD,
-we can use PowerShell to look at a file with the single default unamend
+we can use PowerShell to look at a file with the single default unnamed
 :\$DATA stream
 
 ![stream1](./media/image41.png)
 
-File with a second named stream
+Here the file has a second stream named, :secret
 
 ![stream2](./media/image42.png)
 
