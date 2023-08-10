@@ -3,7 +3,7 @@ Network Connections
 
 Sysmon will log **EventID 3** for all TCP and UDP network connections. This event will generate a large number of entries and filtering should be tuned for specific processes and ports. 
 
-For the DestinationHostname, the GetNameInfo API is used and it will often not have any information and may just be a CDN, making it NOT reliable for filtering since it uses a reverse DNS Lookup to get this information, in Sysmon v11.0 this behaviour can be disabled by using the ```<DnsLookup>True</DnsLookup>``` at the root of the configuration file. 
+For the DestinationHostname, the GetNameInfo API is used and it will often not have any information and may just be a CDN, making it NOT reliable for filtering since it uses a reverse DNS Lookup to get this information, in Sysmon v11.0 this behaviour can be disabled by using the ```<DnsLookup>False</DnsLookup>``` at the root of the configuration file. 
 
 For the DestinationPortName, the GetNameInfo API is used for the friendly name of ports. In the case of services doing connections on some systems due to memory use, they are hosted under svchost.exe and most connections will originate from this process.
 
