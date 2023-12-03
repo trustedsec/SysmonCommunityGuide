@@ -505,6 +505,11 @@ In the case of Windows any user in the system can read the rule binary data, an 
 
 Existing tools for parsing rules out of the registry break often as Sysmon is updated, since the way the information is structured in the binary blob is not documented. However, an attacker can export and import into the test system and use Sysmon to read the configuration.
 
+Tools that allow to recover the XML configuration file from the binary blob stored in the registry:
+
+- https://github.com/thejanit0r/sysmon-bin2xml
+- https://github.com/mattifestation/PSSysmonTools
+
 It is also important to monitor any process that access the Sysmon service process to prevent suspension of the process or modification of it in memory.
 
 For Linux only the root account can read and modify the the sysmon configuration file and its binary info. But the syslog file on most systems
