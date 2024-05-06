@@ -200,10 +200,10 @@ In the filters element under configuration is the list of operators that can be 
 |  excludes all|   Exclude if all values match. (values are separate by ";" )
 |  excludes any |  Excludes if any of the values match. (values are separate by ";" )
 |  image |         Name of the image without the full path.
-|  begins with |    String value starts with the specified string.
-|  not begins with| String value does not starts with the specified string.
-|  ends with |      String value ends with the specified string.
-|  not ends with|  String value ends with the specified string.
+|  begin with |    String value starts with the specified string.
+|  not begin with| String value does not starts with the specified string.
+|  end with |      String value ends with the specified string.
+|  not end with|  String value ends with the specified string.
 |  LessThan  |     Numeric value is less than
 |  MoreThan |      Numeric value is more than
 |  Contain Any |   Contains any of the values. (values are separate by ";" )
