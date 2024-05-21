@@ -3,7 +3,7 @@ What is Sysmon
 
 Sysmon is a free tool initially developed by Mark Russinovich and  by Tomas Garnier,with contributions David Magnotti, Mark Cook, Rob Mead, Giulia Biagini, Alex Mihaiuc, Kevin Sheldrake, John Lambert and others at Microsoft. The tools was initially released for. Windows. host and on October 2021 a Open Source Linux version of the tools was release. The tool is designed to extend the current logging capabilities in Windows and Linux so as to aid in understanding and detecting attackers by behavior. 
 
-The original version the tool was for internal use at Microsoft.  Under Windows the tool the tool supports 64-bit and 32-bit systems and uses a single command line tool for installation and configuration management.
+The original version the tool was for internal use at Microsoft.  Under Windows the tool supports 64-bit and 32-bit systems and uses a single command line tool for installation and configuration management.
 
 For Linux the tool can be compiled from source or installed via the distribution package manager.  It supports the following distributions:
 
