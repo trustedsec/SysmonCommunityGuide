@@ -27,17 +27,17 @@ fi
 
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
-echo -e "\e[1;32m Running Pandoc to generate the LaTex file. \e[0m"
+echo "Running Pandoc to generate the LaTeX file..."
 pandoc "$1" \
     -f gfm \
     --toc \
     --listings \
-    --include-in-header ${SCRIPTPATH}/Build/chapter_break.tex \
-    --include-in-header ${SCRIPTPATH}/Build/inline_code.tex \
-    --include-in-header ${SCRIPTPATH}/Build/bullet_style.tex \
-    --include-in-header ${SCRIPTPATH}/Build/pdf_properties.tex \
-    --include-in-header ${SCRIPTPATH}/Build/listings-setup.tex \
-    --highlight-style ${SCRIPTPATH}/Build/pygments.theme \
+    --include-in-header ${SCRIPTPATH}/chapter_break.tex \
+    --include-in-header ${SCRIPTPATH}/inline_code.tex \
+    --include-in-header ${SCRIPTPATH}/bullet_style.tex \
+    --include-in-header ${SCRIPTPATH}/pdf_properties.tex \
+    --include-in-header ${SCRIPTPATH}/listings-setup.tex \
+    --highlight-style ${SCRIPTPATH}/pygments.theme \
     -V toc-title='Table of contents' \
     -V linkcolor:blue \
     -V geometry:a4paper \
@@ -47,14 +47,18 @@ pandoc "$1" \
     --pdf-engine=xelatex \
     -o /tmp/temp.tex
 
-echo -e "\e[1;32m Running Perl to format the output. \e[0m"
+echo "Running Perl to format the output..."
 fn="${2%.*}"
 
 perl -0777 -pe 's/begin\{document\}\n\n\K(.*?^\}$)(.+?)\n/$2\n\\thispagestyle{empty}\n\n$1\n/ms' /tmp/temp.tex > ${SCRIPTPATH}/${fn}.tex
 
-echo -e "\e[1;32m Generating PDF. \e[0m"
-xelatex ${SCRIPTPATH}/${fn}.tex > ${SCRIPTPATH}/pdfgen.log
+echo "Generating PDF (first pass)..."
+cd ${SCRIPTPATH}
+xelatex -interaction=nonstopmode ${fn}.tex > pdfgen.log 2>&1
 
-echo -e "\e[1;32m Cleanning temp files. \e[0m"
+echo "Generating PDF (second pass for TOC)..."
+xelatex -interaction=nonstopmode ${fn}.tex >> pdfgen.log 2>&1
+
+echo "Cleaning temp files..."
 rm /tmp/temp.tex "$fn".{tex,toc,aux,log}
 

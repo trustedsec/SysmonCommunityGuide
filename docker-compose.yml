@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  sysmon-builder:
+    build: .
+    container_name: sysmon-guide-builder
+    volumes:
+      - .:/guide
+      - ./Build:/guide/Build
+    working_dir: /guide
+    user: "1000:1000"
+    environment:
+      - PYTHONPATH=/guide
+    command: python3 build_guide.py
+    
+  # Service for generating PDF directly
+  pdf-builder:
+    build: .
+    container_name: sysmon-pdf-builder  
+    volumes:
+      - .:/guide
+      - ./Build:/guide/Build
+    working_dir: /guide
+    user: "1000:1000"
+    environment:
+      - PYTHONPATH=/guide
+    command: >
+      sh -c "
+        python3 build_guide.py &&
+        cd Build &&
+        chmod +x md2pdf.sh &&
+        ./md2pdf.sh ./Sysmon.md SysmonGuide.pdf
+      "
+
+  # Interactive development service
+  dev:
+    build: .
+    container_name: sysmon-dev
+    volumes:
+      - .:/guide
+      - ./Build:/guide/Build  
+    working_dir: /guide
+    user: "1000:1000"
+    environment:
+      - PYTHONPATH=/guide
+    command: /bin/bash
+    stdin_open: true
+    tty: true

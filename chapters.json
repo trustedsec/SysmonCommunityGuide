@@ -1,0 +1,180 @@
+{
+  "title": "Sysmon Community Guide",
+  "metadata": {
+    "title": "Sysmon Missing Manual",
+    "author": "Carlos Perez",
+    "rights": "TrustedSec LLC, Creative Commons Non-Commercial Share Alike 4.0",
+    "language": "en-US",
+    "subtitle": "Open Source Sysinternals Sysmon Community Guide",
+    "publisher": "TrustedSec Inc.",
+    "cover_image": "chapters/media/tslogo.png"
+  },
+  "chapters": [
+    {
+      "title": "What is Sysmon",
+      "file": "chapters/what-is-sysmon.md",
+      "level": 1
+    },
+    {
+      "title": "Sysmon on Windows",
+      "level": 1,
+      "sections": [
+        {
+          "title": "The Sysmon Driver", 
+          "file": "chapters/the-sysmon-driver.md",
+          "level": 2
+        },
+        {
+          "title": "Install and Configuration",
+          "file": "chapters/install_windows.md", 
+          "level": 2
+        }
+      ]
+    },
+    {
+      "title": "Sysmon on Linux",
+      "level": 1,
+      "sections": [
+        {
+          "title": "sysinternalsEBPF",
+          "file": "chapters/eBPF.md",
+          "level": 2
+        },
+        {
+          "title": "Install and Configuration", 
+          "file": "chapters/install_linux.md",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "title": "Configuration",
+      "file": "chapters/configuration.md",
+      "level": 1
+    },
+    {
+      "title": "Sysmon Events",
+      "level": 1,
+      "sections": [
+        {
+          "title": "Process Events",
+          "file": "chapters/process-events.md",
+          "level": 2,
+          "sections": [
+            {
+              "title": "Process Creation",
+              "file": "chapters/process-creation.md",
+              "level": 3
+            },
+            {
+              "title": "Process Termination", 
+              "file": "chapters/process-termination.md",
+              "level": 3
+            },
+            {
+              "title": "Process Access",
+              "file": "chapters/process-access.md",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "title": "File Events", 
+          "level": 2,
+          "sections": [
+            {
+              "title": "File Create",
+              "file": "chapters/file-create.md",
+              "level": 3
+            },
+            {
+              "title": "File Create Time Change",
+              "file": "chapters/file-create-time-change.md", 
+              "level": 3
+            },
+            {
+              "title": "File Stream Creation Hash",
+              "file": "chapters/file-stream-creation-hash.md",
+              "level": 3
+            },
+            {
+              "title": "File Delete",
+              "file": "chapters/file-delete.md",
+              "level": 3
+            },
+            {
+              "title": "File Delete Detected", 
+              "file": "chapters/file_delete_detected.md",
+              "level": 3
+            },
+            {
+              "title": "File Block EXE",
+              "file": "chapters/file-block-exe.md",
+              "level": 3
+            },
+            {
+              "title": "File Block Shredding",
+              "file": "chapters/file-blockshredding.md",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "title": "Named Pipes",
+          "file": "chapters/named-pipes.md",
+          "level": 2
+        },
+        {
+          "title": "Driver Loading",
+          "file": "chapters/driver-loading.md", 
+          "level": 2
+        },
+        {
+          "title": "Registry Actions",
+          "file": "chapters/registry-actions.md",
+          "level": 2
+        },
+        {
+          "title": "Image Loading",
+          "file": "chapters/image-loading.md",
+          "level": 2
+        },
+        {
+          "title": "Network Connections", 
+          "file": "chapters/network-connections.md",
+          "level": 2
+        },
+        {
+          "title": "Create Remote Thread",
+          "file": "chapters/create-remote-thread.md",
+          "level": 2
+        },
+        {
+          "title": "Raw Access Read",
+          "file": "chapters/raw-access-read.md",
+          "level": 2
+        },
+        {
+          "title": "DNS Query",
+          "file": "chapters/dns-query.md",
+          "level": 2
+        },
+        {
+          "title": "WMI Events",
+          "file": "chapters/WMI-events.md", 
+          "level": 2
+        },
+        {
+          "title": "Clipboard Capture",
+          "file": "chapters/clipboard-capture.md",
+          "level": 2
+        },
+        {
+          "title": "Process Image Tampering",
+          "file": "chapters/process-tampering.md",
+          "level": 2
+        }
+      ]
+    }
+  ]
+}
