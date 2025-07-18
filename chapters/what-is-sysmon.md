@@ -1,7 +1,3 @@
-Certainly! Here is a full revised draft of the "What is Sysmon" section, focusing on clarity, structure, accuracy, and consistency:
-
----
-
 # What is Sysmon
 
 Sysmon (System Monitor) is a free, advanced system monitoring tool developed by Mark Russinovich and Tomas Garnier, with contributions from David Magnotti, Mark Cook, Rob Mead, Giulia Biagini, Alex Mihaiuc, Kevin Sheldrake, and John Lambert.  
