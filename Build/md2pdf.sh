@@ -31,14 +31,16 @@ echo "Running Pandoc to generate the LaTeX file..."
 pandoc "$1" \
     -f gfm \
     --toc \
+    --toc-depth=3 \
     --listings \
     --include-in-header ${SCRIPTPATH}/chapter_break.tex \
     --include-in-header ${SCRIPTPATH}/inline_code.tex \
     --include-in-header ${SCRIPTPATH}/bullet_style.tex \
     --include-in-header ${SCRIPTPATH}/pdf_properties.tex \
     --include-in-header ${SCRIPTPATH}/listings-setup.tex \
+    --include-in-header ${SCRIPTPATH}/toc-styling.tex \
     --highlight-style ${SCRIPTPATH}/pygments.theme \
-    -V toc-title='Table of contents' \
+    -V toc-title='Sysmon Guide Contents' \
     -V linkcolor:blue \
     -V geometry:a4paper \
     -V geometry:margin=2cm \

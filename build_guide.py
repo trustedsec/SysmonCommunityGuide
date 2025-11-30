@@ -105,26 +105,26 @@ class GuideBuilder:
         """Generate markdown heading with appropriate level."""
         return f"{'#' * level} {title}\n\n"
     
-    def _process_chapter(self, chapter: Dict[str, Any]) -> str:
-        """Process a chapter and its sections recursively."""
+    def _process_chapter(self, chapter: Dict[str, Any], level: int = 1) -> str:
+        """Process a chapter and its sections recursively with hierarchical heading levels."""
         content = []
-        
-        # Add chapter heading if it has a title - always use level 1
+
+        # Add chapter heading if it has a title - use the current level
         if 'title' in chapter:
-            content.append(self._generate_heading(chapter['title'], 1))
-        
+            content.append(self._generate_heading(chapter['title'], level))
+
         # Add chapter content if it has a file
         if 'file' in chapter:
             chapter_content = self._read_chapter_content(chapter['file'])
             content.append(chapter_content)
             content.append("\n\n")
-        
-        # Process sections recursively - all will be level 1
+
+        # Process sections recursively - increment level for subsections
         if 'sections' in chapter:
             for section in chapter['sections']:
-                section_content = self._process_chapter(section)
+                section_content = self._process_chapter(section, level + 1)
                 content.append(section_content)
-        
+
         return ''.join(content)
     
     def _generate_metadata_header(self) -> str:

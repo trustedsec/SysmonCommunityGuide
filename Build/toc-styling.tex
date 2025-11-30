@@ -1,0 +1,63 @@
+%% Enhanced Table of Contents Styling
+%% Uses tocloft package for professional TOC formatting
+
+\usepackage{tocloft}
+
+% TOC title formatting
+\renewcommand{\cfttoctitlefont}{\Large\bfseries}
+\renewcommand{\cftaftertoctitle}{\vskip 1em}
+
+% Section entry formatting (level 1 headings)
+\renewcommand{\cftsecfont}{\normalfont\bfseries}
+\renewcommand{\cftsecpagefont}{\normalfont\bfseries}
+
+% Subsection entry formatting (level 2 headings)
+\renewcommand{\cftsubsecfont}{\normalfont}
+\renewcommand{\cftsubsecpagefont}{\normalfont}
+
+% Subsubsection entry formatting (level 3 headings)
+\renewcommand{\cftsubsubsecfont}{\normalfont\small}
+\renewcommand{\cftsubsubsecpagefont}{\normalfont\small}
+
+% Dotted leader lines for better readability
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsubsecleader}{\cftdotfill{\cftdotsep}}
+
+% Spacing adjustments for sections (level 1)
+\setlength{\cftsecindent}{0pt}        % No indentation for main sections
+\setlength{\cftsecnumwidth}{2.5em}    % Space for section numbers
+\setlength{\cftbeforesecskip}{0.8em}  % Space between entries
+
+% Spacing adjustments for subsections (level 2)
+\setlength{\cftsubsecindent}{1.5em}   % Indent subsections
+\setlength{\cftsubsecnumwidth}{3em}   % Space for subsection numbers
+\setlength{\cftbeforesubsecskip}{0.3em}  % Less space between subsection entries
+
+% Spacing adjustments for subsubsections (level 3)
+\setlength{\cftsubsubsecindent}{3em}  % Indent subsubsections more
+\setlength{\cftsubsubsecnumwidth}{3.5em}  % Space for subsubsection numbers
+\setlength{\cftbeforesubsubsecskip}{0.2em}  % Minimal space between subsubsection entries
+
+% TOC depth control - show all three levels
+\setcounter{tocdepth}{3}
+
+% Add some space before TOC
+\renewcommand{\cftbeforetoctitleskip}{2em}
+
+% Customize dots appearance for better visual connection
+\renewcommand{\cftdot}{.}
+\renewcommand{\cftdotsep}{3.5}
+
+% Enhanced spacing and alignment
+\setlength{\cftaftertoctitleskip}{1.5em}
+
+% Ensure TOC appears on its own page(s)
+% Add page break before TOC starts
+\usepackage{etoolbox}
+\pretocmd{\tableofcontents}{\clearpage}{}{}
+
+% Add page break after TOC ends
+\AtBeginDocument{%
+  \addtocontents{toc}{\protect\clearpage}%
+}

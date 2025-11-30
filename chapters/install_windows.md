@@ -1,38 +1,5 @@
-Install and Configuration
+Installation and Configuration
 =========================
-
-* [Sysmon Command Line](#the-sysmon-command-line)
-
-* [Installation with Configuration](#installation-with-configuration)
-
-  * [Uninstall](#uninstall)
-
-  * [Installation Best Practice](#installation-best-practice)
-
-* [Configuration](#configuration)
-
-  * [Command Line Parameters](#command-line-parameters)
-
-  * [Filter Operators](#filter-operators)
-
-  * [Event Schema](#event-schema)
-
-  * [Configuration File](#configuration-file)
-
-  * [RuleGroups](#rulegroups)
-
-  * [Configuration File Best Practices](#configuration-file-best-practices)
-
-  * [Configuration Tampering](#configuration-tampering)
-
-  * [Configuration Deployment](#configuration-deployment)
-
-  * [Deployment Script](#deployment-script)
-
-  * [GPO Configuration Deployment](#gpo-configuration-deployment)
-
-The Sysmon Command Line
-=======================
 
 Sysmon installation and configuration can be done via the command line. When Sysmon is downloaded from Microsoft, the zip file will contain two command line versions of the tool:
 

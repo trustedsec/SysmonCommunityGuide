@@ -16,6 +16,11 @@
       "level": 1
     },
     {
+      "title": "Detection Engineering Fundamentals",
+      "file": "chapters/detection-engineering.md",
+      "level": 1
+    },
+    {
       "title": "Sysmon on Windows",
       "level": 1,
       "sections": [
