@@ -29,7 +29,7 @@ SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 echo "Running Pandoc to generate the LaTeX file..."
 pandoc "$1" \
-    -f gfm \
+    -f markdown \
     --toc \
     --toc-depth=3 \
     --listings \
@@ -39,6 +39,8 @@ pandoc "$1" \
     --include-in-header ${SCRIPTPATH}/pdf_properties.tex \
     --include-in-header ${SCRIPTPATH}/listings-setup.tex \
     --include-in-header ${SCRIPTPATH}/toc-styling.tex \
+    --include-in-header ${SCRIPTPATH}/title_page.tex \
+    --include-in-header ${SCRIPTPATH}/toc_pagebreak.tex \
     --highlight-style ${SCRIPTPATH}/pygments.theme \
     -V toc-title='Sysmon Guide Contents' \
     -V linkcolor:blue \
@@ -60,6 +62,24 @@ xelatex -interaction=nonstopmode ${fn}.tex > pdfgen.log 2>&1
 
 echo "Generating PDF (second pass for TOC)..."
 xelatex -interaction=nonstopmode ${fn}.tex >> pdfgen.log 2>&1
+
+# Replace first page with custom cover if cover image exists
+COVER_IMAGE="${SCRIPTPATH}/../chapters/media/TS_SysmonCommunityGuide_Cover.png"
+if [ -f "$COVER_IMAGE" ]; then
+    echo "Replacing first page with custom cover..."
+    TEMP_PDF="${fn}_temp.pdf"
+    mv "${fn}.pdf" "$TEMP_PDF"
+
+    if python3 "${SCRIPTPATH}/replace_cover.py" "$TEMP_PDF" "$COVER_IMAGE" "${fn}.pdf"; then
+        echo "Cover page replaced successfully"
+        rm "$TEMP_PDF"
+    else
+        echo "Warning: Failed to replace cover page, using original PDF"
+        mv "$TEMP_PDF" "${fn}.pdf"
+    fi
+else
+    echo "Warning: Cover image not found at $COVER_IMAGE, skipping cover replacement"
+fi
 
 echo "Cleaning temp files..."
 rm /tmp/temp.tex "$fn".{tex,toc,aux,log}

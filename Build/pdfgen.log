@@ -124,74 +124,67 @@ No file SysmonGuide.toc.
 [1]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 1 on input line 425.
-
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 2 on input line 446.
+(longtable)                in table 1 on input line 443.
 
 
 [2]
-[3]
-Underfull \hbox (badness 3815) in paragraph at lines 626--629
-[]\TU/DejaVuSerif(0)/b/n/10 WMI-Activity/Operational\TU/DejaVuSerif(0)/m/n/10 :
- Logs WMI activity including temporary subscriptions
 
+Package longtable Warning: Column widths have changed
+(longtable)                in table 2 on input line 493.
+
+
+[3]
 [4]
+! Undefined control sequence.
+l.681 ...pture (Sysmon only logs Root\Subscription
+                                                  )
+
 [5]
 [6]
 [7]
 [8]
 [9]
 [10]
-[11]
-Overfull \hbox (155.51212pt too wide) in paragraph at lines 1028--1031
+Overfull \hbox (155.51212pt too wide) in paragraph at lines 1104--1107
 []\TU/DejaVuSerif(0)/m/n/10 Sysmon will create 2 registry keys to define the se
 rvices for its operation under \TU/DejaVuSerif(0)/b/it/10 HKLM\SYSTEM\CurrentCo
 ntrolSet\Services 
 
+[11]
 [12]
-Overfull \hbox (48.7775pt too wide) in paragraph at lines 1097--1101
+Overfull \hbox (48.7775pt too wide) in paragraph at lines 1173--1177
 []\TU/DejaVuSerif(0)/m/n/10 The hashing algorithm or combination of them can be
  specified with the \TU/DejaVuSerif(0)/b/n/10 -h <sha1|sha2|md5|imphash|*>
 
 [13]
 [14]
-[15] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty)
+[15]
+[16] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty)
 (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty)
-[16]
 [17]
 [18]
 [19]
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 3 on input line 1683.
-
-
 [20]
 [21]
 [22]
 [23]
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 4 on input line 1954.
-
-
 [24]
 [25]
 [26]
 [27]
-Overfull \hbox (77.60887pt too wide) in paragraph at lines 2215--2218
-[][]\TU/DejaVuSerif(0)/m/n/10 {width=”6.5in”
 
-Overfull \hbox (60.82462pt too wide) in paragraph at lines 2220--2223
-[]\TU/DejaVuSerif(0)/m/n/10 Navigate and select the key \TU/DejaVuSerif(0)/b/n/
-10 HKLM\SYSTEM\CurrentControlSet\Services\SysmonDrv\Parameters
+Package longtable Warning: Column widths have changed
+(longtable)                in table 4 on input line 2302.
+
 
 [28]
 [29]
 [30]
 [31]
+Overfull \hbox (60.82462pt too wide) in paragraph at lines 2571--2574
+[]\TU/DejaVuSerif(0)/m/n/10 Navigate and select the key \TU/DejaVuSerif(0)/b/n/
+10 HKLM\SYSTEM\CurrentControlSet\Services\SysmonDrv\Parameters
+
 [32]
 [33]
 [34]
@@ -200,33 +193,26 @@ Overfull \hbox (60.82462pt too wide) in paragraph at lines 2220--2223
 [37]
 [38]
 [39]
-Underfull \hbox (badness 1158) in paragraph at lines 2806--2809
+[40]
+[41]
+[42]
+Underfull \hbox (badness 1158) in paragraph at lines 3155--3158
 []\TU/DejaVuSerif(0)/b/n/10 Unusual Termination Methods\TU/DejaVuSerif(0)/m/n/1
 0 : Processes terminated by debugging tools, scripts, or
 
-[40]
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 5 on input line 3019.
-
-[41]
-[42]
 [43]
-Overfull \hbox (156.32857pt too wide) in alignment at lines 3189--3200
- [] [] [] 
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 6 on input line 3200.
-
+(longtable)                in table 5 on input line 3329.
 
 [44]
-Underfull \hbox (badness 10000) in paragraph at lines 3299--3302
-[]\TU/DejaVuSerif(0)/b/n/10 High-Privilege Access Masks\TU/DejaVuSerif(0)/m/n/1
-0 : 0x1FFFFF (PROCESS_ALL_ACCESS) from non-
-
 [45]
 [46]
 [47]
+Underfull \hbox (badness 10000) in paragraph at lines 3617--3620
+[]\TU/DejaVuSerif(0)/b/n/10 High-Privilege Access Masks\TU/DejaVuSerif(0)/m/n/1
+0 : 0x1FFFFF (PROCESS_ALL_ACCESS) from non-
+
 [48]
 [49]
 [50]
@@ -238,8 +224,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 3299--3302
 [56]
 [57]
 [58]
+Underfull \hbox (badness 5374) in paragraph at lines 4561--4569
+\TU/DejaVuSerif(0)/m/n/10 * $[][][][][][][][][][][][][][][][][][][] [] [] [] []
+[][][][][][][][][][][][][][][][][][][][][][] [] [][]$\TU/DejaVuSerif(0)/b/n/10 
+FILE_NAME
+
+Underfull \hbox (badness 2495) in paragraph at lines 4561--4569
+\TU/DejaVuSerif(0)/m/n/10 - File name * $[][][][] [] [] [] [][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][] [] [][]$\TU/DejaVuSerif(0)/b
+/n/10 INDEX_ROOT\TU/DejaVuSerif(0)/m/n/10 ,
+
 [59]
 [60]
+Overfull \hbox (30.31924pt too wide) in paragraph at lines 4627--4630
+[]\TU/DejaVuSerif(0)/m/n/10 More execution techniques: https://gist.github.com/
+api0cradle/cdd2d0d0ec9abb686f0e89306e277b8f
+
 [61]
 [62]
 [63]
@@ -248,6 +248,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 3299--3302
 [66]
 [67]
 [68]
+Overfull \hbox (107.16008pt too wide) in paragraph at lines 5266--5274
+[]\TU/DejaVuSerif(0)/b/n/10 Vulnerable Driver SHA256 Hashes: \TU/DejaVuSerif(0)
+/m/n/10 * 35c67ac6cb0ade768ccf11999b9aaf016ab9ae92fb51865d73ec1f7907709dca
+
+Overfull \hbox (324.43399pt too wide) in paragraph at lines 5266--5274
+\TU/DejaVuSerif(0)/m/n/10 * d2ed01cce3e7502b1dd8be35abf95e6e8613c5733ee66e749b9
+72542495743b8 * a86e063ac5214ebb7e691506a9f877d12b7958e071ecbae0f0723ae24e273a7
+3
+
+Overfull \hbox (320.3884pt too wide) in paragraph at lines 5266--5274
+\TU/DejaVuSerif(0)/m/n/10 * c0640d0d9260689b1c6c63a60799e0c8e272067dcf86847c882
+980913694543a * 2a5e73343a38e7b70a04f1b46e9a2dde7ca85f38a4fb2e51e92f252dad7034d
+4
+
+Overfull \hbox (313.74551pt too wide) in paragraph at lines 5266--5274
+\TU/DejaVuSerif(0)/m/n/10 * 98660006f0e923030c5c5c8187ad2fe1500f59d32fa4d3286da
+50709271d0d7f * 7e1d7cfe0bdf5f17def755ae668c780dedb027164788b4bb246613e71668884
+0 
+
 [69]
 [70]
 [71]
@@ -263,37 +282,68 @@ Underfull \hbox (badness 10000) in paragraph at lines 3299--3302
 [81]
 [82]
 [83]
+Underfull \hbox (badness 2277) in paragraph at lines 6075--6083
+\TU/DejaVuSerif(0)/m/n/10 are catalogued at \TU/DejaVuSerif(0)/b/n/10 https://w
+ww.loldrivers.io/\TU/DejaVuSerif(0)/m/n/10 , which maintains a comprehensive li
+st of
+
+Underfull \hbox (badness 2799) in paragraph at lines 6075--6083
+\TU/DejaVuSerif(0)/m/n/10 configuration for detecting these vulnerable drivers:
+ \TU/DejaVuSerif(0)/b/n/10 https://github.com/magicsword-
+
+Underfull \hbox (badness 2547) in paragraph at lines 6152--6159
+[]\TU/DejaVuSerif(0)/b/n/10 To integrate LOLDrivers detection: \TU/DejaVuSerif(
+0)/m/n/10 1. Download the Sysmon configuration from:
+
 [84]
 [85]
 [86]
 [87]
 [88]
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 7 on input line 7278.
-
-
 [89]
-[90]
-Underfull \hbox (badness 4713) in paragraph at lines 7453--7456
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
-\TU/DejaVuSerif(0)/m/n/10 - Enable WDigest
+Underfull \hbox (badness 2027) in paragraph at lines 6548--6554
+[]\TU/DejaVuSerif(0)/b/n/10 Accessibility Feature Hijacking (Sticky Keys, etc.)
+: \TU/DejaVuSerif(0)/m/n/10 * [][][][][][][][][][][][][][][][][][][][][][][][][
+]
 
+Underfull \hbox (badness 4479) in paragraph at lines 6548--6554
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][] \TU/DejaVuSerif(0)/m/n/10 - Utility Manag
+er debugger *
+
+[90]
 [91]
+! Undefined control sequence.
+l.6653 shell\open
+                 \command or shell\open\ddeexec for common file types * Can
+! Undefined control sequence.
+l.6653 shell\open\command
+                          or shell\open\ddeexec for common file types * Can
+! Undefined control sequence.
+l.6653 shell\open\command or shell\open
+                                       \ddeexec for common file types * Can
+! Undefined control sequence.
+l.6653 shell\open\command or shell\open\ddeexec
+                                                for common file types * Can
+
 [92]
 [93]
+Underfull \hbox (badness 1337) in paragraph at lines 6884--6894
+[]\TU/DejaVuSerif(0)/b/n/10 Scripting and Execution Engines: \TU/DejaVuSerif(0)
+/m/n/10 * \TU/DejaVuSerif(0)/b/n/10 System.Management.Automation.dll \TU/DejaVu
+Serif(0)/m/n/10 and \TU/DejaVuSerif(0)/b/n/10 Sys-
+
+Underfull \hbox (badness 1509) in paragraph at lines 6884--6894
+\TU/DejaVuSerif(0)/b/n/10 tem.Management.Automation.ni.dll \TU/DejaVuSerif(0)/m
+/n/10 - PowerShell engine (detect PowerShell loaded by
+
 [94]
 [95]
-Overfull \hbox (43.62329pt too wide) in paragraph at lines 7909--7912
-[]\TU/DejaVuSerif(0)/b/n/10 T1059.001 - PowerShell\TU/DejaVuSerif(0)/m/n/10 : D
-etecting PowerShell execution via System.Management.Automation.dll 
+Overfull \hbox (37.09471pt too wide) in paragraph at lines 6996--7001
+[]\TU/DejaVuSerif(0)/b/n/10 1. PowerShell Engine Loaded by Non-PowerShell Proce
+sses \TU/DejaVuSerif(0)/m/n/10 * System.Management.Automation.dll
 
 [96]
-Overfull \hbox (9.60907pt too wide) in paragraph at lines 8059--8064
-[]\TU/DejaVuSerif(0)/m/n/10 DLLs loaded from user-writable directories (C:\User
-s\\TU/DejaVuSerif(0)/m/it/10 , C:\ProgramData\\TU/DejaVuSerif(0)/m/n/10 , C:\Wi
-ndows\Temp\*) 
-
 [97]
 [98]
 [99]
@@ -305,39 +355,38 @@ ndows\Temp\*)
 [105]
 [106]
 [107]
+Overfull \hbox (23.28908pt too wide) in paragraph at lines 7853--7855
+[]\TU/DejaVuSerif(0)/b/n/10 Community Resources\TU/DejaVuSerif(0)/m/n/10 : Exce
+llent examples can be found at https://github.com/olafhartong/sysmon-
+
 [108]
 [109]
 [110]
 [111]
 [112]
 [113]
-[114]
-[115]
-[116]
-[117]
-Overfull \hbox (7.25122pt too wide) in paragraph at lines 9836--9839
+Overfull \hbox (7.25122pt too wide) in paragraph at lines 8216--8222
 []\TU/DejaVuSerif(0)/b/n/10 Recommended Complementary Logging\TU/DejaVuSerif(0)
 /m/n/10 : Enable Windows native \TU/DejaVuSerif(0)/b/n/10 WMI-Activity/Operatio
 nal
 
+[114]
+[115]
+[116]
+[117]
 [118]
 [119]
-[120]
-[121]
-[122]
-[123]
-[124]
 
 Package longtable Warning: Table widths have changed. Rerun LaTeX.
 
 
-[125] (./SysmonGuide.aux)
+[120] (./SysmonGuide.aux)
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  )
 (see the transcript file for additional information)
-Output written on SysmonGuide.pdf (125 pages).
+Output written on SysmonGuide.pdf (120 pages).
 Transcript written on SysmonGuide.log.
 This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex)
  restricted \write18 enabled.
@@ -459,12 +508,13 @@ Package tocloft Warning: \@starttoc has already been redefined; tocloft bailing
 (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg)
 (./SysmonGuide.toc
 [1])
-[2] [3]
+[2]
+[3]
 [4]
 [5]
-Underfull \hbox (badness 3815) in paragraph at lines 626--629
-[]\TU/DejaVuSerif(0)/b/n/10 WMI-Activity/Operational\TU/DejaVuSerif(0)/m/n/10 :
- Logs WMI activity including temporary subscriptions
+! Undefined control sequence.
+l.681 ...pture (Sysmon only logs Root\Subscription
+                                                  )
 
 [6]
 [7]
@@ -472,22 +522,22 @@ Underfull \hbox (badness 3815) in paragraph at lines 626--629
 [9]
 [10]
 [11]
-[12]
-Overfull \hbox (155.51212pt too wide) in paragraph at lines 1028--1031
+Overfull \hbox (155.51212pt too wide) in paragraph at lines 1104--1107
 []\TU/DejaVuSerif(0)/m/n/10 Sysmon will create 2 registry keys to define the se
 rvices for its operation under \TU/DejaVuSerif(0)/b/it/10 HKLM\SYSTEM\CurrentCo
 ntrolSet\Services 
 
+[12]
 [13]
-Overfull \hbox (48.7775pt too wide) in paragraph at lines 1097--1101
+Overfull \hbox (48.7775pt too wide) in paragraph at lines 1173--1177
 []\TU/DejaVuSerif(0)/m/n/10 The hashing algorithm or combination of them can be
  specified with the \TU/DejaVuSerif(0)/b/n/10 -h <sha1|sha2|md5|imphash|*>
 
 [14]
 [15]
-[16] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty)
+[16]
+[17] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty)
 (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty)
-[17]
 [18]
 [19]
 [20]
@@ -499,17 +549,14 @@ Overfull \hbox (48.7775pt too wide) in paragraph at lines 1097--1101
 [26]
 [27]
 [28]
-Overfull \hbox (77.60887pt too wide) in paragraph at lines 2215--2218
-[][]\TU/DejaVuSerif(0)/m/n/10 {width=”6.5in”
-
-Overfull \hbox (60.82462pt too wide) in paragraph at lines 2220--2223
-[]\TU/DejaVuSerif(0)/m/n/10 Navigate and select the key \TU/DejaVuSerif(0)/b/n/
-10 HKLM\SYSTEM\CurrentControlSet\Services\SysmonDrv\Parameters
-
 [29]
 [30]
 [31]
 [32]
+Overfull \hbox (60.82462pt too wide) in paragraph at lines 2571--2574
+[]\TU/DejaVuSerif(0)/m/n/10 Navigate and select the key \TU/DejaVuSerif(0)/b/n/
+10 HKLM\SYSTEM\CurrentControlSet\Services\SysmonDrv\Parameters
+
 [33]
 [34]
 [35]
@@ -518,30 +565,21 @@ Overfull \hbox (60.82462pt too wide) in paragraph at lines 2220--2223
 [38]
 [39]
 [40]
-Underfull \hbox (badness 1158) in paragraph at lines 2806--2809
+[41]
+[42]
+[43]
+Underfull \hbox (badness 1158) in paragraph at lines 3155--3158
 []\TU/DejaVuSerif(0)/b/n/10 Unusual Termination Methods\TU/DejaVuSerif(0)/m/n/1
 0 : Processes terminated by debugging tools, scripts, or
 
-[41] [42]
-[43]
-[44]
-Overfull \hbox (156.32857pt too wide) in alignment at lines 3182--3187
- [] [] [] 
-
-Overfull \hbox (156.32857pt too wide) in alignment at lines 3187--3189
- [] [] [] 
-
-Overfull \hbox (156.32857pt too wide) in alignment at lines 3189--3200
- [] [] [] 
-
-[45]
-Underfull \hbox (badness 10000) in paragraph at lines 3299--3302
-[]\TU/DejaVuSerif(0)/b/n/10 High-Privilege Access Masks\TU/DejaVuSerif(0)/m/n/1
-0 : 0x1FFFFF (PROCESS_ALL_ACCESS) from non-
-
+[44] [45]
 [46]
 [47]
 [48]
+Underfull \hbox (badness 10000) in paragraph at lines 3617--3620
+[]\TU/DejaVuSerif(0)/b/n/10 High-Privilege Access Masks\TU/DejaVuSerif(0)/m/n/1
+0 : 0x1FFFFF (PROCESS_ALL_ACCESS) from non-
+
 [49]
 [50]
 [51]
@@ -553,8 +591,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 3299--3302
 [57]
 [58]
 [59]
+Underfull \hbox (badness 5374) in paragraph at lines 4561--4569
+\TU/DejaVuSerif(0)/m/n/10 * $[][][][][][][][][][][][][][][][][][][] [] [] [] []
+[][][][][][][][][][][][][][][][][][][][][][] [] [][]$\TU/DejaVuSerif(0)/b/n/10 
+FILE_NAME
+
+Underfull \hbox (badness 2495) in paragraph at lines 4561--4569
+\TU/DejaVuSerif(0)/m/n/10 - File name * $[][][][] [] [] [] [][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][] [] [][]$\TU/DejaVuSerif(0)/b
+/n/10 INDEX_ROOT\TU/DejaVuSerif(0)/m/n/10 ,
+
 [60]
 [61]
+Overfull \hbox (30.31924pt too wide) in paragraph at lines 4627--4630
+[]\TU/DejaVuSerif(0)/m/n/10 More execution techniques: https://gist.github.com/
+api0cradle/cdd2d0d0ec9abb686f0e89306e277b8f
+
 [62]
 [63]
 [64]
@@ -563,6 +615,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 3299--3302
 [67]
 [68]
 [69]
+Overfull \hbox (107.16008pt too wide) in paragraph at lines 5266--5274
+[]\TU/DejaVuSerif(0)/b/n/10 Vulnerable Driver SHA256 Hashes: \TU/DejaVuSerif(0)
+/m/n/10 * 35c67ac6cb0ade768ccf11999b9aaf016ab9ae92fb51865d73ec1f7907709dca
+
+Overfull \hbox (324.43399pt too wide) in paragraph at lines 5266--5274
+\TU/DejaVuSerif(0)/m/n/10 * d2ed01cce3e7502b1dd8be35abf95e6e8613c5733ee66e749b9
+72542495743b8 * a86e063ac5214ebb7e691506a9f877d12b7958e071ecbae0f0723ae24e273a7
+3
+
+Overfull \hbox (320.3884pt too wide) in paragraph at lines 5266--5274
+\TU/DejaVuSerif(0)/m/n/10 * c0640d0d9260689b1c6c63a60799e0c8e272067dcf86847c882
+980913694543a * 2a5e73343a38e7b70a04f1b46e9a2dde7ca85f38a4fb2e51e92f252dad7034d
+4
+
+Overfull \hbox (313.74551pt too wide) in paragraph at lines 5266--5274
+\TU/DejaVuSerif(0)/m/n/10 * 98660006f0e923030c5c5c8187ad2fe1500f59d32fa4d3286da
+50709271d0d7f * 7e1d7cfe0bdf5f17def755ae668c780dedb027164788b4bb246613e71668884
+0 
+
 [70]
 [71]
 [72]
@@ -578,32 +649,68 @@ Underfull \hbox (badness 10000) in paragraph at lines 3299--3302
 [82]
 [83]
 [84]
+Underfull \hbox (badness 2277) in paragraph at lines 6075--6083
+\TU/DejaVuSerif(0)/m/n/10 are catalogued at \TU/DejaVuSerif(0)/b/n/10 https://w
+ww.loldrivers.io/\TU/DejaVuSerif(0)/m/n/10 , which maintains a comprehensive li
+st of
+
+Underfull \hbox (badness 2799) in paragraph at lines 6075--6083
+\TU/DejaVuSerif(0)/m/n/10 configuration for detecting these vulnerable drivers:
+ \TU/DejaVuSerif(0)/b/n/10 https://github.com/magicsword-
+
+Underfull \hbox (badness 2547) in paragraph at lines 6152--6159
+[]\TU/DejaVuSerif(0)/b/n/10 To integrate LOLDrivers detection: \TU/DejaVuSerif(
+0)/m/n/10 1. Download the Sysmon configuration from:
+
 [85]
 [86]
 [87]
 [88]
 [89]
 [90]
-[91]
-Underfull \hbox (badness 4713) in paragraph at lines 7453--7456
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
-\TU/DejaVuSerif(0)/m/n/10 - Enable WDigest
+Underfull \hbox (badness 2027) in paragraph at lines 6548--6554
+[]\TU/DejaVuSerif(0)/b/n/10 Accessibility Feature Hijacking (Sticky Keys, etc.)
+: \TU/DejaVuSerif(0)/m/n/10 * [][][][][][][][][][][][][][][][][][][][][][][][][
+]
 
+Underfull \hbox (badness 4479) in paragraph at lines 6548--6554
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][] \TU/DejaVuSerif(0)/m/n/10 - Utility Manag
+er debugger *
+
+[91]
 [92]
+! Undefined control sequence.
+l.6653 shell\open
+                 \command or shell\open\ddeexec for common file types * Can
+! Undefined control sequence.
+l.6653 shell\open\command
+                          or shell\open\ddeexec for common file types * Can
+! Undefined control sequence.
+l.6653 shell\open\command or shell\open
+                                       \ddeexec for common file types * Can
+! Undefined control sequence.
+l.6653 shell\open\command or shell\open\ddeexec
+                                                for common file types * Can
+
 [93]
 [94]
+Underfull \hbox (badness 1337) in paragraph at lines 6884--6894
+[]\TU/DejaVuSerif(0)/b/n/10 Scripting and Execution Engines: \TU/DejaVuSerif(0)
+/m/n/10 * \TU/DejaVuSerif(0)/b/n/10 System.Management.Automation.dll \TU/DejaVu
+Serif(0)/m/n/10 and \TU/DejaVuSerif(0)/b/n/10 Sys-
+
+Underfull \hbox (badness 1509) in paragraph at lines 6884--6894
+\TU/DejaVuSerif(0)/b/n/10 tem.Management.Automation.ni.dll \TU/DejaVuSerif(0)/m
+/n/10 - PowerShell engine (detect PowerShell loaded by
+
 [95]
 [96]
-Overfull \hbox (43.62329pt too wide) in paragraph at lines 7909--7912
-[]\TU/DejaVuSerif(0)/b/n/10 T1059.001 - PowerShell\TU/DejaVuSerif(0)/m/n/10 : D
-etecting PowerShell execution via System.Management.Automation.dll 
+Overfull \hbox (37.09471pt too wide) in paragraph at lines 6996--7001
+[]\TU/DejaVuSerif(0)/b/n/10 1. PowerShell Engine Loaded by Non-PowerShell Proce
+sses \TU/DejaVuSerif(0)/m/n/10 * System.Management.Automation.dll
 
 [97]
-Overfull \hbox (9.60907pt too wide) in paragraph at lines 8059--8064
-[]\TU/DejaVuSerif(0)/m/n/10 DLLs loaded from user-writable directories (C:\User
-s\\TU/DejaVuSerif(0)/m/it/10 , C:\ProgramData\\TU/DejaVuSerif(0)/m/n/10 , C:\Wi
-ndows\Temp\*) 
-
 [98]
 [99]
 [100]
@@ -615,33 +722,32 @@ ndows\Temp\*)
 [106]
 [107]
 [108]
+Overfull \hbox (23.28908pt too wide) in paragraph at lines 7853--7855
+[]\TU/DejaVuSerif(0)/b/n/10 Community Resources\TU/DejaVuSerif(0)/m/n/10 : Exce
+llent examples can be found at https://github.com/olafhartong/sysmon-
+
 [109]
 [110]
 [111]
 [112]
 [113]
 [114]
-[115]
-[116]
-[117]
-[118]
-Overfull \hbox (7.25122pt too wide) in paragraph at lines 9836--9839
+Overfull \hbox (7.25122pt too wide) in paragraph at lines 8216--8222
 []\TU/DejaVuSerif(0)/b/n/10 Recommended Complementary Logging\TU/DejaVuSerif(0)
 /m/n/10 : Enable Windows native \TU/DejaVuSerif(0)/b/n/10 WMI-Activity/Operatio
 nal
 
+[115]
+[116]
+[117]
+[118]
 [119]
 [120]
-[121]
-[122]
-[123]
-[124]
-[125]
-[126] (./SysmonGuide.aux)
+[121] (./SysmonGuide.aux)
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  )
 (see the transcript file for additional information)
-Output written on SysmonGuide.pdf (126 pages).
+Output written on SysmonGuide.pdf (121 pages).
 Transcript written on SysmonGuide.log.

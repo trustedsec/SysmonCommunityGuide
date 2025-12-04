@@ -145,35 +145,38 @@ class GuideBuilder:
         return '\n'.join(header)
     
     def _add_cover_image(self) -> str:
-        """Add cover image if specified."""
-        cover_image = self.config.get('metadata', {}).get('cover_image')
-        if cover_image:
-            # Adjust cover image path for Build directory
-            cover_path = cover_image.replace('chapters/', './')
-            return f"![cover image]({cover_path})\n\n"
-        return ""
+        """Add cover image if specified with size constraints."""
+        # Add page break after TOC to start content on fresh page
+        # The logo will be added at the start of the first chapter
+        return "\\newpage\n\n"
     
     def build_master_document(self) -> str:
         """Build the complete master document."""
         print("Building master document...")
-        
+
         # Validate all files exist
         if not self._validate_files():
             return ""
-        
+
         content = []
-        
+
         # Add metadata header
         content.append(self._generate_metadata_header())
-        
-        # Add cover image
+
+        # Add page break after TOC
         content.append(self._add_cover_image())
-        
+
+        # Add logo before first chapter
+        cover_image = self.config.get('metadata', {}).get('cover_image')
+        if cover_image:
+            cover_path = cover_image.replace('chapters/', './')
+            content.append(f'<img src="{cover_path}" width="100" />\n\n')
+
         # Process all chapters
         for chapter in self.config['chapters']:
             chapter_content = self._process_chapter(chapter)
             content.append(chapter_content)
-        
+
         return ''.join(content)
     
     def save_master_document(self, content: str, filename: str = "Sysmon.md") -> None:
