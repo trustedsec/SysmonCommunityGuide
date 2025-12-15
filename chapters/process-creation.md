@@ -2,14 +2,46 @@
 Process Creation
 ================
 
-Sysmon will log **EventID 1** for the creation of any new process when
-it registers with the kernel.
+Sysmon will log **EventID 1** for the creation of any new process when it registers with the kernel. This is arguably the single most important event type that Sysmon provides, and understanding how to configure it effectively is critical for any detection engineering program.
 
-On Windows Sysmon will generate a ProcessGuid and LogonGuid with the information it
-obtains and it will hash the process main image. The command line of the
-process will be parsed and logged in to eventlog. When storage permits a
-common practice is to log all processes and to filter out common day to
-day processes for Windows and Applications after profiling usage.
+Why Process Monitoring is Critical
+-----------------------------------
+
+Process creation monitoring stands above all other event types in importance for one simple reason: attackers must execute code to accomplish their objectives. Regardless of how an attacker gains initial access - through a phishing email, a web application vulnerability, stolen credentials, or a physical device - they eventually need to run programs on the compromised system.
+
+Every significant action an attacker takes involves process execution:
+
+* **Initial Access**: Exploits often execute shellcode that spawns a process
+* **Persistence**: Backdoors and implants are processes that need to start
+* **Credential Dumping**: Tools like Mimikatz must run as processes
+* **Discovery**: Enumeration commands like whoami, net user, and ipconfig are all processes
+* **Lateral Movement**: Remote execution via PsExec, WMI, or PowerShell creates processes on target systems
+* **Collection**: Scripts that search for and gather data run as processes
+* **Exfiltration**: Tools that upload data externally are processes
+* **Impact**: Ransomware encryption runs as a process
+
+When you examine the MITRE ATT&CK framework, you will find that process monitoring (specifically command line logging and process creation events) is listed as a primary or supplemental data source for detecting the vast majority of techniques across all tactics. Out of over 600 techniques documented in ATT&CK, process command line parameters are relevant for detecting hundreds of them. No other single data source provides this level of coverage.
+
+This widespread applicability makes process creation logging the cornerstone of endpoint detection. If you could only enable one Sysmon event type, this would be it. However, this importance comes with a challenge: volume.
+
+The Volume Challenge
+---------------------
+
+A typical Windows workstation creates hundreds to thousands of processes per day. Servers, especially domain controllers or application servers, can generate tens of thousands. If you log every single process creation without filtering, you will quickly face several problems:
+
+* **Storage costs** become significant across hundreds or thousands of endpoints
+* **SIEM performance** degrades as millions of events per day are indexed
+* **Analyst fatigue** sets in when legitimate detections are buried in normal activity
+* **Investigation speed** slows when analysts must sort through massive volumes of logs
+
+This is why an outlier-based approach is essential for process creation monitoring.
+
+The Outlier Approach: Capture What Matters
+-------------------------------------------
+
+The most effective strategy for process creation logging is to exclude known-good, normal processes and capture everything else - the outliers. This approach flips the problem on its head. Instead of trying to predict what attacks will look like and writing rules to catch them, you define what normal looks like and eliminate it from your logs. What remains is the unusual, the unexpected, and the potentially malicious.
+
+On Windows, Sysmon will generate a ProcessGuid and LogonGuid with the information it obtains and will hash the process main image. The command line of the process will be parsed and logged. The recommended practice is to start by logging all processes during a baselining period, then progressively add exclusions for common day-to-day processes for Windows and applications after profiling usage in your environment.
 
 The fields on a process creation event are:
 
@@ -59,13 +91,104 @@ The fields on a process creation event are:
 * **ParentCommandLine -** Arguments which were passed to the
     executable associated with the parent process
 
-Sysmon offers an advantage over the regular process logging in Windows since it not
-only pulls the same information as with **EventID** **4688** but it also
-pulls information from the PE header, hashes the images for correlation
-with IOC databases like Virus Total and it also provides unique fields
-when querying for events.
+Sysmon offers an advantage over the regular process logging in Windows since it not only pulls the same information as with **EventID** **4688** but it also pulls information from the PE header, hashes the images for correlation with IOC databases like Virus Total and it also provides unique fields when querying for events.
 
-In Linux the advantage provided by Sysmon is that the data is structured in a wa that makes it easier to parse and leverage in a SIEM that leverages the logs. Bellow is an auditd example of the "ping -c 8.8.8.8" command.
+Configuration Best Practices: Multi-Field Exclusions
+-----------------------------------------------------
+
+The most common mistake when filtering process creation events is creating exclusions that are too broad or too simple. This creates opportunities for attackers to evade detection by mimicking legitimate processes. Consider these principles when building exclusions:
+
+**Never Exclude by a Single Field**: An exclusion based solely on process name is trivial to bypass. If you exclude "svchost.exe" by name alone, an attacker can simply name their malware "svchost.exe" and it will not be logged. Always use multiple fields in combination.
+
+**Use Multiple Criteria Together**: Effective exclusions combine several fields to create a specific signature of the legitimate process:
+
+* **Image (full path) + Hashes**: Exclude a specific executable at a specific location with a specific hash. This is the most secure approach but requires updating exclusions when software updates change file hashes.
+
+* **Image + ParentImage**: Exclude a process only when it is launched by a specific parent. For example, excluding "conhost.exe" only when spawned by legitimate system processes.
+
+* **Image + CommandLine patterns**: Exclude based on both the executable path and expected command line parameters. This catches normal usage while flagging unusual parameters.
+
+* **Image + User**: Exclude certain processes only when run by specific service accounts or system users.
+
+Here are examples of weak versus strong exclusions:
+
+**Weak Exclusion (Easily Bypassed)**:
+```xml
+<RuleGroup name="" groupRelation="or">
+  <ProcessCreate onmatch="exclude">
+    <!-- BAD: Only checks process name -->
+    <Rule groupRelation="and">
+      <Image condition="end with">chrome.exe</Image>
+    </Rule>
+  </ProcessCreate>
+</RuleGroup>
+```
+
+An attacker can bypass this by naming their malware "chrome.exe" or placing it anywhere on disk with that name.
+
+**Strong Exclusion (Specific and Difficult to Bypass)**:
+```xml
+<RuleGroup name="" groupRelation="or">
+  <ProcessCreate onmatch="exclude">
+    <!-- GOOD: Multiple specific criteria -->
+    <Rule name="LegitimateChrome" groupRelation="and">
+      <Image condition="begin with">C:\Program Files\Google\Chrome\Application\</Image>
+      <IntegrityLevel condition="is">Medium</IntegrityLevel>
+      <Signed condition="is">true</Signed>
+    </Rule>
+  </ProcessCreate>
+</RuleGroup>
+```
+
+This exclusion requires the process to be in the correct directory, have the correct integrity level, and be signed. An attacker would have difficulty meeting all these criteria.
+
+**Examples of Well-Structured Exclusions**:
+
+Excluding Windows Defender scans:
+```xml
+<Rule name="DefenderScan" groupRelation="and">
+  <Image condition="is">C:\ProgramData\Microsoft\Windows Defender\Platform\MpCmdRun.exe</Image>
+  <ParentImage condition="is">C:\Windows\System32\svchost.exe</ParentImage>
+</Rule>
+```
+
+Excluding legitimate PowerShell executed by management tools:
+```xml
+<Rule name="SCCMPowerShell" groupRelation="and">
+  <Image condition="is">C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</Image>
+  <ParentImage condition="is">C:\Windows\CCM\CcmExec.exe</ParentImage>
+</Rule>
+```
+
+**What to Commonly Exclude**: After baselining, you will typically find these high-volume, low-value processes can be safely excluded when properly scoped:
+
+* **System update processes**: Windows Update components, application updaters (when verified by path and signature)
+* **Management agents**: SCCM, Tanium, or other endpoint management tools performing expected actions
+* **Antivirus scans**: Scheduled scans and routine operations from security tools
+* **Backup agents**: Routine backup operations
+* **Monitoring tools**: Performance monitoring, inventory tools
+
+**What to Never Exclude Completely**: Some processes should always be logged because they are commonly abused by attackers:
+
+* **powershell.exe**: Always log PowerShell, though you may exclude specific parent processes or common administrative scripts
+* **cmd.exe**: Command prompt execution should be logged
+* **wmic.exe**: WMI command line tool is frequently used in attacks
+* **psexec.exe**: Remote execution tool
+* **regsvr32.exe**: COM server registration utility frequently abused for code execution
+* **rundll32.exe**: DLL loading utility commonly used to execute malicious code
+* **mshta.exe**: HTML Application host often used to execute scripts
+* **cscript.exe, wscript.exe**: Windows Script Host executables
+
+**Testing Your Exclusions**: After implementing exclusions, validate that you have not created blind spots. Use tools like Atomic Red Team to safely execute attack simulations in a test environment. For example, test that you still detect:
+
+* PowerShell launched with encoded commands
+* Processes spawned from unusual parents (Word launching cmd.exe)
+* Execution from temporary directories
+* Processes with unusual command line parameters
+
+If your simulated attacks no longer generate process creation events, you have excluded too much and created a false negative.
+
+In Linux the advantage provided by Sysmon is that the data is structured in a way that makes it easier to parse and leverage in a SIEM that ingests the logs. Below is an auditd example of the "ping -c 3 8.8.8.8" command.
 
 ```conf
 type=PROCTITLE msg=audit(10/26/2021 12:51:14.046:1385) : proctitle=-bash 

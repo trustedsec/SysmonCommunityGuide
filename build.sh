@@ -303,24 +303,24 @@ build_pdf() {
 
 clean_build() {
     log_cmd "Cleaning build artifacts..."
-    
+
     local files_to_clean=(
         "${BUILD_DIR}/Sysmon.md"
         "${BUILD_DIR}/${OUTPUT_PDF}"
         "${BUILD_DIR}/pdfgen.log"
-        "${BUILD_DIR}"/*.tex
+        "${BUILD_DIR}/SysmonGuide.tex"
         "${BUILD_DIR}"/*.toc
         "${BUILD_DIR}"/*.aux
         "${BUILD_DIR}"/*.log
     )
-    
+
     for file in "${files_to_clean[@]}"; do
-        if [[ -f "$file" ]]; then
+        if [[ -f "$file" ]] || [[ -e "$file" ]]; then
             rm -f "$file"
             log_verbose "Removed: $file"
         fi
     done
-    
+
     log_success "Build artifacts cleaned"
 }
 

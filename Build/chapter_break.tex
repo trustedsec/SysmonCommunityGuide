@@ -1,10 +1,18 @@
-%% Adds pagebreak between chapters
-% from comments of accepted answer
-% https://superuser.com/questions/601469/getting-chapters-to-start-on-a-new-page-in-a-pandoc-generated-pdf
+%% Chapter/Section Styling
+%% Customize appearance of level 1 headings (sections in Pandoc = # in markdown)
+
 \usepackage{sectsty}
-\sectionfont{\clearpage}
 
-% accepted answer gave error
-%\usepackage{titlesec}
-%\newcommand{\sectionbreak}{\clearpage}
+% Level 1 headings: centered, larger, bold, with spacing but NO page break
+\sectionfont{\centering\LARGE\bfseries}
 
+% Add some vertical space before and after level 1 headings
+\usepackage{titlesec}
+\titlespacing*{\section}
+  {0pt}        % left margin
+  {3ex plus 1ex minus .2ex}  % space before (vertical)
+  {2ex plus .2ex}             % space after (vertical)
+
+% Optional: Keep subsections and subsubsections left-aligned
+\subsectionfont{\large\bfseries}
+\subsubsectionfont{\normalsize\bfseries}

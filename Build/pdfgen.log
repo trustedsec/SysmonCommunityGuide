@@ -1,0 +1,753 @@
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex)
+ restricted \write18 enabled.
+entering extended mode
+(./SysmonGuide.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/size10.clo))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics-def/xetex.def)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/dvipsnam.def)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/xcolor/svgnam.def)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/xcolor/x11nam.def)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/geometry/geometry.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/iftex/ifvtex.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/iftex/iftex.sty)))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/unicode-math/unicode-math.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-xetex.def))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/unicode-math/unicode-math-xetex.s
+ty (/usr/local/texlive/2025/texmf-dist/tex/latex/l3packages/xparse/xparse.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty)
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/fontspec/fontspec.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/fontspec/fontspec.cfg)))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/fix-cm.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/ts1enc.def))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/unicode-math/unicode-math-table.t
+ex))) (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/lmodern.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/upquote/upquote.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/textcomp.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/microtype.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/microtype-xetex.def)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/microtype.cfg))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/parskip/parskip.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/listings.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstpatch.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/listings.cfg))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tools/array.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tools/calc.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/footnotehyper/footnotehyper.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/sectsty/sectsty.sty
+
+LaTeX Warning: Command \underbar  has changed.
+               Check if current package is valid.
+
+
+LaTeX Warning: Command \underline  has changed.
+               Check if current package is valid.
+
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/titlesec/titlesec.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/newverbs/newverbs.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/shortvrb.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/enumitem/enumitem.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/infwarerr/infwarerr.sty)))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty)) (/usr/local/texlive/2025/texmf-dist/tex/generic/stringenc/stringenc.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/hxetex.def
+(/usr/local/texlive/2025/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+))) (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tocloft/tocloft.sty
+
+Package tocloft Warning: \@starttoc has already been redefined; tocloft bailing
+ out. on input line 1156.
+
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/bookmark/bookmark.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/bookmark/bkm-dvipdfm.def))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/xurl/xurl.sty)
+No file SysmonGuide.aux.
+*geometry* driver: auto-detecting
+*geometry* detected driver: xetex
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omllmm.fd)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg)
+No file SysmonGuide.toc.
+
+[1]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 1 on input line 443.
+
+
+[2]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 2 on input line 493.
+
+
+[3]
+[4]
+! Undefined control sequence.
+l.681 ...pture (Sysmon only logs Root\Subscription
+                                                  )
+
+[5]
+[6]
+[7]
+[8]
+[9]
+[10]
+Overfull \hbox (155.51212pt too wide) in paragraph at lines 1104--1107
+[]\TU/DejaVuSerif(0)/m/n/10 Sysmon will create 2 registry keys to define the se
+rvices for its operation under \TU/DejaVuSerif(0)/b/it/10 HKLM\SYSTEM\CurrentCo
+ntrolSet\Services 
+
+[11]
+[12]
+Overfull \hbox (48.7775pt too wide) in paragraph at lines 1173--1177
+[]\TU/DejaVuSerif(0)/m/n/10 The hashing algorithm or combination of them can be
+ specified with the \TU/DejaVuSerif(0)/b/n/10 -h <sha1|sha2|md5|imphash|*>
+
+[13]
+[14]
+[15]
+[16] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty)
+[17]
+[18]
+[19]
+[20]
+[21]
+[22]
+[23]
+[24]
+[25]
+[26]
+[27]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 4 on input line 2302.
+
+
+[28]
+[29]
+[30]
+[31]
+Overfull \hbox (60.82462pt too wide) in paragraph at lines 2571--2574
+[]\TU/DejaVuSerif(0)/m/n/10 Navigate and select the key \TU/DejaVuSerif(0)/b/n/
+10 HKLM\SYSTEM\CurrentControlSet\Services\SysmonDrv\Parameters
+
+[32]
+[33]
+[34]
+[35]
+[36]
+[37]
+[38]
+[39]
+[40]
+[41]
+[42]
+Underfull \hbox (badness 1158) in paragraph at lines 3155--3158
+[]\TU/DejaVuSerif(0)/b/n/10 Unusual Termination Methods\TU/DejaVuSerif(0)/m/n/1
+0 : Processes terminated by debugging tools, scripts, or
+
+[43]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 5 on input line 3329.
+
+[44]
+[45]
+[46]
+[47]
+Underfull \hbox (badness 10000) in paragraph at lines 3617--3620
+[]\TU/DejaVuSerif(0)/b/n/10 High-Privilege Access Masks\TU/DejaVuSerif(0)/m/n/1
+0 : 0x1FFFFF (PROCESS_ALL_ACCESS) from non-
+
+[48]
+[49]
+[50]
+[51]
+[52]
+[53]
+[54]
+[55]
+[56]
+[57]
+[58]
+Underfull \hbox (badness 5374) in paragraph at lines 4561--4569
+\TU/DejaVuSerif(0)/m/n/10 * $[][][][][][][][][][][][][][][][][][][] [] [] [] []
+[][][][][][][][][][][][][][][][][][][][][][] [] [][]$\TU/DejaVuSerif(0)/b/n/10 
+FILE_NAME
+
+Underfull \hbox (badness 2495) in paragraph at lines 4561--4569
+\TU/DejaVuSerif(0)/m/n/10 - File name * $[][][][] [] [] [] [][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][] [] [][]$\TU/DejaVuSerif(0)/b
+/n/10 INDEX_ROOT\TU/DejaVuSerif(0)/m/n/10 ,
+
+[59]
+[60]
+Overfull \hbox (30.31924pt too wide) in paragraph at lines 4627--4630
+[]\TU/DejaVuSerif(0)/m/n/10 More execution techniques: https://gist.github.com/
+api0cradle/cdd2d0d0ec9abb686f0e89306e277b8f
+
+[61]
+[62]
+[63]
+[64]
+[65]
+[66]
+[67]
+[68]
+Overfull \hbox (107.16008pt too wide) in paragraph at lines 5266--5274
+[]\TU/DejaVuSerif(0)/b/n/10 Vulnerable Driver SHA256 Hashes: \TU/DejaVuSerif(0)
+/m/n/10 * 35c67ac6cb0ade768ccf11999b9aaf016ab9ae92fb51865d73ec1f7907709dca
+
+Overfull \hbox (324.43399pt too wide) in paragraph at lines 5266--5274
+\TU/DejaVuSerif(0)/m/n/10 * d2ed01cce3e7502b1dd8be35abf95e6e8613c5733ee66e749b9
+72542495743b8 * a86e063ac5214ebb7e691506a9f877d12b7958e071ecbae0f0723ae24e273a7
+3
+
+Overfull \hbox (320.3884pt too wide) in paragraph at lines 5266--5274
+\TU/DejaVuSerif(0)/m/n/10 * c0640d0d9260689b1c6c63a60799e0c8e272067dcf86847c882
+980913694543a * 2a5e73343a38e7b70a04f1b46e9a2dde7ca85f38a4fb2e51e92f252dad7034d
+4
+
+Overfull \hbox (313.74551pt too wide) in paragraph at lines 5266--5274
+\TU/DejaVuSerif(0)/m/n/10 * 98660006f0e923030c5c5c8187ad2fe1500f59d32fa4d3286da
+50709271d0d7f * 7e1d7cfe0bdf5f17def755ae668c780dedb027164788b4bb246613e71668884
+0 
+
+[69]
+[70]
+[71]
+[72]
+[73]
+[74]
+[75]
+[76]
+[77]
+[78]
+[79]
+[80]
+[81]
+[82]
+[83]
+Underfull \hbox (badness 2277) in paragraph at lines 6075--6083
+\TU/DejaVuSerif(0)/m/n/10 are catalogued at \TU/DejaVuSerif(0)/b/n/10 https://w
+ww.loldrivers.io/\TU/DejaVuSerif(0)/m/n/10 , which maintains a comprehensive li
+st of
+
+Underfull \hbox (badness 2799) in paragraph at lines 6075--6083
+\TU/DejaVuSerif(0)/m/n/10 configuration for detecting these vulnerable drivers:
+ \TU/DejaVuSerif(0)/b/n/10 https://github.com/magicsword-
+
+Underfull \hbox (badness 2547) in paragraph at lines 6152--6159
+[]\TU/DejaVuSerif(0)/b/n/10 To integrate LOLDrivers detection: \TU/DejaVuSerif(
+0)/m/n/10 1. Download the Sysmon configuration from:
+
+[84]
+[85]
+[86]
+[87]
+[88]
+[89]
+Underfull \hbox (badness 2027) in paragraph at lines 6548--6554
+[]\TU/DejaVuSerif(0)/b/n/10 Accessibility Feature Hijacking (Sticky Keys, etc.)
+: \TU/DejaVuSerif(0)/m/n/10 * [][][][][][][][][][][][][][][][][][][][][][][][][
+]
+
+Underfull \hbox (badness 4479) in paragraph at lines 6548--6554
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][] \TU/DejaVuSerif(0)/m/n/10 - Utility Manag
+er debugger *
+
+[90]
+[91]
+! Undefined control sequence.
+l.6653 shell\open
+                 \command or shell\open\ddeexec for common file types * Can
+! Undefined control sequence.
+l.6653 shell\open\command
+                          or shell\open\ddeexec for common file types * Can
+! Undefined control sequence.
+l.6653 shell\open\command or shell\open
+                                       \ddeexec for common file types * Can
+! Undefined control sequence.
+l.6653 shell\open\command or shell\open\ddeexec
+                                                for common file types * Can
+
+[92]
+[93]
+Underfull \hbox (badness 1337) in paragraph at lines 6884--6894
+[]\TU/DejaVuSerif(0)/b/n/10 Scripting and Execution Engines: \TU/DejaVuSerif(0)
+/m/n/10 * \TU/DejaVuSerif(0)/b/n/10 System.Management.Automation.dll \TU/DejaVu
+Serif(0)/m/n/10 and \TU/DejaVuSerif(0)/b/n/10 Sys-
+
+Underfull \hbox (badness 1509) in paragraph at lines 6884--6894
+\TU/DejaVuSerif(0)/b/n/10 tem.Management.Automation.ni.dll \TU/DejaVuSerif(0)/m
+/n/10 - PowerShell engine (detect PowerShell loaded by
+
+[94]
+[95]
+Overfull \hbox (37.09471pt too wide) in paragraph at lines 6996--7001
+[]\TU/DejaVuSerif(0)/b/n/10 1. PowerShell Engine Loaded by Non-PowerShell Proce
+sses \TU/DejaVuSerif(0)/m/n/10 * System.Management.Automation.dll
+
+[96]
+[97]
+[98]
+[99]
+[100]
+[101]
+[102]
+[103]
+[104]
+[105]
+[106]
+[107]
+Overfull \hbox (23.28908pt too wide) in paragraph at lines 7853--7855
+[]\TU/DejaVuSerif(0)/b/n/10 Community Resources\TU/DejaVuSerif(0)/m/n/10 : Exce
+llent examples can be found at https://github.com/olafhartong/sysmon-
+
+[108]
+[109]
+[110]
+[111]
+[112]
+[113]
+Overfull \hbox (7.25122pt too wide) in paragraph at lines 8216--8222
+[]\TU/DejaVuSerif(0)/b/n/10 Recommended Complementary Logging\TU/DejaVuSerif(0)
+/m/n/10 : Enable Windows native \TU/DejaVuSerif(0)/b/n/10 WMI-Activity/Operatio
+nal
+
+[114]
+[115]
+[116]
+[117]
+[118]
+[119]
+
+Package longtable Warning: Table widths have changed. Rerun LaTeX.
+
+
+[120] (./SysmonGuide.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ )
+(see the transcript file for additional information)
+Output written on SysmonGuide.pdf (120 pages).
+Transcript written on SysmonGuide.log.
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex)
+ restricted \write18 enabled.
+entering extended mode
+(./SysmonGuide.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/size10.clo))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics-def/xetex.def)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/dvipsnam.def)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/xcolor/svgnam.def)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/xcolor/x11nam.def)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/geometry/geometry.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/iftex/ifvtex.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/iftex/iftex.sty)))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/unicode-math/unicode-math.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-xetex.def))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/unicode-math/unicode-math-xetex.s
+ty (/usr/local/texlive/2025/texmf-dist/tex/latex/l3packages/xparse/xparse.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty)
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/fontspec/fontspec.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/fontspec/fontspec.cfg)))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/fix-cm.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/ts1enc.def))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/unicode-math/unicode-math-table.t
+ex))) (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/lmodern.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/upquote/upquote.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/textcomp.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/microtype.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/microtype-xetex.def)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/microtype.cfg))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/parskip/parskip.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/listings.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstpatch.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/listings.cfg))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tools/array.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tools/calc.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/footnotehyper/footnotehyper.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/sectsty/sectsty.sty
+
+LaTeX Warning: Command \underbar  has changed.
+               Check if current package is valid.
+
+
+LaTeX Warning: Command \underline  has changed.
+               Check if current package is valid.
+
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/titlesec/titlesec.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/newverbs/newverbs.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/shortvrb.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/enumitem/enumitem.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/infwarerr/infwarerr.sty)))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty)) (/usr/local/texlive/2025/texmf-dist/tex/generic/stringenc/stringenc.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/hxetex.def
+(/usr/local/texlive/2025/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+))) (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tocloft/tocloft.sty
+
+Package tocloft Warning: \@starttoc has already been redefined; tocloft bailing
+ out. on input line 1156.
+
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/bookmark/bookmark.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/bookmark/bkm-dvipdfm.def))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/xurl/xurl.sty) (./SysmonGuide.aux
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: xetex
+(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omllmm.fd)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg)
+(./SysmonGuide.toc
+[1])
+[2]
+[3]
+[4]
+[5]
+! Undefined control sequence.
+l.681 ...pture (Sysmon only logs Root\Subscription
+                                                  )
+
+[6]
+[7]
+[8]
+[9]
+[10]
+[11]
+Overfull \hbox (155.51212pt too wide) in paragraph at lines 1104--1107
+[]\TU/DejaVuSerif(0)/m/n/10 Sysmon will create 2 registry keys to define the se
+rvices for its operation under \TU/DejaVuSerif(0)/b/it/10 HKLM\SYSTEM\CurrentCo
+ntrolSet\Services 
+
+[12]
+[13]
+Overfull \hbox (48.7775pt too wide) in paragraph at lines 1173--1177
+[]\TU/DejaVuSerif(0)/m/n/10 The hashing algorithm or combination of them can be
+ specified with the \TU/DejaVuSerif(0)/b/n/10 -h <sha1|sha2|md5|imphash|*>
+
+[14]
+[15]
+[16]
+[17] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty)
+[18]
+[19]
+[20]
+[21]
+[22]
+[23]
+[24]
+[25]
+[26]
+[27]
+[28]
+[29]
+[30]
+[31]
+[32]
+Overfull \hbox (60.82462pt too wide) in paragraph at lines 2571--2574
+[]\TU/DejaVuSerif(0)/m/n/10 Navigate and select the key \TU/DejaVuSerif(0)/b/n/
+10 HKLM\SYSTEM\CurrentControlSet\Services\SysmonDrv\Parameters
+
+[33]
+[34]
+[35]
+[36]
+[37]
+[38]
+[39]
+[40]
+[41]
+[42]
+[43]
+Underfull \hbox (badness 1158) in paragraph at lines 3155--3158
+[]\TU/DejaVuSerif(0)/b/n/10 Unusual Termination Methods\TU/DejaVuSerif(0)/m/n/1
+0 : Processes terminated by debugging tools, scripts, or
+
+[44] [45]
+[46]
+[47]
+[48]
+Underfull \hbox (badness 10000) in paragraph at lines 3617--3620
+[]\TU/DejaVuSerif(0)/b/n/10 High-Privilege Access Masks\TU/DejaVuSerif(0)/m/n/1
+0 : 0x1FFFFF (PROCESS_ALL_ACCESS) from non-
+
+[49]
+[50]
+[51]
+[52]
+[53]
+[54]
+[55]
+[56]
+[57]
+[58]
+[59]
+Underfull \hbox (badness 5374) in paragraph at lines 4561--4569
+\TU/DejaVuSerif(0)/m/n/10 * $[][][][][][][][][][][][][][][][][][][] [] [] [] []
+[][][][][][][][][][][][][][][][][][][][][][] [] [][]$\TU/DejaVuSerif(0)/b/n/10 
+FILE_NAME
+
+Underfull \hbox (badness 2495) in paragraph at lines 4561--4569
+\TU/DejaVuSerif(0)/m/n/10 - File name * $[][][][] [] [] [] [][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][] [] [][]$\TU/DejaVuSerif(0)/b
+/n/10 INDEX_ROOT\TU/DejaVuSerif(0)/m/n/10 ,
+
+[60]
+[61]
+Overfull \hbox (30.31924pt too wide) in paragraph at lines 4627--4630
+[]\TU/DejaVuSerif(0)/m/n/10 More execution techniques: https://gist.github.com/
+api0cradle/cdd2d0d0ec9abb686f0e89306e277b8f
+
+[62]
+[63]
+[64]
+[65]
+[66]
+[67]
+[68]
+[69]
+Overfull \hbox (107.16008pt too wide) in paragraph at lines 5266--5274
+[]\TU/DejaVuSerif(0)/b/n/10 Vulnerable Driver SHA256 Hashes: \TU/DejaVuSerif(0)
+/m/n/10 * 35c67ac6cb0ade768ccf11999b9aaf016ab9ae92fb51865d73ec1f7907709dca
+
+Overfull \hbox (324.43399pt too wide) in paragraph at lines 5266--5274
+\TU/DejaVuSerif(0)/m/n/10 * d2ed01cce3e7502b1dd8be35abf95e6e8613c5733ee66e749b9
+72542495743b8 * a86e063ac5214ebb7e691506a9f877d12b7958e071ecbae0f0723ae24e273a7
+3
+
+Overfull \hbox (320.3884pt too wide) in paragraph at lines 5266--5274
+\TU/DejaVuSerif(0)/m/n/10 * c0640d0d9260689b1c6c63a60799e0c8e272067dcf86847c882
+980913694543a * 2a5e73343a38e7b70a04f1b46e9a2dde7ca85f38a4fb2e51e92f252dad7034d
+4
+
+Overfull \hbox (313.74551pt too wide) in paragraph at lines 5266--5274
+\TU/DejaVuSerif(0)/m/n/10 * 98660006f0e923030c5c5c8187ad2fe1500f59d32fa4d3286da
+50709271d0d7f * 7e1d7cfe0bdf5f17def755ae668c780dedb027164788b4bb246613e71668884
+0 
+
+[70]
+[71]
+[72]
+[73]
+[74]
+[75]
+[76]
+[77]
+[78]
+[79]
+[80]
+[81]
+[82]
+[83]
+[84]
+Underfull \hbox (badness 2277) in paragraph at lines 6075--6083
+\TU/DejaVuSerif(0)/m/n/10 are catalogued at \TU/DejaVuSerif(0)/b/n/10 https://w
+ww.loldrivers.io/\TU/DejaVuSerif(0)/m/n/10 , which maintains a comprehensive li
+st of
+
+Underfull \hbox (badness 2799) in paragraph at lines 6075--6083
+\TU/DejaVuSerif(0)/m/n/10 configuration for detecting these vulnerable drivers:
+ \TU/DejaVuSerif(0)/b/n/10 https://github.com/magicsword-
+
+Underfull \hbox (badness 2547) in paragraph at lines 6152--6159
+[]\TU/DejaVuSerif(0)/b/n/10 To integrate LOLDrivers detection: \TU/DejaVuSerif(
+0)/m/n/10 1. Download the Sysmon configuration from:
+
+[85]
+[86]
+[87]
+[88]
+[89]
+[90]
+Underfull \hbox (badness 2027) in paragraph at lines 6548--6554
+[]\TU/DejaVuSerif(0)/b/n/10 Accessibility Feature Hijacking (Sticky Keys, etc.)
+: \TU/DejaVuSerif(0)/m/n/10 * [][][][][][][][][][][][][][][][][][][][][][][][][
+]
+
+Underfull \hbox (badness 4479) in paragraph at lines 6548--6554
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][] \TU/DejaVuSerif(0)/m/n/10 - Utility Manag
+er debugger *
+
+[91]
+[92]
+! Undefined control sequence.
+l.6653 shell\open
+                 \command or shell\open\ddeexec for common file types * Can
+! Undefined control sequence.
+l.6653 shell\open\command
+                          or shell\open\ddeexec for common file types * Can
+! Undefined control sequence.
+l.6653 shell\open\command or shell\open
+                                       \ddeexec for common file types * Can
+! Undefined control sequence.
+l.6653 shell\open\command or shell\open\ddeexec
+                                                for common file types * Can
+
+[93]
+[94]
+Underfull \hbox (badness 1337) in paragraph at lines 6884--6894
+[]\TU/DejaVuSerif(0)/b/n/10 Scripting and Execution Engines: \TU/DejaVuSerif(0)
+/m/n/10 * \TU/DejaVuSerif(0)/b/n/10 System.Management.Automation.dll \TU/DejaVu
+Serif(0)/m/n/10 and \TU/DejaVuSerif(0)/b/n/10 Sys-
+
+Underfull \hbox (badness 1509) in paragraph at lines 6884--6894
+\TU/DejaVuSerif(0)/b/n/10 tem.Management.Automation.ni.dll \TU/DejaVuSerif(0)/m
+/n/10 - PowerShell engine (detect PowerShell loaded by
+
+[95]
+[96]
+Overfull \hbox (37.09471pt too wide) in paragraph at lines 6996--7001
+[]\TU/DejaVuSerif(0)/b/n/10 1. PowerShell Engine Loaded by Non-PowerShell Proce
+sses \TU/DejaVuSerif(0)/m/n/10 * System.Management.Automation.dll
+
+[97]
+[98]
+[99]
+[100]
+[101]
+[102]
+[103]
+[104]
+[105]
+[106]
+[107]
+[108]
+Overfull \hbox (23.28908pt too wide) in paragraph at lines 7853--7855
+[]\TU/DejaVuSerif(0)/b/n/10 Community Resources\TU/DejaVuSerif(0)/m/n/10 : Exce
+llent examples can be found at https://github.com/olafhartong/sysmon-
+
+[109]
+[110]
+[111]
+[112]
+[113]
+[114]
+Overfull \hbox (7.25122pt too wide) in paragraph at lines 8216--8222
+[]\TU/DejaVuSerif(0)/b/n/10 Recommended Complementary Logging\TU/DejaVuSerif(0)
+/m/n/10 : Enable Windows native \TU/DejaVuSerif(0)/b/n/10 WMI-Activity/Operatio
+nal
+
+[115]
+[116]
+[117]
+[118]
+[119]
+[120]
+[121] (./SysmonGuide.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ )
+(see the transcript file for additional information)
+Output written on SysmonGuide.pdf (121 pages).
+Transcript written on SysmonGuide.log.

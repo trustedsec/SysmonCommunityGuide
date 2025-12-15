@@ -1,0 +1,34 @@
+% Custom title page formatting
+% Override Pandoc's default cover-image size
+
+% Redefine the maketitle to use smaller cover image
+\makeatletter
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 2em%
+  \begin{center}%
+  \let \footnote \thanks
+  % Insert cover image if it exists, but make it smaller
+  \ifdefined\@coverimage
+    \includegraphics[width=0.33\textwidth]{\@coverimage}%
+    \vskip 1.5em%
+  \fi
+    {\LARGE \@title \par}%
+    \vskip 1.5em%
+    {\large
+      \lineskip .5em%
+      \begin{tabular}[t]{c}%
+        \@author
+      \end{tabular}\par}%
+    \vskip 1em%
+    {\large \@date}%
+  \end{center}%
+  \par
+  \vskip 1.5em}
+\makeatother
+
+% Store the cover image path if provided
+\ifdefined\Oldincludegraphics\else
+  \let\Oldincludegraphics\includegraphics
+\fi

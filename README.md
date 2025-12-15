@@ -34,6 +34,8 @@ Table of Contents
 
 * [Configuration](./chapters/configuration.md)
 
+* [Detection Engineering Fundamentals](./chapters/detection-engineering.md)
+  
 * Sysmon Events
 
   * [Process Events](./chapters/process-events.md)
@@ -92,7 +94,6 @@ Please use the issues system or GitHub pull requests to make corrections, contri
 
 ## Credits
 
-This guide was originally written and edited by Carlos Perez of TrustedSec LLC.
+This guide written, maintained and edited by Carlos Perez of TrustedSec LLC.
 
-- **[MIT license](http://opensource.org/licenses/mit-license.php)**
-- Copyright 2020 © <a href="https://www.trustedsec.com/" target="_blank">TrustedSec LLC</a>.
+- Copyright 2025 © <a href="https://www.trustedsec.com/" target="_blank">TrustedSec LLC</a>.

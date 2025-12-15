@@ -47,6 +47,7 @@ install-deps:
 	@command -v apt-get >/dev/null 2>&1 || { echo "This target only works on Debian/Ubuntu systems"; exit 1; }
 	sudo apt-get update
 	sudo apt-get install -y python3 python3-pip pandoc texlive-xetex texlive-latex-extra texlive-fonts-extra fonts-dejavu
+	pip3 install pypdf Pillow reportlab
 
 # Install dependencies (macOS with Homebrew)
 install-deps-mac:
@@ -54,6 +55,7 @@ install-deps-mac:
 	@command -v brew >/dev/null 2>&1 || { echo "Homebrew is required. Install from https://brew.sh/"; exit 1; }
 	brew install python3 pandoc
 	brew install --cask mactex
+	pip3 install --user --break-system-packages pypdf Pillow reportlab
 
 # Check if all dependencies are available
 check-deps:

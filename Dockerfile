@@ -29,6 +29,9 @@ RUN apt-get update && apt-get install -y \
     perl \
     && rm -rf /var/lib/apt/lists/*
 
+# Install Python dependencies for PDF cover replacement
+RUN pip3 install --user --no-cache-dir pypdf Pillow reportlab
+
 # Create working directory
 WORKDIR /guide
 

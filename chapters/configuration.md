@@ -211,6 +211,247 @@ In the filters element under configuration is the list of operators that can be 
 
 Each of these operators execute against the value in a given field for each of the event types.
 
+### Filter Operator Examples
+
+Below are practical examples demonstrating how to use each filter operator in Sysmon configurations:
+
+#### is
+
+Matches an exact value. Case-sensitive for strings.
+
+```xml
+<RuleGroup name="" groupRelation="or">
+  <ProcessCreate onmatch="include">
+    <!-- Match exact process name -->
+    <Image condition="is">C:\Windows\System32\cmd.exe</Image>
+  </ProcessCreate>
+</RuleGroup>
+```
+
+#### is not
+
+Negates an exact match. Includes events that do NOT match the specified value.
+
+```xml
+<RuleGroup name="" groupRelation="or">
+  <ProcessCreate onmatch="exclude">
+    <!-- Exclude everything except cmd.exe -->
+    <Image condition="is not">C:\Windows\System32\cmd.exe</Image>
+  </ProcessCreate>
+</RuleGroup>
+```
+
+#### is any
+
+Matches any of the provided exact values. Values are separated by semicolons (;).
+
+```xml
+<RuleGroup name="" groupRelation="or">
+  <NetworkConnect onmatch="include">
+    <!-- Match connections to common web ports -->
+    <DestinationPort condition="is any">80;443;8080;8443</DestinationPort>
+  </NetworkConnect>
+</RuleGroup>
+```
+
+#### contains
+
+Matches if the specified string is found anywhere within the field value. Case-insensitive.
+
+```xml
+<RuleGroup name="" groupRelation="or">
+  <ProcessCreate onmatch="include">
+    <!-- Match any command line containing "powershell" -->
+    <CommandLine condition="contains">powershell</CommandLine>
+  </ProcessCreate>
+</RuleGroup>
+```
+
+#### excludes
+
+Excludes events where the field value matches the specified string.
+
+```xml
+<RuleGroup name="" groupRelation="or">
+  <ProcessCreate onmatch="include">
+    <!-- Include processes but exclude those from System32 -->
+    <Image condition="excludes">\System32\</Image>
+  </ProcessCreate>
+</RuleGroup>
+```
+
+#### excludes all
+
+Excludes events only if ALL specified values are present in the field. Values are separated by semicolons (;).
+
+```xml
+<RuleGroup name="" groupRelation="or">
+  <ProcessCreate onmatch="include">
+    <!-- Exclude only if command line contains both strings -->
+    <CommandLine condition="excludes all">-NoProfile;-ExecutionPolicy Bypass</CommandLine>
+  </ProcessCreate>
+</RuleGroup>
+```
+
+#### excludes any
+
+Excludes events if ANY of the specified values are present in the field. Values are separated by semicolons (;).
+
+```xml
+<RuleGroup name="" groupRelation="or">
+  <ProcessCreate onmatch="include">
+    <!-- Exclude if command line contains any of these strings -->
+    <CommandLine condition="excludes any">-EncodedCommand;-enc;-e </CommandLine>
+  </ProcessCreate>
+</RuleGroup>
+```
+
+#### image
+
+Matches only the image name without the full path. This is useful for matching process names regardless of their location.
+
+```xml
+<RuleGroup name="" groupRelation="or">
+  <ProcessCreate onmatch="include">
+    <!-- Match cmd.exe regardless of path -->
+    <Image condition="image">cmd.exe</Image>
+  </ProcessCreate>
+</RuleGroup>
+```
+
+#### begins with
+
+Matches if the field value starts with the specified string. Case-insensitive.
+
+```xml
+<RuleGroup name="" groupRelation="or">
+  <ProcessCreate onmatch="include">
+    <!-- Match any process starting from user directories -->
+    <Image condition="begins with">C:\Users\</Image>
+  </ProcessCreate>
+</RuleGroup>
+```
+
+#### not begins with
+
+Matches if the field value does NOT start with the specified string.
+
+```xml
+<RuleGroup name="" groupRelation="or">
+  <ProcessCreate onmatch="include">
+    <!-- Include processes not starting from Windows directory -->
+    <Image condition="not begins with">C:\Windows\</Image>
+  </ProcessCreate>
+</RuleGroup>
+```
+
+#### ends with
+
+Matches if the field value ends with the specified string. Case-insensitive.
+
+```xml
+<RuleGroup name="" groupRelation="or">
+  <FileCreate onmatch="include">
+    <!-- Match files with specific extensions -->
+    <TargetFilename condition="ends with">.exe</TargetFilename>
+  </FileCreate>
+</RuleGroup>
+```
+
+#### not ends with
+
+Matches if the field value does NOT end with the specified string.
+
+```xml
+<RuleGroup name="" groupRelation="or">
+  <FileCreate onmatch="include">
+    <!-- Include files that don't end with .txt -->
+    <TargetFilename condition="not ends with">.txt</TargetFilename>
+  </FileCreate>
+</RuleGroup>
+```
+
+#### less than
+
+Compares numeric values. Matches if the field value is less than the specified number.
+
+```xml
+<RuleGroup name="" groupRelation="or">
+  <NetworkConnect onmatch="include">
+    <!-- Match connections from low source ports (system/privileged range) -->
+    <SourcePort condition="less than">1024</SourcePort>
+  </NetworkConnect>
+</RuleGroup>
+```
+
+#### more than
+
+Compares numeric values. Matches if the field value is greater than the specified number.
+
+```xml
+<RuleGroup name="" groupRelation="or">
+  <NetworkConnect onmatch="include">
+    <!-- Match connections to dynamic/ephemeral ports -->
+    <DestinationPort condition="more than">49151</DestinationPort>
+  </NetworkConnect>
+</RuleGroup>
+```
+
+#### contains any
+
+Matches if the field contains ANY of the specified strings. Values are separated by semicolons (;).
+
+```xml
+<RuleGroup name="" groupRelation="or">
+  <ProcessCreate onmatch="include">
+    <!-- Match command lines containing any suspicious keywords -->
+    <CommandLine condition="contains any">Invoke-Mimikatz;Invoke-ReflectivePEInjection;Invoke-Shellcode</CommandLine>
+  </ProcessCreate>
+</RuleGroup>
+```
+
+#### contains all
+
+Matches if the field contains ALL of the specified strings. Values are separated by semicolons (;).
+
+```xml
+<RuleGroup name="" groupRelation="or">
+  <ProcessCreate onmatch="include">
+    <!-- Match only if command line contains all specified strings -->
+    <CommandLine condition="contains all">powershell;-WindowStyle Hidden;-EncodedCommand</CommandLine>
+  </ProcessCreate>
+</RuleGroup>
+```
+
+### Combining Multiple Operators
+
+Operators can be combined within a single Rule element to create more complex filtering logic:
+
+```xml
+<RuleGroup name="" groupRelation="or">
+  <ProcessCreate onmatch="include">
+    <Rule name="Suspicious PowerShell" groupRelation="and">
+      <!-- Match PowerShell process -->
+      <Image condition="image">powershell.exe</Image>
+      <!-- With encoded command -->
+      <CommandLine condition="contains">-EncodedCommand</CommandLine>
+      <!-- But not from System32 -->
+      <Image condition="not begins with">C:\Windows\System32\</Image>
+    </Rule>
+  </ProcessCreate>
+</RuleGroup>
+```
+
+### Performance Considerations
+
+When using filter operators, be aware that some operators consume more CPU resources than others. The operators that use slightly more resources are:
+
+* contains
+* contains all
+* contains any
+
+For high-performance environments, prefer exact match operators (`is`, `is any`) or path-based operators (`begins with`, `ends with`) when possible.
+
 Event Schema
 ------------
 

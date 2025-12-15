@@ -105,26 +105,26 @@ class GuideBuilder:
         """Generate markdown heading with appropriate level."""
         return f"{'#' * level} {title}\n\n"
     
-    def _process_chapter(self, chapter: Dict[str, Any]) -> str:
-        """Process a chapter and its sections recursively."""
+    def _process_chapter(self, chapter: Dict[str, Any], level: int = 1) -> str:
+        """Process a chapter and its sections recursively with hierarchical heading levels."""
         content = []
-        
-        # Add chapter heading if it has a title - always use level 1
+
+        # Add chapter heading if it has a title - use the current level
         if 'title' in chapter:
-            content.append(self._generate_heading(chapter['title'], 1))
-        
+            content.append(self._generate_heading(chapter['title'], level))
+
         # Add chapter content if it has a file
         if 'file' in chapter:
             chapter_content = self._read_chapter_content(chapter['file'])
             content.append(chapter_content)
             content.append("\n\n")
-        
-        # Process sections recursively - all will be level 1
+
+        # Process sections recursively - increment level for subsections
         if 'sections' in chapter:
             for section in chapter['sections']:
-                section_content = self._process_chapter(section)
+                section_content = self._process_chapter(section, level + 1)
                 content.append(section_content)
-        
+
         return ''.join(content)
     
     def _generate_metadata_header(self) -> str:
@@ -145,35 +145,38 @@ class GuideBuilder:
         return '\n'.join(header)
     
     def _add_cover_image(self) -> str:
-        """Add cover image if specified."""
-        cover_image = self.config.get('metadata', {}).get('cover_image')
-        if cover_image:
-            # Adjust cover image path for Build directory
-            cover_path = cover_image.replace('chapters/', './')
-            return f"![cover image]({cover_path})\n\n"
-        return ""
+        """Add cover image if specified with size constraints."""
+        # Add page break after TOC to start content on fresh page
+        # The logo will be added at the start of the first chapter
+        return "\\newpage\n\n"
     
     def build_master_document(self) -> str:
         """Build the complete master document."""
         print("Building master document...")
-        
+
         # Validate all files exist
         if not self._validate_files():
             return ""
-        
+
         content = []
-        
+
         # Add metadata header
         content.append(self._generate_metadata_header())
-        
-        # Add cover image
+
+        # Add page break after TOC
         content.append(self._add_cover_image())
-        
+
+        # Add logo before first chapter
+        cover_image = self.config.get('metadata', {}).get('cover_image')
+        if cover_image:
+            cover_path = cover_image.replace('chapters/', './')
+            content.append(f'<img src="{cover_path}" width="100" />\n\n')
+
         # Process all chapters
         for chapter in self.config['chapters']:
             chapter_content = self._process_chapter(chapter)
             content.append(chapter_content)
-        
+
         return ''.join(content)
     
     def save_master_document(self, content: str, filename: str = "Sysmon.md") -> None:

@@ -1,0 +1,8 @@
+% Add page break after table of contents
+% This ensures TOC is on its own page(s) and content starts fresh
+
+\usepackage{etoolbox}
+
+% Patch to add clearpage after TOC
+% This works with Pandoc's wrapped {\tableofcontents} structure
+\apptocmd{\tableofcontents}{\clearpage}{}{}

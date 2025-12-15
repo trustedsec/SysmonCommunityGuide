@@ -1,84 +1,333 @@
 Clipboard Capture
 =================
 
-Sysmon will log EventID 24 for when an application stores text in the clipboard. This capability was added in version 12.0 of Sysmon under schema 4.40. When text us stored the event is generated and the text that was copied in to clipboard is stored as a file referenced by the hash in the location specified for deleted files with the same protections on the folder so only applications running under the context of the SYSTEM account can list and read the files. If no folder is specified Sysmon will create a folder under the root of the main drive with its name. 
+Sysmon will log **EventID 24** when applications store text in the clipboard. This capability was added in Sysmon version 12.0 with schema 4.40. Clipboard monitoring is a **low-volume, high-sensitivity event type** that provides unique visibility into data theft but comes with significant privacy and security considerations that require careful deployment planning.
 
-Before creating filters for even a element of **\<CaptureClipboard\/\>** need to be added under the Sysmon element. Once this element is added you can create filters for the event type. The **\<ArchiveDirectory\>** element in the configuration XML controls the location of the saved text. 
+Detection Value and Why It Matters
+-----------------------------------
 
-As it is obvious this type of data is sensitive since it may contain code, credentials, persona identifiable information or more. This is one of the reasons that the data is not stored in the eventlog but in the heavily permissioned folder. Because of this certain care should be taken when deciding on what systems it would be of value to enable this kind of logging. Recommended system would be servers that have RDP enabled, especially those exposed to untrusted networks. It is important to make sure that administrators of the system know that this is enabled and the danger of putting in scope an RDP window with sensitive text in the clipboard so as to not store sensitive information in systems. It is not recommended to enable this capture on client machines due to the risk of unencrypted sensitive data being stored even if the folder is heavily permissioned with Access Control Lists.
+Clipboard monitoring detects data theft techniques that are difficult to observe through other telemetry:
 
+**Credential Theft via RDP/Remote Sessions**: Attackers and penetration testers commonly:
+* Copy credentials from password managers on their local machine
+* Paste credentials into RDP sessions to compromised servers
+* Transfer authentication tokens or API keys via clipboard
+* Move data between compromised systems using clipboard redirection
 
-The fields for the event are:
+**Data Exfiltration**: Attackers use the clipboard to stage data for exfiltration:
+* Copy sensitive documents, code, or configuration data
+* Transfer small amounts of data between systems via remote sessions
+* Exfiltrate data from environments where file transfer is restricted
 
-* **RuleName**: Name of rule that triggered the event.
+**Lateral Movement Evidence**: Clipboard content can reveal:
+* Commands being copy-pasted across multiple systems
+* Credentials being reused across the environment
+* PowerShell scripts or commands being staged for execution
 
-* **UtcTime**: Time in UTC when event was created
+**MITRE ATT&CK Mapping**:
+* **T1115 - Clipboard Data** - Accessing clipboard for credential or data theft
+* **T1056.001 - Input Capture: Keylogging** - Related technique for capturing user input
+* **T1021.001 - Remote Services: Remote Desktop Protocol** - RDP sessions where clipboard is commonly used
 
-* **ProcessGuid**: Process Guid of the process that stored the text in the clipboard.
+Privacy and Security Considerations
+------------------------------------
 
-* **ProcessId**: Process ID of the process that stored the text in the clipboard.
+**Critical Privacy Warning**: Clipboard capture is an **extremely sensitive capability** that can expose private, confidential, and legally protected information. Clipboard data may contain:
+* Passwords, API keys, and authentication tokens
+* Personal identifiable information (PII)
+* Protected health information (PHI)
+* Financial data, credit card numbers
+* Confidential business information
+* Private communications
 
-* **Image**: The process that recorded to the clipboard.
+**Data Protection Requirements:**
 
-* **Session**: Session where the process writing to the clipboard is running. This can be system(0) interactive or remote, etc.
+Clipboard data is stored as files in the archive directory (same location as File Delete archived files), **NOT in the event log**. The archive directory is protected by SYSTEM-level ACLs:
+* Only SYSTEM account can access the files
+* Must use PsExec or similar tool to read: `PsExec.exe -sid cmd`
+* Files are named by their hash value
+* Encryption at rest is critical if storing sensitive clipboard data
 
-* **ClientInfo**: this will contain the session username, and in case of a remote session the originating hostname, and the IP address when available.
+**Legal and Compliance Risks:**
+* May violate privacy laws (GDPR, CCPA) if not properly disclosed
+* Could capture attorney-client privileged communications
+* May require consent depending on jurisdiction
+* Data retention policies must be carefully considered
+* Access controls and audit logging are essential
 
-* **Hashes**: This determines the file name, same as the FileDelete event.
+When to Use Clipboard Monitoring
+---------------------------------
 
-* **Archived**: Status whether is was stored in the configured Archive directory.
+**Recommended Use Cases:**
+* **RDP-enabled servers** exposed to untrusted networks (bastion hosts, jump servers)
+* **Privileged access workstations** (PAWs) used for administrative tasks
+* **High-value targets** where credential theft is a primary concern
+* **Honeypot systems** where any clipboard activity is inherently suspicious
+* **Incident response** during active investigations (temporary deployment)
 
-A sample configuration to capture all clipboard events:
+**NOT Recommended:**
+* **General user workstations** - Privacy risks far outweigh detection value
+* **Developer workstations** - Will capture code, credentials, and sensitive data constantly
+* **Environments without strong data protection controls**
+* **Systems where users are not informed** about clipboard monitoring
 
-```XML
+**Critical Requirement**: Users and administrators **must be informed** that clipboard monitoring is active. Accidental capture of sensitive data in legitimate workflows is common, particularly in RDP environments.
+
+Volume Characteristics
+-----------------------
+
+Clipboard capture volume varies significantly:
+* **RDP jump servers**: Moderate volume (10-50 events per day per active session)
+* **Interactive user workstations**: High volume (hundreds of events per day)
+* **Servers without interactive sessions**: Very low volume (near zero)
+
+The volume depends entirely on user behavior - how often they copy and paste text.
+
+How Clipboard Monitoring Works
+-------------------------------
+
+When enabled, Sysmon monitors the Windows clipboard API and logs whenever text is stored:
+1. Application writes text to clipboard
+2. Sysmon intercepts the clipboard write
+3. Event is logged with metadata (process, session, client info)
+4. Clipboard text is saved to archive directory as a file (named by hash)
+5. EventID 24 references the file by hash
+
+**Important**: Only **text** clipboard data is captured. Images, files, and other clipboard formats are not logged.
+
+**Enabling Clipboard Capture:**
+Add the `<CaptureClipboard/>` element under the main `<Sysmon>` element in your configuration:
+
+```xml
 <Sysmon schemaversion="4.40">
-  <HashAlgorithms>sha1</HashAlgorithms>
+  <CaptureClipboard />
+  <ArchiveDirectory>SecureClipboardArchive</ArchiveDirectory>
+  <!-- Event filtering rules follow -->
+</Sysmon>
+```
+
+Without `<CaptureClipboard/>`, clipboard events are not generated even if filtering rules are present.
+
+What to Investigate
+--------------------
+
+When reviewing clipboard capture events, prioritize investigation of:
+
+**1. RDP Session Clipboard Activity**
+* Clipboard usage during remote desktop sessions (Session field != 0)
+* ClientInfo shows remote hostname and IP address
+* Particularly suspicious during off-hours or from unexpected IP ranges
+
+**2. Suspicious Processes Accessing Clipboard**
+* PowerShell, CMD, scripting engines writing to clipboard
+* Processes from temp directories or unusual locations
+* Malware sometimes uses clipboard for C2 communication or data staging
+
+**3. Session Analysis**
+* Session field indicates session type:
+  - Session 0: System/service context (very unusual for clipboard use)
+  - Session 1+: Interactive or RDP sessions
+* Correlate clipboard activity with logon events to identify user
+
+**4. Patterns Indicating Credential Theft**
+* Multiple clipboard writes in quick succession during RDP session
+* Clipboard activity immediately after connecting to RDP session
+* Review archived clipboard files for credential patterns (manually, with care)
+
+**5. Data Exfiltration Indicators**
+* Large amounts of clipboard activity during suspected compromise
+* Clipboard use correlating with network connections to external IPs
+* Repeated clipboard writes of similar content
+
+**6. Unexpected Clipboard Sources**
+* Services or system processes writing to clipboard (unusual)
+* Clipboard activity on servers that should have minimal interactive use
+
+Event Fields
+------------
+
+The clipboard capture event fields are:
+
+* **RuleName**: Name of rule that triggered the event
+* **UtcTime**: Time in UTC when event was created
+* **ProcessGuid**: Process GUID of the process that stored text in clipboard
+* **ProcessId**: Process ID of the process that stored text in clipboard
+* **Image**: File path of the process that wrote to the clipboard
+* **Session**: Session ID where the process is running (0 = system, 1+ = interactive/remote)
+* **ClientInfo**: Contains session username, and for remote sessions: originating hostname and IP address
+* **Hashes**: Hash of the clipboard text file (also the filename in archive directory)
+* **Archived**: Status indicating whether text was successfully stored in archive directory (`true` or `false`)
+
+Configuration Examples
+-----------------------
+
+**Example 1: Capture All Clipboard Activity (High Privacy Risk)**
+
+This configuration logs all clipboard events with no filtering:
+
+```xml
+<Sysmon schemaversion="4.40">
+  <HashAlgorithms>SHA256</HashAlgorithms>
   <CheckRevocation />
   <CaptureClipboard />
+  <ArchiveDirectory>SecureClipboardArchive</ArchiveDirectory>
   <EventFiltering>
       <RuleGroup name="" groupRelation="or">
          <ClipboardChange onmatch="exclude">
+            <!-- Log everything - use only on dedicated RDP jump servers -->
          </ClipboardChange>
-      </RuleGroup> 
+      </RuleGroup>
   </EventFiltering>
 </Sysmon>
-
 ```
 
-This is an event of a user connecting to a VM using Hyper-V console that leverages RDP:
+**Recommended only for**: Jump servers, PAWs, honeypots where all clipboard use is monitored by design.
 
-```XML
-Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-<System>
-  <Provider Name="Microsoft-Windows-Sysmon" Guid="{5770385f-c22a-43e0-bf4c-06f5698ffbd9}" /> 
-  <EventID>24</EventID> 
-  <Version>5</Version> 
-  <Level>4</Level> 
-  <Task>24</Task> 
-  <Opcode>0</Opcode> 
-  <Keywords>0x8000000000000000</Keywords> 
-  <TimeCreated SystemTime="2020-10-07T19:57:53.911567300Z" /> 
-  <EventRecordID>92</EventRecordID> 
-  <Correlation /> 
-  <Execution ProcessID="2640" ThreadID="3884" /> 
-  <Channel>Microsoft-Windows-Sysmon/Operational</Channel> 
-  <Computer>SDDC01.acmelabs.pvt</Computer> 
-  <Security UserID="S-1-5-18" /> 
-  </System>
+**Example 2: Monitor Only Remote RDP Sessions**
+
+Capture clipboard activity only during RDP sessions, not local interactive sessions:
+
+```xml
+<Sysmon schemaversion="4.40">
+  <HashAlgorithms>SHA256</HashAlgorithms>
+  <CaptureClipboard />
+  <ArchiveDirectory>SecureClipboardArchive</ArchiveDirectory>
+  <EventFiltering>
+      <RuleGroup name="" groupRelation="or">
+         <ClipboardChange onmatch="include">
+            <!-- Capture rdpclip.exe (RDP clipboard redirection process) -->
+            <Image condition="end with">rdpclip.exe</Image>
+         </ClipboardChange>
+      </RuleGroup>
+  </EventFiltering>
+</Sysmon>
+```
+
+This focuses on RDP clipboard transfers, reducing noise from local clipboard use.
+
+**Example 3: Monitor Suspicious Processes Only**
+
+Capture clipboard use by processes commonly abused by attackers:
+
+```xml
+<Sysmon schemaversion="4.40">
+  <HashAlgorithms>SHA256</HashAlgorithms>
+  <CaptureClipboard />
+  <ArchiveDirectory>SecureClipboardArchive</ArchiveDirectory>
+  <EventFiltering>
+      <RuleGroup name="" groupRelation="or">
+         <ClipboardChange onmatch="include">
+            <!-- Scripting engines -->
+            <Image condition="end with">powershell.exe</Image>
+            <Image condition="end with">cmd.exe</Image>
+            <Image condition="end with">cscript.exe</Image>
+            <Image condition="end with">wscript.exe</Image>
+
+            <!-- RDP clipboard -->
+            <Image condition="end with">rdpclip.exe</Image>
+
+            <!-- Processes from suspicious locations -->
+            <Image condition="contains">\Temp\</Image>
+            <Image condition="contains">\AppData\Local\Temp\</Image>
+         </ClipboardChange>
+      </RuleGroup>
+  </EventFiltering>
+</Sysmon>
+```
+
+**Example 4: Exclude Known Noisy Applications**
+
+Start with broad coverage but exclude applications that generate excessive noise:
+
+```xml
+<Sysmon schemaversion="4.40">
+  <HashAlgorithms>SHA256</HashAlgorithms>
+  <CaptureClipboard />
+  <ArchiveDirectory>SecureClipboardArchive</ArchiveDirectory>
+  <EventFiltering>
+      <RuleGroup name="" groupRelation="or">
+         <ClipboardChange onmatch="exclude">
+            <!-- Exclude known applications with high clipboard use -->
+            <Image condition="is">C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE</Image>
+            <Image condition="is">C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE</Image>
+            <Image condition="contains">\Microsoft VS Code\</Image>
+
+            <!-- Exclude browsers -->
+            <Image condition="contains">\Google\Chrome\Application\chrome.exe</Image>
+            <Image condition="contains">\Mozilla Firefox\firefox.exe</Image>
+         </ClipboardChange>
+      </RuleGroup>
+  </EventFiltering>
+</Sysmon>
+```
+
+Important Limitations and Warnings
+-----------------------------------
+
+**Hyper-V and RDP Console Exposure**: In Hyper-V environments where Sysmon is configured for clipboard capture, **selecting a VM console window from Hyper-V Manager** can trigger clipboard events because Hyper-V uses RDP for displaying VM UI. This can accidentally expose clipboard contents from the host system. Administrators must be aware of this behavior.
+
+**Example Event**: RDP clipboard capture from Hyper-V console session:
+
+```xml
 <EventData>
-  <Data Name="RuleName">-</Data> 
-  <Data Name="UtcTime">2020-10-07 19:57:53.908</Data> 
-  <Data Name="ProcessGuid">{fcb91365-c386-5f7d-c100-000000000500}</Data> 
-  <Data Name="ProcessId">108</Data> 
-  <Data Name="Image">C:\Windows\System32\rdpclip.exe</Data> 
-  <Data Name="Session">1</Data> 
-  <Data Name="ClientInfo">user: acmelabs\Admin ip: FE80:0000:0000:0000:013E:52B8:0C83:3DE3 hostname: DESKTOP-LH0AJLB</Data> 
-  <Data Name="Hashes">SHA1=292341BFA0C002051415142B99991871C53B3905,MD5=94B9F6FA8509AB6771F72304C0B3538B,SHA256=1AAE1F7AD5E7CB54F0302794430DFBB0CCCF6DA1F3C79DE1B17E8D367D7BF6C1,IMPHASH=00000000000000000000000000000000</Data> 
-  <Data Name="Archived">true</Data> 
-  </EventData>
-  </Event>
+  <Data Name="Image">C:\Windows\System32\rdpclip.exe</Data>
+  <Data Name="Session">1</Data>
+  <Data Name="ClientInfo">user: acmelabs\Admin ip: FE80::013E:52B8:0C83:3DE3 hostname: DESKTOP-LH0AJLB</Data>
+  <Data Name="Archived">true</Data>
+</EventData>
 ```
 
-In Hyper-V environments where Sysmon is configured for this event type and capturing for RDP connections, will also capture when the window for the console is selected from Hyper-V Manager given it uses RDP for displaying the UI of the VM. Because of this text in the clipboard can be captured by accident exposing its contents to logs. 
+**Clipboard Data Is Not in Event Log**: The actual clipboard text is stored in the archive directory as files, not in the event log. This means:
+* SIEM ingestion captures metadata only, not clipboard content
+* To review clipboard content, you must access the archive directory with SYSTEM privileges
+* Clipboard files must be secured with encryption at rest and access controls
+* Retention policies for clipboard files must be defined and enforced
 
+**No Image/File Capture**: Only text clipboard data is captured. Copy-pasting files, images, or other non-text formats does not generate EventID 24.
 
+Best Practices for Clipboard Monitoring
+----------------------------------------
+
+1. **Minimize Deployment Scope**: Only enable on systems where the detection value clearly outweighs privacy risks
+2. **User Notification**: Inform users and administrators that clipboard monitoring is active
+3. **Secure Archive Directory**:
+   - Use strong ACLs (SYSTEM-only by default is good)
+   - Encrypt at rest
+   - Implement retention policies
+   - Monitor access to clipboard archive files
+4. **Legal Review**: Consult legal/compliance teams before deployment
+5. **Regular Review**: Periodically verify clipboard monitoring is still necessary
+6. **Incident Response**: Consider enabling temporarily during active investigations rather than continuous monitoring
+7. **Data Minimization**: Use targeted filtering to capture only necessary clipboard events
+8. **Audit Access**: Log and monitor any access to archived clipboard files
+
+Data Retention and Cleanup
+---------------------------
+
+Clipboard archive files accumulate over time. Implement a retention policy:
+* Define maximum retention period (e.g., 30 days, 90 days)
+* Automate cleanup of old clipboard files
+* Document retention policy for compliance
+* Ensure cleanup process preserves files needed for active investigations
+
+Example PowerShell cleanup script (run as SYSTEM):
+```powershell
+# Delete clipboard files older than 30 days
+$archivePath = "C:\SecureClipboardArchive"
+$retentionDays = 30
+Get-ChildItem -Path $archivePath -File |
+    Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-$retentionDays) } |
+    Remove-Item -Force
+```
+
+Summary
+-------
+
+Clipboard capture (EventID 24) is a powerful but sensitive capability:
+* **Use sparingly**: RDP jump servers, PAWs, honeypots
+* **Privacy first**: Consider legal, ethical, and privacy implications
+* **Inform users**: Transparency is essential
+* **Secure the data**: Strong access controls and encryption
+* **Define retention**: Clear policies for data lifecycle
+
+When deployed appropriately with proper safeguards, clipboard monitoring provides unique visibility into credential theft and data exfiltration during remote sessions.

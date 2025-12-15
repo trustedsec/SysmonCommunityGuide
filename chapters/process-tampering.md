@@ -1,7 +1,85 @@
 Process Image Tampering
 -----------------------
 
-Sysmon will log **EventID 25** when a process original image is replaced in memory or on disk. This covers the technique of [Process Hollowing] (https://attack.mitre.org/techniques/T1055/012/), this is when a process is launched, then suspended and the memory for the image is unmapped and realigned to another image injected in to memory and then resumed to execute the injected image. [Process Herpaderping] (https://jxy-s.github.io/herpaderping/) is another technique that is caught by this event type, this technique works by modifying the content on disk after the image has been mapped. This capability was added in version 13.0 of Sysmon with schema 4.50.
+Sysmon will log **EventID 25** when a process's original image is replaced in memory or on disk. This is a **low-volume, high-value event type** that detects advanced process injection and evasion techniques. Process tampering events are strong indicators of malicious activity and should almost always be investigated.
+
+Detection Value and Why It Matters
+-----------------------------------
+
+Process tampering detects sophisticated evasion techniques where attackers modify process images to hide malicious code:
+
+**Process Hollowing** ([T1055.012](https://attack.mitre.org/techniques/T1055/012/)): The classic technique where an attacker:
+1. Creates a legitimate process in suspended state
+2. Unmaps the legitimate code from memory
+3. Injects malicious code into the process
+4. Resumes execution of the now-malicious process
+
+This makes the malicious code appear to be a legitimate process when viewed in task managers or process lists.
+
+**Process Herpaderping** ([detailed here](https://jxy-s.github.io/herpaderping/)): A newer technique that modifies the file on disk after Windows has mapped it into memory but before it executes. This creates a mismatch between what's on disk and what's in memory, evading many security tools.
+
+**Defense Evasion**: Both techniques allow malware to:
+* Hide inside legitimate process names
+* Bypass application whitelisting
+* Evade process-based detections
+* Inherit the trust and privileges of the legitimate process
+
+**MITRE ATT&CK Mapping**:
+* **T1055.012 - Process Injection: Process Hollowing**
+* **T1055 - Process Injection** (general)
+* **T1027 - Obfuscated Files or Information** (image tampering as obfuscation)
+
+This capability was added in Sysmon version 13.0 with schema 4.50.
+
+Why This is Low-Volume
+-----------------------
+
+Process tampering is relatively rare:
+* Very few legitimate applications modify their image after loading
+* Some browsers and development tools trigger this for legitimate reasons
+* Typical systems generate 10-50 events per day, mostly from known software
+* Most events are from a small set of applications (browsers, IDEs, Electron apps)
+
+Configuration Strategy: Log All, Exclude Known-Good
+----------------------------------------------------
+
+The recommended approach: **log all process tampering events** and progressively exclude verified legitimate applications by full path.
+
+**Important Limitation**: Not all process hollowing techniques are detected. Some variations that use different API calls or modify smaller portions of the image may evade detection. This is why layered detection (combining multiple event types) is critical.
+
+What to Investigate
+--------------------
+
+When reviewing process tampering events, prioritize investigation of:
+
+**1. Unknown or Unusual Processes**
+* Any process you don't recognize being tampered with
+* Processes running from temp directories or user folders
+* Recently created processes that are immediately tampered with
+
+**2. Tampering of Critical System Processes**
+* explorer.exe, svchost.exe, or other long-running system processes
+* These are common targets because they provide persistence and trust
+
+**3. Type of Tampering**
+* "Image is replaced" is more suspicious than "Image is locked for access"
+* Replacement indicates active hollowing or herpaderping
+* Locked access may be legitimate security software scanning
+
+**4. Non-Browser/Non-Development Tools**
+* Tampering outside of known browsers, IDEs, and Electron apps
+* Server systems should rarely see tampering events
+* Any tampering on production servers warrants immediate investigation
+
+**5. Timing Correlation**
+* Tampering shortly after suspicious process creation
+* Multiple tampering events in sequence
+* Tampering during off-hours or after compromise indicators
+
+**6. Processes from Suspicious Parents**
+* Processes spawned by cmd.exe, powershell.exe being tampered with
+* Office applications spawning processes that are tampered with
+* Unusual parent-child relationships combined with tampering
 
 The fields for the event are:
 
@@ -13,12 +91,20 @@ The fields for the event are:
 
 * **Type** -- Type of process tampering (Image is locked for access, Image is replaced)
 
-There are several programs like browsers and code development programs that trigger this event type. Since an attacker can select any process as their target it is recommended to capture all events and create an exclusion list of known programs. There is a risk that attacker will select this program for their actions but it limits greatly their capability by narrowly directing them to programs that can then be monitor for other behaviors to detect abuse on the.
+Configuration: Log All, Build Exclusions Progressively
+-------------------------------------------------------
 
-Example:
+Several programs legitimately trigger process tampering events, particularly browsers and development tools. However, since attackers can target any process for hollowing attacks, the recommended approach is to **log all tampering events initially** and build an exclusion list through baselining.
+
+**Risk Consideration**: There is inherent risk in excluding any process from tampering detection, as attackers may specifically target excluded processes. However, this risk is mitigated by:
+* Using full path exclusions (attackers can't easily place malware in Program Files)
+* Monitoring these same processes with other event types (Process Access, Network Connections)
+* Layered detection approach catches attacks through multiple signals
+
+**Phase 1 - Initial Deployment**: Log everything with no exclusions to understand your environment's tampering baseline.
 
 ```xml
-Sysmon schemaversion="4.50">
+<Sysmon schemaversion="4.50">
   <EventFiltering>
     <RuleGroup name="" groupRelation="or">
       <ProcessTampering onmatch="exclude">
@@ -26,26 +112,45 @@ Sysmon schemaversion="4.50">
     </RuleGroup>
   </EventFiltering>
 </Sysmon>
-
 ```
 
-Collect events and build a exclusion list like:
+**Phase 2 - Build Exclusion List**: After 1-2 weeks of baselining, create exclusions for verified legitimate applications using full paths:
 
 ```xml
-RuleGroup name=“” groupRelation=“or”>
-  <ProcessTampering onmatch=“exclude”>
-    <Image condition=“is”>C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</Image>
-    <Image condition=“is”>C:\Program Files\Mozilla Firefox\firefox.exe</Image>
-    <Image condition=“is”>C:\Program Files\Mozilla Firefox\updater.exe</Image>
-    <Image condition=“is”>C:\Program Files\Mozilla Firefox\default-browser-agent.exe</Image>
-    <Image condition=“is”>C:\Program Files\Mozilla Firefox\pingsender.exe</Image>
-    <Image condition=“is”>C:\Program Files\Microsoft VS Code\Code.exe</Image>
-    <Image condition=“is”>C:\Program Files\Git\cmd\git.exe</Image>
-    <Image condition=“is”>C:\Program Files\Git\mingw64\bin\git.exe</Image>
-    <Image condition=“contains”>\software_reporter_tool.exe</Image>
-    <Image condition=“contains”>unknown process</Image>
-  </ProcessTampering>
-</RuleGroup>
+<Sysmon schemaversion="4.50">
+  <EventFiltering>
+    <RuleGroup name="" groupRelation="or">
+      <ProcessTampering onmatch="exclude">
+        <!-- Browsers: Use full paths for security -->
+        <Image condition="is">C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</Image>
+        <Image condition="is">C:\Program Files\Google\Chrome\Application\chrome.exe</Image>
+        <Image condition="is">C:\Program Files\Mozilla Firefox\firefox.exe</Image>
+        <Image condition="is">C:\Program Files\Mozilla Firefox\updater.exe</Image>
+        <Image condition="is">C:\Program Files\Mozilla Firefox\default-browser-agent.exe</Image>
+        <Image condition="is">C:\Program Files\Mozilla Firefox\pingsender.exe</Image>
+
+        <!-- Development Tools -->
+        <Image condition="is">C:\Program Files\Microsoft VS Code\Code.exe</Image>
+        <Image condition="is">C:\Program Files\Git\cmd\git.exe</Image>
+        <Image condition="is">C:\Program Files\Git\mingw64\bin\git.exe</Image>
+
+        <!-- Electron-based Applications (Slack, Teams, Discord, etc.) -->
+        <!-- Add specific paths as discovered during baselining -->
+        <Image condition="is">C:\Program Files\Slack\slack.exe</Image>
+        <Image condition="is">C:\Users\*\AppData\Local\Microsoft\Teams\current\Teams.exe</Image>
+
+        <!-- Chrome Software Reporter Tool -->
+        <Image condition="end with">\software_reporter_tool.exe</Image>
+      </ProcessTampering>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>
 ```
 
-Seems like Electron based apps like Slack, Mattermost and others also create false positives. Another thing to be awarded of that not all process hollowing techniques are detected. Some variations based on the original technique by changing some API calls and amount of the image altered are not detected. This is a perfect example as to why it is important to have additional detection controls for other action and have a layered approach to detection.
+**Known Legitimate Sources of Tampering Events:**
+* **Browsers**: Chrome, Edge, Firefox generate tampering events during updates and certain internal operations
+* **Electron Applications**: Slack, Microsoft Teams, Discord, Mattermost, and other Electron-based apps
+* **Development Tools**: VS Code, Git, and integrated debuggers
+* **Update Mechanisms**: Browser updaters and software reporter tools
+
+**Important Reminder**: This event type does not detect all process hollowing variants. Attackers using alternative techniques that modify smaller portions of the image or use different API sequences may evade detection. This underscores the importance of **layered detection** - combining Process Tampering monitoring with Process Access, Image Load, and Network Connection monitoring to catch attacks through multiple behavioral signals.

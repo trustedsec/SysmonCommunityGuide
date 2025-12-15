@@ -1,11 +1,104 @@
 Network Connections
 ===================
 
-Sysmon will log **EventID 3** for all TCP and UDP network connections. This event will generate a large number of entries and filtering should be tuned for specific processes and ports. 
+Sysmon will log **EventID 3** for all TCP and UDP network connections made by processes on the system. Network connection monitoring is critical for detection engineering because it provides visibility into command and control communications, lateral movement, data exfiltration, and initial access attempts. However, this is also one of the highest-volume event types Sysmon can generate, requiring careful configuration to balance visibility with manageability.
 
-For the DestinationHostname, the GetNameInfo API is used and it will often not have any information and may just be a CDN, making it NOT reliable for filtering since it uses a reverse DNS Lookup to get this information, in Sysmon v11.0 this behaviour can be disabled by using the ```<DnsLookup>False</DnsLookup>``` at the root of the configuration file. 
+Detection Value and Use Cases
+------------------------------
 
-For the DestinationPortName, the GetNameInfo API is used for the friendly name of ports. In the case of services doing connections on some systems due to memory use, they are hosted under svchost.exe and most connections will originate from this process.
+Network connection logging provides insight into several critical attack phases:
+
+**Command and Control (C2)**: After initial compromise, attackers establish communication channels to remotely control infected systems. Network connection logs help detect:
+* Beaconing patterns to external IP addresses
+* Connections to known malicious infrastructure
+* Unusual protocols or ports for outbound communication
+* Communication from processes that should not make network connections
+
+**Lateral Movement**: Attackers move between systems within a network using various protocols. Network logs capture:
+* SMB connections between workstations (unusual peer-to-peer traffic)
+* RDP or WinRM connections from unexpected sources
+* Administrative tool usage across systems
+* Pass-the-hash and other credential theft-based movement
+
+**Data Exfiltration**: When attackers steal data, they must transmit it somewhere. Network monitoring detects:
+* Large volume transfers to external destinations
+* Connections to cloud storage or file sharing services from unusual processes
+* Data moving to geographic regions where your organization does not operate
+* Exfiltration through unusual protocols or applications
+
+**Living Off the Land**: Attackers abuse legitimate Windows tools to avoid detection. Network logs help identify when built-in tools make suspicious connections:
+* PowerShell connecting to the internet
+* cmd.exe, wscript.exe, or certutil.exe downloading files
+* Administrative tools like wmic.exe or sc.exe used remotely
+* Compilation tools like msbuild.exe fetching remote resources
+
+**MITRE ATT&CK Mapping**: Network connection events help detect numerous techniques:
+* **T1071 - Application Layer Protocol**: C2 communication over standard protocols
+* **T1095 - Non-Application Layer Protocol**: C2 using custom protocols
+* **T1041 - Exfiltration Over C2 Channel**: Data theft via command and control
+* **T1048 - Exfiltration Over Alternative Protocol**: Using uncommon channels for data theft
+* **T1021 - Remote Services**: RDP, SMB, WinRM for lateral movement
+* **T1090 - Proxy**: Using proxies or tunnels to obscure communication
+* **T1105 - Ingress Tool Transfer**: Downloading additional attack tools
+
+Volume Challenges and Configuration Philosophy
+-----------------------------------------------
+
+Network connections are extremely high-volume. A typical Windows workstation generates hundreds to thousands of network connections per hour through:
+* Web browsers making dozens of connections per webpage
+* Cloud applications constantly syncing data
+* Operating system telemetry and update checks
+* Background applications and services
+* Email clients, chat applications, collaboration tools
+
+On servers, especially domain controllers or application servers, network connection volume can reach tens of thousands per hour. Logging all connections without filtering will:
+* Overwhelm your SIEM with millions of events daily
+* Consume significant storage
+* Make it nearly impossible to find meaningful detections in the noise
+* Impact Sysmon and system performance
+
+This event type requires either an **outlier-based exclusion approach** (filter out known-good, log everything else) or a **targeted include approach** (only log specific suspicious processes or ports). Many organizations use a hybrid strategy.
+
+Critical Warning: Cloud Service Abuse
+--------------------------------------
+
+**Do NOT blindly exclude all cloud service connections.** Attackers frequently abuse legitimate cloud tools and services to blend in with normal traffic and evade perimeter monitoring. Be extremely cautious when considering exclusions for cloud-related processes.
+
+**Known Attack Patterns Using Cloud Services:**
+
+* **cloudflared.exe** (Cloudflare Tunnel) - Attackers use this legitimate Cloudflare tool to tunnel SSH, RDP, and Remote Monitoring and Management (RMM) tool connections through Cloudflare's network. This bypasses traditional perimeter controls and appears as normal HTTPS traffic to Cloudflare infrastructure. Always log cloudflared.exe connections and investigate unexpected usage.
+
+* **cmd5.exe** (AWS CLI) - Attackers have used modified or legitimate versions of AWS command-line tools for data exfiltration to AWS S3 buckets. If your organization does not routinely use AWS CLI tools on endpoints, these should always be logged.
+
+* **rclone** - This legitimate cloud storage synchronization tool is heavily abused by attackers for data exfiltration to various cloud storage providers (Google Drive, Dropbox, OneDrive, Mega, etc.). Attackers use rclone because it can transfer large amounts of data to cloud storage while appearing as normal cloud sync traffic, evading perimeter data loss prevention (DLP) monitoring.
+
+* **Cloud Storage Client Abuse** - Legitimate sync clients (OneDrive, Google Drive, Dropbox) can be abused to exfiltrate data by attackers who install them or use existing installations with attacker-controlled accounts.
+
+**Best Practice**: Instead of excluding cloud tools, implement **conditional monitoring**:
+* Log cloud tool usage from unexpected user accounts
+* Log cloud tools running from unusual paths (temp directories, user downloads)
+* Monitor for cloud tools on servers where they should not exist
+* Track volume of data transferred by cloud tools
+* Alert on first-time usage of cloud tools in your environment
+
+Configuration Strategies
+-------------------------
+
+**Strategy 1 - Targeted Includes for Suspicious Processes (Recommended for Most)**
+
+The most practical approach for most organizations is to only log network connections from processes that should rarely or never make network connections. This dramatically reduces volume while capturing the most valuable detections.
+
+**Strategy 2 - Exclusion-Based with Aggressive Filtering**
+
+Some organizations with sufficient SIEM capacity log all connections but exclude high-volume, known-good applications. This provides broader visibility but requires more storage and processing.
+
+**Strategy 3 - Hybrid Approach**
+
+Combine both strategies: include specific suspicious processes and exclude specific high-volume benign applications, logging everything else that falls between.
+
+**Important DNS Lookup Note**: The DestinationHostname field uses the GetNameInfo API for reverse DNS lookups. This is often unreliable - it may return CDN names, may have no information, or may be spoofable. Since Sysmon v11.0, you can disable this behavior using ```<DnsLookup>False</DnsLookup>``` at the root of the configuration file. Disabling DNS lookup also improves performance and reduces dependencies on network availability.
+
+**Port Name Consideration**: The DestinationPortName field uses GetNameInfo API for friendly port names. On systems where services run under svchost.exe, most connections will show svchost.exe as the source process.
 
 The fields for the event are:
 
@@ -46,7 +139,12 @@ The fields for the event are:
 * **DestinationPortName**: Name of the destination port
 
 
-Example tracking connections for attacker "Living off the land"
+Configuration Examples
+----------------------
+
+**Example 1: Targeted Includes for Living Off the Land Binaries**
+
+This configuration only logs network connections from Windows built-in tools and commonly abused utilities:
 
 ```xml
 <Sysmon schemaversion="4.22">
@@ -94,3 +192,100 @@ Example tracking connections for attacker "Living off the land"
 </EventFiltering>
 </Sysmon>
 ```
+
+**Example 2: Including Cloud Tools and Data Transfer Utilities**
+
+Add these to your includes to capture potential exfiltration attempts:
+
+```xml
+<NetworkConnect onmatch="include">
+  <!-- Cloud and Exfiltration Tools -->
+  <Image condition="end with">cloudflared.exe</Image> <!-- Cloudflare tunnel - SSH/RDP tunneling -->
+  <Image condition="end with">rclone.exe</Image> <!-- Cloud sync tool - data exfiltration -->
+  <Image condition="end with">aws.exe</Image> <!-- AWS CLI -->
+  <Image condition="end with">cmd5.exe</Image> <!-- AWS CLI S3 tool -->
+  <Image condition="end with">gsutil.exe</Image> <!-- Google Cloud Storage -->
+  <Image condition="end with">azcopy.exe</Image> <!-- Azure Storage -->
+  <Image condition="contains">ngrok</Image> <!-- Tunneling service -->
+  <Image condition="contains">curl.exe</Image> <!-- Data transfer utility -->
+  <Image condition="contains">wget.exe</Image> <!-- Data transfer utility -->
+</NetworkConnect>
+```
+
+What to Monitor and Investigate
+--------------------------------
+
+When reviewing network connection events, prioritize these patterns:
+
+**1. Unexpected Process Making Connections**
+* Any Windows system tool (cmd.exe, powershell.exe, wmic.exe) connecting to external IPs
+* Compilation or scripting tools (msbuild.exe, cscript.exe, wscript.exe) making network requests
+* Office applications (WINWORD.EXE, EXCEL.EXE) connecting to unusual destinations
+
+**2. Cloud Tools from Unusual Locations**
+* cloudflared.exe, rclone, or AWS tools running from temp directories or user downloads
+* Cloud sync tools on servers or systems where they should not be installed
+* Multiple cloud tools appearing on the same system in a short timeframe
+
+**3. Lateral Movement Indicators**
+* Workstation-to-workstation SMB (port 445) or RDP (port 3389) connections
+* WinRM (port 5985/5986) connections between non-administrative systems
+* Administrative tools connecting to multiple internal systems in sequence
+
+**4. Geographic Anomalies**
+* Connections to countries where your organization does not operate
+* Connections to known high-risk geographic regions
+* Sudden change in connection destinations for a process
+
+**5. Volume Anomalies**
+* Unusually large number of connections from a single process
+* High-volume data transfer from a process that should not transfer significant data
+* Beaconing patterns (regular, repeated connections at fixed intervals)
+
+**6. Port and Protocol Anomalies**
+* Connections on unusual ports (high-numbered ports, non-standard services)
+* Protocols used in unexpected ways (DNS tunneling, ICMP tunneling)
+* Standard ports used by non-standard processes
+
+Common Exclusions (Use with Caution)
+-------------------------------------
+
+If using an exclusion-based approach, these are commonly excluded high-volume processes. However, implement these exclusions with specific criteria to prevent abuse:
+
+**Browsers** - Exclude by full path and verify signed:
+```xml
+<Rule name="ChromeBrowser" groupRelation="and">
+  <Image condition="begin with">C:\Program Files\Google\Chrome\Application\</Image>
+  <Signed condition="is">true</Signed>
+</Rule>
+```
+
+**System Updates** - Exclude Windows Update and known software updaters:
+```xml
+<Rule name="WindowsUpdate" groupRelation="and">
+  <Image condition="is">C:\Windows\System32\svchost.exe</Image>
+  <DestinationPort condition="is">443</DestinationPort>
+  <DestinationHostname condition="contains">windowsupdate</DestinationHostname>
+</Rule>
+```
+
+**NEVER Exclude These Without Additional Context:**
+* PowerShell or cmd.exe making any external connections
+* Cloudflared, rclone, or other tunneling/sync tools
+* Administrative tools (wmic, sc, net, reg, etc.)
+* Script hosts (cscript, wscript, mshta)
+* Processes running from temp directories
+
+Testing and Validation
+-----------------------
+
+After implementing network connection monitoring, validate effectiveness:
+
+1. **Simulate C2 Traffic**: Use tools like Cobalt Strike or Metasploit in a lab to verify C2 beacon detection
+2. **Test Cloud Exfiltration**: Upload a test file using rclone to verify detection
+3. **Lateral Movement Simulation**: Test WinRM or PsExec between systems to ensure logging
+4. **Baseline Normal Traffic**: Run your configuration for 1-2 weeks to understand typical volume and patterns
+5. **Tune Exclusions**: Gradually add exclusions for verified benign high-volume traffic
+6. **Monitor False Negative Risk**: Regularly test that exclusions have not created detection blind spots
+
+Network connection monitoring, when properly configured, provides critical visibility into attacker communications, lateral movement, and data theft. The key is finding the balance between comprehensive coverage and manageable event volume through thoughtful inclusion and exclusion rules.

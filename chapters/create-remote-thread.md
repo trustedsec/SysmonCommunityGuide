@@ -1,13 +1,30 @@
 Create Remote Thread
 ====================
 
-Sysmon will log **EventID 8** for all processes that use the Win32 API
-[CreateRemoteThread](https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createremotethread)
-call.
+Sysmon will log **EventID 8** for processes that use the Win32 API [CreateRemoteThread](https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createremotethread) call. This is a **low-volume, high-value event type** that detects one of the most common process injection techniques used by malware and attackers.
 
-This call is used by some programs, parts of the OS and debuggers making
-the number of events easy to filter out the normal usages to detect the
-outliers.
+Detection Value and Why It Matters
+-----------------------------------
+
+CreateRemoteThread is a classic process injection technique where one process creates a thread in another process to execute code. This is used by attackers for:
+
+**Code Injection**: Injecting malicious code into legitimate processes to evade detection and inherit the target process's privileges and context.
+
+**Defense Evasion**: Running malicious code inside trusted processes (explorer.exe, svchost.exe) to avoid detection by security tools that trust those processes.
+
+**Privilege Escalation**: Injecting into processes running with higher privileges.
+
+**Persistence**: Maintaining presence by continuously injecting into long-running system processes.
+
+**MITRE ATT&CK Mapping**:
+* **T1055.001 - Process Injection: Dynamic-link Library Injection**
+* **T1055.002 - Process Injection: Portable Executable Injection**
+* **T1055 - Process Injection** (general)
+
+How CreateRemoteThread Injection Works
+---------------------------------------
+
+Process injection using CreateRemoteThread follows this pattern:
 
 Process of use/abuse of CreateRemoteThread
 
@@ -61,11 +78,52 @@ The fields for the event are:
 * **StartFunction**: Start function is reported if exact match to
     function in image export tables
 
-Since the number of processes that use the **CreateRemoteThread()** API in a production environment is low, the best approach is to exclude known good processes by their full path. **CreateRemoteThread()** is not the only API call that can be used to create a thread, so it should not be relied on as a definitive guarantee of lack of process injection.
+Configuration Strategy: Log All, Exclude Known-Good
+----------------------------------------------------
+
+The number of processes that legitimately use CreateRemoteThread() in a production environment is **very low**. This makes it ideal for a **log-all approach** with minimal exclusions.
+
+**Important Limitation**: CreateRemoteThread() is not the only API for creating remote threads. Attackers may use alternative methods like:
+* NtCreateThreadEx()
+* RtlCreateUserThread()
+* QueueUserAPC()
+* Other undocumented APIs
+
+Sysmon only monitors CreateRemoteThread(), so this event type alone does not guarantee detection of all process injection. It should be combined with other event types (Process Access, Image Loading) for comprehensive coverage.
+
+What to Investigate
+-------------------
+
+When reviewing CreateRemoteThread events, prioritize:
+
+**1. Unknown Source Processes**
+* Any SourceImage you don't recognize or that isn't a system process
+* Processes running from temp directories or user folders
+* Unsigned or suspicious executables
+
+**2. Injection into Critical Processes**
+* Threads created in explorer.exe, lsass.exe, or other critical system processes
+* Especially suspicious if the source is not a system process
+
+**3. Unusual StartModule or StartAddress**
+* StartModule not pointing to legitimate system DLLs
+* StartAddress in unusual memory regions
+* StartFunction that doesn't match expected behavior
+
+**4. Script Engines or Office Apps as Source**
+* powershell.exe, cscript.exe, wscript.exe creating remote threads
+* WINWORD.EXE, EXCEL.EXE injecting into other processes (very suspicious)
+
+**5. Correlation with Other Events**
+* Cross-reference with Process Access events for the same target
+* Check if the source process was recently created (staging malware)
 
 ![process](./media/image58.png)
 
-Example where known processes that use the API call are excluded
+Example Configuration: Excluding Known-Good System Processes
+-------------------------------------------------------------
+
+After baselining, exclude verified legitimate uses of CreateRemoteThread:
 
 ```xml
 <Sysmon schemaversion="4.22">
