@@ -148,7 +148,7 @@ sysmon.exe -i -c -r
 
 ```
 
-SSome basic filtering can be done also from the command line. Only filtering by process name can be done for NetworkConnect, ImageLoad, and ProcessAccess via the command line.
+Some basic filtering can be done also from the command line. Only filtering by process name can be done for NetworkConnect, ImageLoad, and ProcessAccess via the command line.
 
 * **NetworkConnect** - Track network connections.
 
