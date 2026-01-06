@@ -138,7 +138,7 @@ We can control the hashing algorithm used for events that hash images and we can
 The hashing algorithm or combination of them can be specified with the **-h \<sha1\|sha2\|md5\|imphash\|\*\>** The specified algorithms will be used to hash all images.
 
 ```shell
-sysmon.exe -i -c -h <sha1|sha2|md5|imphash\|*>
+sysmon.exe -i -c -h <sha1|sha2|sha256|md5|imphash\|*>
 ```
 
 We can specify checking to see if certificates are revoked using the -r parameter.
