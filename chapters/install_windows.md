@@ -55,7 +55,7 @@ The installation options are:
 * Default -- Driver is installed and named SysmonDrv and service Sysmon
 
 ```shell
-sysmon.exe --i --accepteula
+sysmon.exe -i --accepteula
 
 ```
 
