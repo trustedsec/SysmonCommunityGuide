@@ -46,10 +46,6 @@ The main arguments that can be passed are:
 sysmon.exe -i [configfile path]
 ```
 
-```shell
-sysmon. -i [configfile path]
-```
-
 * **-c** : apply config
 
 ```shell
