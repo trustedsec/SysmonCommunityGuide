@@ -113,7 +113,7 @@ Main Service:
 
 Driver Service:
 
-* Name: **SysmonDrv unless --d \<name\> is**
+* Name: **SysmonDrv unless -d \<name\> is**
 
 * LogOn: **Local System**
 
