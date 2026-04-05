@@ -1,12 +1,12 @@
-File Block EXE
+File Block Shredding
 ===========
 
-On version 14.1 of Sysmon the capability to log and block when a process is deleting a file by overwriting its file blocks. Events will be loggedusing **EventID 27**. This event type is found under schema version 4.83.
+On version 14.1 of Sysmon the capability to log and block when a process is deleting a file by overwriting its file blocks. Events will be logged using **EventID 28**. This event type is found under schema version 4.83.
 
 
 ![minifilter](./media/image36.png)
 
-The minidriver inspect the action that is being taken to see if it is a file block overwrite and if the header of the file for the MZ DOS Executable header. Some common processes on system that perform actions that may generate some false positives if all instances of the action is blocked. If this approach is follower a exclusion list should be used. An example of these are:
+The minidriver inspect the action that is being taken to see if it is a file block overwrite and if the header of the file for the MZ DOS Executable header. Some common processes on system that perform actions that may generate some false positives if all instances of the action is blocked. If this approach is followed an exclusion list should be used. An example of these are:
 
 ```xml
       <FileBlockShredding onmatch="exclude">
@@ -43,7 +43,7 @@ The minidriver inspect the action that is being taken to see if it is a file blo
         </Rule>
       </FileBlockShredding>
 ```
-It is recommended to better block those files that an attacket would like to delete so as to hide their tracks that where part of a compromise at several stages. Now great care should be taken for those applications that update themself and some software management solutions that may trigger false positives for some of the files covered. Since this is a blocking action it is important to test before a configuration is pushed to host, after a deployment it is also important to minitor to prevent disruption in some environments. 
+It is recommended to better block those files that an attacker would like to delete so as to hide their tracks that were part of a compromise at several stages. Now great care should be taken for those applications that update themselves and some software management solutions that may trigger false positives for some of the files covered. Since this is a blocking action it is important to test before a configuration is pushed to host, after a deployment it is also important to monitor to prevent disruption in some environments. 
 
 ```XML
 <RuleGroup name="" groupRelation="or">
