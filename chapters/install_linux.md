@@ -1,7 +1,7 @@
 Install and Configuration
 =========================
 
-Installation under Linux varies given that each Linux distribution and even version of each differ slightly in the steps to install the packages for sysinternalsEBPF and sysmonforlinux. The package installation steps for each distribution and is maintained in github at <https://github.com/Sysinternals/SysmonForLinux/blob/main/INSTALL.md>. The solution can be compiled and installed from source but it is not recommended for a production environment since it will add more complexity in the tracking of versions of dependencies and also introduced other packages that can be abused by an attacker if they gain access tto the system.
+Installation under Linux varies given that each Linux distribution and even version of each differ slightly in the steps to install the packages for sysinternalsEBPF and sysmonforlinux. The package installation steps for each distribution and is maintained in github at <https://github.com/Sysinternals/SysmonForLinux/blob/main/INSTALL.md>. The solution can be compiled and installed from source but it is not recommended for a production environment since it will add more complexity in the tracking of versions of dependencies and also introduces other packages that can be abused by an attacker if they gain access to the system.
 
 The package installation process will create a sysmon elf binary as /usr/bin/sysmon this binary will be used to install and configure the service.
 
@@ -28,7 +28,7 @@ Installation
 
 The key parameter that initiates the installation mode of Sysmon is the **-i** switch. The installation process will be as follows:
 
-* Decompresses and copy of itself in to **/opt/sysmon**
+* Decompresses and copies itself in to **/opt/sysmon**
 
 * Creates a systemd service
 
@@ -47,7 +47,7 @@ To uninstall Sysmon, a binary with the same name as the main service, if renamed
 
 When executed the command will run a series of steps to uninstall the service and remove files for the tool from **/opt/sysmon**.
 
-The value of **force** can be passed to the **-u** parameter fo force uninstallation.
+The value of **force** can be passed to the **-u** parameter to force uninstallation.
 
 ```bash
 /opt/sysmon/sysmon -u force

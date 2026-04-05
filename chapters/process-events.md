@@ -4,7 +4,7 @@ Process Events
 
 Sysmon can log process creation, process termination and process access events. For Windows the process events are captured via ObjRegisterCallbacks at the kernel level using its driver, and contain a unique, deterministically generated ProcessGuid and LogonGuid that are unique to their process instance and LSA logon session respectively.
 
-The ProcessGuid and LoginGuid make tracking individual process and users much easier. The ProcessGuid attribute is used in all events associated with its process, and, unlike a ProcessID, will not be reused by the host system later.  The LogonGuid attribute similarly is assigned to a login session of a particular user, and will not be reused later as a LoginID would.
+The ProcessGuid and LogonGuid make tracking individual process and users much easier. The ProcessGuid attribute is used in all events associated with its process, and, unlike a ProcessID, will not be reused by the host system later.  The LogonGuid attribute similarly is assigned to a login session of a particular user, and will not be reused later as a LogonID would.
 
 ![ProcessGUID Source](./media/image31.png)
 
@@ -20,7 +20,7 @@ In Linux the process for generating the ProcessGuid is similar to Windows with t
 
 ![Linux ProcessGUID Source](./media/image66.png)
 
-The ProcessGUIs is referenced in several events under different names.
+The ProcessGUID is referenced in several events under different names.
 
 ![ProcessGUID Relation](./media/image32.png)
 
@@ -35,11 +35,11 @@ All processes associated to a unique logon session can be mapped using the Logon
 
 For Windows
 
-![LogonGuide Source](./media/image68.png)
+![LogonGuid Source](./media/image68.png)
 
 For Linux
 
-![Linux LogonGuide Source](./media/image67.png)
+![Linux LogonGuid Source](./media/image67.png)
 
 When a user logs onto on a modern version of Windows (Windows 2016/10)
 they will have 2 Logon IDs assigned if:

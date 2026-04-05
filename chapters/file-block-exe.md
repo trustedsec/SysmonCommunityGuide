@@ -48,7 +48,7 @@ A sample baseline ruleset can be:
 </Sysmon>
 ```
 
-Bellow is an example rule set that covers some of the most common scenarios where actors will drop executables using malicious documents, in emails, 
+Below is an example rule set that covers some of the most common scenarios where actors will drop executables using malicious documents, in emails, 
 
 ```XML
 <Sysmon schemaversion="4.82">

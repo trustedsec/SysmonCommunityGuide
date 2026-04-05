@@ -84,7 +84,7 @@ One important thing to keep in mind when obfuscating the driver name and service
 Process for x86
 ---------------
 
-![x86 bit insall process](./media/image6.png)
+![x86 bit install process](./media/image6.png)
 
 x64 Process
 -----------

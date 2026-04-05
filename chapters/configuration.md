@@ -152,25 +152,25 @@ The main arguments that can be passed are:
 ```
 
 ```bash
-/ussr/bin/sysmon -u [force]
+/usr/bin/sysmon -u [force]
 ```
 
 * **-s** : Print schema
 
 ```shell
-/ussr/bin/sysmon -s [schema version]
+/usr/bin/sysmon -s [schema version]
 ```
 
 * **-accepteula** : Accepts the license agreement
 
 ```shell
-/ussr/bin/sysmon -accepteula
+/usr/bin/sysmon -accepteula
 ```
 
 * **--** : Resets the configuration to the default
 
 ```shell
-/ussr/bin/sysmon -c --
+/usr/bin/sysmon -c --
 ```
 
 The option elements under the comment "Configuration file" allow for the configuration of filters and parameters that relate to filters.
@@ -178,7 +178,7 @@ The option elements under the comment "Configuration file" allow for the configu
 * **-n** : Track network connections for specified process/processes.
 
 ```bash
-/ussr/bin/sysmon -c -n [<process,...>]
+/usr/bin/sysmon -c -n [<process,...>]
 ```
 
 Filter Operators
@@ -197,7 +197,7 @@ In the filters element under configuration is the list of operators that can be 
 |  excludes any |  Excludes if any of the values match. (values are separate by ";" )
 |  image |         Name of the image without the full path.
 |  begins with |    String value starts with the specified string.
-|  not begins with| String value does not starts with the specified string.
+|  not begins with| String value does not start with the specified string.
 |  ends with |      String value ends with the specified string.
 |  not ends with|  String value ends with the specified string.
 |  LessThan  |     Numeric value is less than
@@ -471,7 +471,7 @@ Under the events element each event that Sysmon generates is defined as an event
 
 We can filter on the Field Names defined in the data elements. They are defined as:
 
-* **Name** : Name of filed
+* **Name** : Name of field
 
 * **inType** : Type of data received in to the driver
 
@@ -479,7 +479,7 @@ We can filter on the Field Names defined in the data elements. They are defined 
 
 ![Fields definition](./media/image12.png)
 
-As of the latest version we have defined as event types, one does need to be aware that not all fields and all event types will apply to both Sysmon fo Windows and Sysmon for Linux:
+As of the latest version we have defined as event types, one does need to be aware that not all fields and all event types will apply to both Sysmon for Windows and Sysmon for Linux:
 
 * **NetworkConnect** - Network connections made by processes on the system; both TCP and UDP
 
@@ -513,7 +513,7 @@ As of the latest version we have defined as event types, one does need to be awa
 
 * **ClipboardChange** - Stores and logs text that is stored in to the clipboard by processes and context of who stored the text.
 
-* **ProcessTampering** - Detects some of the techniques of "hollow" and "herpaderp" where a process image is replace.
+* **ProcessTampering** - Detects some of the techniques of "hollow" and "herpaderp" where a process image is replaced.
 
 * **FileDeleteDetected** - Only logs file deletion or file wipes.
 
@@ -531,7 +531,7 @@ The presence of the CheckRevocation element is enough to allow for checking whet
 
 * EventType filters.
 
-* EvenType Filters organized using RuleGroups
+* EventType Filters organized using RuleGroups
 
 * EventType Filters organized in to Rule sets inside RuleGroups.
 
@@ -591,7 +591,7 @@ in the registry.
 
 ![](./media/image20.png)
 
-Since getting stated can be complex, some great resources that serve as starting points for Rule development and reference include:
+Since getting started can be complex, some great resources that serve as starting points for Rule development and reference include:
 
 * Swift On Security configuration example
     <https://github.com/SwiftOnSecurity/sysmon-config>
@@ -614,7 +614,7 @@ Due to initial footprint and safety, most advanced attackers limit their actions
 
 This does not mean that an attacker will not use more advanced methods to enumerate controls and find Sysmon on the system.
 
-Detection of Sysmon in Windowss is achieved by looking at the areas that cannot be changed.
+Detection of Sysmon in Windows is achieved by looking at the areas that cannot be changed.
 
   **Indicator**               | **Can it be Changed**
   ----------------------------| -----------------------
@@ -749,17 +749,17 @@ Tools that allow to recover the XML configuration file from the binary blob stor
 
 It is also important to monitor any process that access the Sysmon service process to prevent suspension of the process or modification of it in memory.
 
-For Linux only the root account can read and modify the the sysmon configuration file and its binary info. But the syslog file on most systems
+For Linux only the root account can read and modify the sysmon configuration file and its binary info. But the syslog file on most systems
 
 Configuration Deployment
 ------------------------
 
 Most environments that have the capabilities to leverage Sysmon enhanced log collection also have software deployment systems like Altiris, System Center Configuration Manager, Desired State Configuration, etc for Windows in the case of Linux we can leverage Ansible, Chef, Puppet and many other solutions. This is why these are just general recommendations.
 
-Sylog Message Size
+Syslog Message Size
 ------------------
 
-Syslog message size limits are dictated by the syslog transport mapping in use. By default the rsyslog package which is one of the most popular packages in distributions limit the size to 1024 bytes. It is important to prevent parsing errors of the structured data to set max sizes that match the size and transport of the messages configured for your given Syslog package. This is achieved using the **FieldSizes** XML element and setting a size for the CommandLine and Image field sizes. We can specify the field and the length we want for the field like in the example bellow.
+Syslog message size limits are dictated by the syslog transport mapping in use. By default the rsyslog package which is one of the most popular packages in distributions limit the size to 1024 bytes. It is important to prevent parsing errors of the structured data to set max sizes that match the size and transport of the messages configured for your given Syslog package. This is achieved using the **FieldSizes** XML element and setting a size for the CommandLine and Image field sizes. We can specify the field and the length we want for the field like in the example below.
 
 ```xml
 <Sysmon schemaversion="4.81">

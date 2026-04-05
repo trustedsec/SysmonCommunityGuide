@@ -66,7 +66,7 @@ The fields for the event are:
 
 * **ProcessId**: Process ID of the process that made the DNS query
 
-* **QueryName**: DNS name that was queries
+* **QueryName**: DNS name that was queried
 
 * **QueryStatus**: Query result status code
 

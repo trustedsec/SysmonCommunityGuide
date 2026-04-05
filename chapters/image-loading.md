@@ -138,7 +138,7 @@ Configuration Examples
         <RuleGroup name="" groupRelation="or">
             <ImageLoad onmatch="include">
                 <!--Detect execution of HTA using the IE Javascript engine to bypass AMSI-->
-                <!--Note: Rule placed before Windows Scriptingh to ensure it triggers on this on case any other component is used.-->
+                <!--Note: Rule placed before Windows Scripting to ensure it triggers on this on case any other component is used.-->
                 <Rule groupRelation="and">
                     <ImageLoaded name="technique_id=T1170,technique_name=MSHTA with AMSI Bypass" condition="end with">jscript9.dll</ImageLoaded>
                     <Image condition="end with">mshta.exe</Image>
