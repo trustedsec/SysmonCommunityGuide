@@ -78,13 +78,13 @@ The following table lists the event types and event IDs currently supported by S
 Sysmon for Linux uses the sysinternalsEBPF library to capture file and network activities. eBPF allows execution of custom code at the kernel level, enabling efficient and secure event collection without requiring kernel modules.
 
 Both sysinternalsEBPF and Sysmon for Linux are open source projects, allowing the community to contribute and extend their features. You can find the projects and source code on GitHub:  
-- [Sysmon for Linux](https://github.com/Sysinternals/SysmonForLinux)  
-- [sysinternalsEBPF library](https://github.com/Sysinternals/ebpf-for-windows)
+- [Sysmon for Linux](https://github.com/microsoft/SysmonForLinux)
+- [sysinternalsEBPF library](https://github.com/microsoft/SysinternalsEBPF)
 
 ## Further Resources
 
 - [Sysmon for Windows - Microsoft Documentation](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon)
-- [Sysmon for Linux - GitHub](https://github.com/Sysinternals/SysmonForLinux)
+- [Sysmon for Linux - GitHub](https://github.com/microsoft/SysmonForLinux)
 
 Sysmon is a vital tool for defenders looking to increase their visibility into system activities and detect security threats on both Windows and Linux platforms.
 

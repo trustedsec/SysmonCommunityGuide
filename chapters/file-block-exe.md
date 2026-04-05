@@ -1,7 +1,7 @@
 File Block EXE
 ===========
 
-On version 14.0 of Sysmon the capability to block the creation of executables by a process was added, this is the first event type where Sysmon takes a block action on a rule match. Sysmon relies on its filter driver, Sysmon can log the creation of files and information on what process is the the file using **EventID 27**. This event type is found under schema version 
+On version 14.0 of Sysmon the capability to block the creation of executables by a process was added, this is the first event type where Sysmon takes a block action on a rule match. Sysmon relies on its filter driver, Sysmon can log the creation of files and information on what process is creating the file using **EventID 27**. This event type is found under schema version 4.82.
 
 
 ![minifilter](./media/image36.png)
@@ -13,7 +13,7 @@ Sysmon will not generate any alert on screen for the user once it takes the acti
 
 ### Event information
 
-The file delete event fields are:
+The file block EXE event fields are:
 
 * **RuleName**: Name of rule that triggered the event
 
@@ -48,7 +48,7 @@ A sample baseline ruleset can be:
 </Sysmon>
 ```
 
-Below is an example rule set that covers some of the most common scenarios where actors will drop executables using malicious documents, in emails, 
+Below is an example rule set that covers some of the most common scenarios where actors will drop executables using malicious documents or in emails.
 
 ```XML
 <Sysmon schemaversion="4.82">

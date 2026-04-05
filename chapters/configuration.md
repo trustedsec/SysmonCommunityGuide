@@ -96,7 +96,7 @@ sysmon.exe -c --
 
 The option elements under the comment "Configuration file" allow for the configuration of filters and parameters that relate to filters.
 
-* **-h** : Hashing algorithm to has images. (Windows Only)
+* **-h** : Hashing algorithm to hash images. (Windows Only)
 
 ```shell
 sysmon.exe -c -h <sha1|sha2|md5|imphash|*>
@@ -123,7 +123,7 @@ sysmon.exe -c -k [<process,...>]
 * **-l** : Track modules (DLLs) loaded by a specified process/processes. (Windows Only)
 
 ```shell
-sysmon.exe -c -k [<process,...>]
+sysmon.exe -c -l [<process,...>]
 ```
 
 * **-d** : Rename the sysmon driver during install (8 character limit) (Windows Only)
@@ -199,7 +199,7 @@ In the filters element under configuration is the list of operators that can be 
 |  begins with |    String value starts with the specified string.
 |  not begins with| String value does not start with the specified string.
 |  ends with |      String value ends with the specified string.
-|  not ends with|  String value ends with the specified string.
+|  not ends with|  String value does not end with the specified string.
 |  LessThan  |     Numeric value is less than
 |  MoreThan |      Numeric value is more than
 |  Contain Any |   Contains any of the values. (values are separate by ";" )
@@ -572,9 +572,6 @@ It is important to track what a configuration does and keep a changelog. For thi
 For RuleGroups, Rules and Filters use comments to organize filters and to provide information on what each filter is doing.
 
 ![](./media/image19.png)
-
-Hash configurations that are deployed and keep a log of them for later
-verification.
 
 Hash configurations that are deployed and keep a log of them for later verification.
 On a system where the Sysmon service process consumes a lot of CPU resources, the number of filters and operators should be reviewed. The operators that use slightly more CPU are:
