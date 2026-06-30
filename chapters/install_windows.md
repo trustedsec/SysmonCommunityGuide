@@ -1,11 +1,13 @@
 Installation and Configuration
 =========================
 
-Sysmon installation and configuration can be done via the command line. When Sysmon is downloaded from Microsoft, the zip file will contain two command line versions of the tool:
+Sysmon installation and configuration can be done via the command line. When Sysmon is downloaded from Microsoft, the zip file will contain three command line versions of the tool:
 
 * **Sysmon.exe** - x86 and x64 version.
 
 * **Sysmon64.exe** - 64bit only version.
+
+* **Sysmon64a.exe** - ARM64 (64-bit ARM) version.
 
 When using the tool, any errors will result in an error message and help information with basic switches. To see only the help information for the tool, the **-?** switch parameter is used. This help information will include:
 
@@ -91,6 +93,19 @@ x64 Process
 
 ![x64 install process](./media/image7.png)
 
+ARM64 Process
+-------------
+
+**Sysmon64a.exe** is the native ARM64 (AArch64) build of Sysmon, intended for Windows on ARM (WoA) devices such as Snapdragon-based PCs, the Surface Pro X, and ARM64 virtual machines.
+
+It is important to understand why a dedicated binary is required. While Windows on ARM can transparently emulate x86 and x64 *user-mode* applications, Sysmon's monitoring is performed by **SysmonDrv**, a **kernel-mode driver**, and a kernel driver must match the architecture of the operating system it loads into. On an ARM64 host you must therefore install with the native **Sysmon64a.exe**. The x64 **Sysmon64.exe** will appear to run under emulation, but its kernel driver cannot be loaded on an ARM64 kernel, so no events will be collected.
+
+Aside from the binary used, the installation is identical to the x64 process shown above. **Sysmon64a.exe** installs the same **SysmonDrv** driver (altitude 385201) and **Sysmon** service, logs to the same **Microsoft-Windows-Sysmon/Operational** event log, and uses the exact same XML configuration file and schema. The architecture of the host does not change the configuration syntax or the events that are produced.
+
+```shell
+Sysmon64a.exe -i --accepteula -c <config file>
+```
+
 Sysmon will create 2 registry keys to define the services for its operation under ***HKLM\\SYSTEM\\CurrentControlSet\\Services***
 
 * Sysmon - Service that talks to the driver and performs the filtering action. It is named with the same name as the Sysmon executable.
@@ -101,7 +116,7 @@ The settings for each service are:
 
 Main Service:
 
-* Name: **Name of the executable (default Sysmon or Sysmon64)**
+* Name: **Name of the executable (default Sysmon, Sysmon64, or Sysmon64a)**
 
 * LogOn: **Local System**
 
@@ -203,7 +218,7 @@ Installation best practices that can be followed to aid and minimize risk when d
 * If a GPO is used to push scheduled tasks for upgrades or to push configuration, use a WMI filter to target the specific version that was tested. Example:
 
 ```sql
-SELECT * FROM CIM_Datafile WHERE (Name="c:\\Windows\\Sysmon64.exe" OR Name="c:\\Windows\\Sysmon.exe") AND version="10.0.4.1"
+SELECT * FROM CIM_Datafile WHERE (Name="c:\\Windows\\Sysmon64.exe" OR Name="c:\\Windows\\Sysmon64a.exe" OR Name="c:\\Windows\\Sysmon.exe") AND version="10.0.4.1"
 ```
 
 * Check file versions they don't match release versioning.
