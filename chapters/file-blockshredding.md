@@ -1,7 +1,7 @@
 File Block EXE
 ===========
 
-On version 14.1 of Sysmon the capability to log and block when a process is deleting a file by overwriting its file blocks. Events will be loggedusing **EventID 27**. This event type is found under schema version 4.83.
+On version 14.1 of Sysmon the capability to log and block when a process is deleting a file by overwriting its file blocks. Events will be logged using **EventID 28**. This event type is found under schema version 4.83.
 
 
 ![minifilter](./media/image36.png)

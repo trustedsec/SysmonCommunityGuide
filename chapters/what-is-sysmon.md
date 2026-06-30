@@ -1,13 +1,13 @@
 # What is Sysmon
 
-Sysmon (System Monitor) is a free, advanced system monitoring tool developed by Mark Russinovich and Tomas Garnier, with contributions from David Magnotti, Mark Cook, Rob Mead, Giulia Biagini, Alex Mihaiuc, Kevin Sheldrake, and John Lambert.  
+Sysmon (System Monitor) is a free, advanced system monitoring tool developed by Mark Russinovich and Thomas Garnier, with contributions from David Magnotti, Mark Cook, Rob Mead, Giulia Biagini, Alex Mihaiuc, Kevin Sheldrake, and John Lambert.  
 Originally, Sysmon was created for internal use at Microsoft, but it is now widely used by security professionals to enhance visibility into system activity and detect abnormal behavior or potential threats.
 
 Sysmon enables defenders to better detect suspicious activity by monitoring and logging a broad range of system events, such as process creation, network connections, and changes to files or registry keys. These logs are especially valuable for security investigations and threat detection.
 
 ## Sysmon on Windows
 
-Sysmon for Windows supports ARM, x64 and x86 systems. Installation and configuration are managed through a single command-line tool. When installed, Sysmon logs events to the Microsoft-Windows-Sysmon/Operational Event Log.
+Sysmon for Windows supports ARM, x64 and x86 systems. The download provides three binaries for these architectures: Sysmon.exe (32-bit x86), Sysmon64.exe (64-bit x64), and Sysmon64a.exe (64-bit ARM64). Installation and configuration are managed through a single command-line tool. When installed, Sysmon logs events to the Microsoft-Windows-Sysmon/Operational Event Log.
 
 ### Windows Supported Event Types
 
@@ -42,7 +42,14 @@ The following table lists the event types and corresponding event IDs generated 
 | Clipboard Capture                  | 24       |
 | Process Tampering                  | 25       |
 | File Delete Detected               | 26       |
+| File Block Executable              | 27       |
+| File Block Shredding               | 28       |
+| File Executable Detected           | 29       |
 | Error                              | 255      |
+
+### Windows on ARM (ARM64)
+
+Sysmon runs natively on Windows on ARM (ARM64 / AArch64) devices — such as Snapdragon-based PCs, the Surface Pro X, and ARM64 virtual machines — through the dedicated `Sysmon64a.exe` build. Event coverage on ARM64 is identical to x64: the same event IDs and configuration schema apply, since the processor architecture does not change which events Sysmon produces. Because `SysmonDrv` is a kernel-mode driver that must match the operating system architecture, the native `Sysmon64a.exe` is required on ARM64 — the x64 build's driver cannot be loaded under the system's x86/x64 emulation.
 
 ## Sysmon on Linux
 
@@ -79,7 +86,7 @@ Sysmon for Linux uses the sysinternalsEBPF library to capture file and network a
 
 Both sysinternalsEBPF and Sysmon for Linux are open source projects, allowing the community to contribute and extend their features. You can find the projects and source code on GitHub:  
 - [Sysmon for Linux](https://github.com/Sysinternals/SysmonForLinux)  
-- [sysinternalsEBPF library](https://github.com/Sysinternals/ebpf-for-windows)
+- [sysinternalsEBPF library](https://github.com/Sysinternals/SysinternalsEBPF)
 
 ## Further Resources
 
